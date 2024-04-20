@@ -1,29 +1,31 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SchoolRegister = () => {
-  const [school, setSchool] = useState("");
+  const [schoolName, setSchoolName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const registerHandler = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
 
     try {
-      const data = await axios.post("/school/register", {
-        school,
+      const data = await axios.post("http://localhost:4000/school/register", {
+        schoolName,
         email,
         password,
       });
       console.log("Registration successful:", data);
+      navigate("/school"); // Redirect to school page after successful registration
     } catch (error) {
       console.error("Error registering:", error);
     }
   };
 
   return (
-    <>
+    <form onSubmit={registerHandler}>
       <section className="flex h-screen flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
         <div className="md:w-1/3 max-w-sm">
           <img
@@ -36,10 +38,11 @@ const SchoolRegister = () => {
             className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
             type="text"
             placeholder="School Name"
-            value={school}
+            value={schoolName}
             onChange={(e) => {
-              setSchool(e.target.value);
+              setSchoolName(e.target.value);
             }}
+            autoComplete="organization" // Add autocomplete attribute
           />
           <input
             className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded"
@@ -49,6 +52,7 @@ const SchoolRegister = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            autoComplete="email" // Add autocomplete attribute
           />
           <input
             className="text-sm w-full px-4 py-2 border border-solid border-gray-300 rounded "
@@ -58,6 +62,7 @@ const SchoolRegister = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            autoComplete="new-password" // Add autocomplete attribute
           />
           <div className="mt-4 flex justify-between font-semibold text-sm">
             <label className="flex text-slate-500 hover:text-slate-600 cursor-pointer">
@@ -75,13 +80,12 @@ const SchoolRegister = () => {
             <button
               className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
               type="submit"
-              onClick={registerHandler}
             >
               Register
             </button>
           </div>
           <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
-            Don't have an account?{" "}
+            Dont have an account?{" "}
             <Link
               className="text-red-600 hover:underline hover:underline-offset-4"
               to={"/principalRegister"}
@@ -91,7 +95,7 @@ const SchoolRegister = () => {
           </div>
         </div>
       </section>
-    </>
+    </form>
   );
 };
 
