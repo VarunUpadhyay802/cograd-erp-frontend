@@ -10,7 +10,7 @@ const SchoolLogin = () => {
   const loginHandler = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
     try {
-      const data = await axios.post(
+      const response = await axios.post(
         "http://localhost:4000/school/login",
         {
           email,
@@ -18,10 +18,17 @@ const SchoolLogin = () => {
         },
         { withCredentials: true }
       );
-      console.log("Login successful:", data);
-      navigate("/school");
+      // Check if login was successful based on the response status code
+      if (response.status === 200) {
+        console.log("Login successful:", response.data);
+        // Navigate to "/school" route if login was successful
+        navigate("/school");
+      } else {
+        // Handle other response statuses if needed
+        console.error("Error logging in:", response.data);
+      }
     } catch (error) {
-      console.error("Error registering:", error);
+      console.error("Error logging in:", error);
     }
   };
 

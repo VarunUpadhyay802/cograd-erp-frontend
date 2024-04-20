@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import HomePage from "./HomePage";
+// import HomePage from "./HomePage";
 import SchoolLogin from "./pages/SchoolLogin";
 import SchoolRegister from "./pages/SchoolRegister";
 import SchoolHomePage from "./pages/SchoolHomePage";
