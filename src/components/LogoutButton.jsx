@@ -15,7 +15,7 @@
         console.log("Logged out:", data.message);
 
         // Redirect to the login page after successful logout
-        // navigate("/schoolLogin");
+        navigate("/schoolLogin");
         } catch (error) {
         console.error("Error logging out:", error);
         }

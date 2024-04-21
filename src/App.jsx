@@ -5,6 +5,7 @@ import SchoolLogin from "./pages/SchoolLogin";
 import SchoolRegister from "./pages/SchoolRegister";
 import SchoolHomePage from "./pages/SchoolHomePage";
 import SchoolExpenses from "./pages/SchoolExpenses";
+import SchoolStaff from "./pages/SchoolStaff";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/schoolLogin" element={<SchoolLogin />} />
         <Route path="/school" element={<SchoolHomePage />} />
         <Route path="/expenses" element={<SchoolExpenses />} />
+        <Route path="/staff" element={<SchoolStaff />} />
       </Routes>
     </>
   );
