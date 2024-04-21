@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ExpenseTable from "../components/ExpenseTable";
 
@@ -8,7 +8,7 @@ const SchoolExpenses = () => {
   const [transactions, setTransactions] = useState([]);
   const [description, setDescription] = useState("");
   const [receiptNumber, setReceiptNumber] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const fetchData = async () => {
     try {
       // withCredentials: true , you're telling Axios to include cookies in cross-origin requests. 

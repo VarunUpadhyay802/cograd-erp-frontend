@@ -1,6 +1,7 @@
-import React from 'react';
+
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
+// eslint-disable-next-line react/prop-types
 const ExpenseTable = ({ transactions }) => {
   const columns = [
     { field: 'id', headerName: 'ID', width: 200 },
@@ -10,6 +11,7 @@ const ExpenseTable = ({ transactions }) => {
   ];
 
   // Map transactions data to rows
+  // eslint-disable-next-line react/prop-types
   const rows = transactions.map((transaction, index) => ({
     id: index + 1, // Generate unique IDs for rows
     amount: transaction.amount,

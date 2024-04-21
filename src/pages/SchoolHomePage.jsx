@@ -8,6 +8,7 @@ const SchoolHomePage = () => {
     <LogoutButton/>
   <Link to="/expenses">Income/Expense</Link>
   <Link to="/staff">Staff </Link>
+  <Link to="/class">Staff </Link>
     </div>
   </>;
 };

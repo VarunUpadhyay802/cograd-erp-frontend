@@ -6,6 +6,7 @@ import SchoolRegister from "./pages/SchoolRegister";
 import SchoolHomePage from "./pages/SchoolHomePage";
 import SchoolExpenses from "./pages/SchoolExpenses";
 import SchoolStaff from "./pages/SchoolStaff";
+import SchoolAddClasses from "./pages/SchoolAddClasses";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/school" element={<SchoolHomePage />} />
         <Route path="/expenses" element={<SchoolExpenses />} />
         <Route path="/staff" element={<SchoolStaff />} />
+        <Route path="/class" element={<SchoolAddClasses />} />
       </Routes>
     </>
   );

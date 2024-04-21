@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import StaffTable from "../components/StaffTable";
 
-
 const SchoolStaff = () => {
   const [StaffMemberName, setStaffMemberName] = useState("");
   const [staffMemberList, setStaffMemberList] = useState([]);
@@ -12,31 +11,30 @@ const SchoolStaff = () => {
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
-      // withCredentials: true , you're telling Axios to include cookies in cross-origin requests. 
-      const  response   = await axios.get("http://localhost:4000/staff/get" ,  { withCredentials: true })
+      // withCredentials: true , you're telling Axios to include cookies in cross-origin requests.
+      const response = await axios.get("http://localhost:4000/staff/get", {
+        withCredentials: true,
+      });
       setStaffMemberList(response.data);
-  
-    console.log("Staff member list", response.data);
-     
+
+      console.log("Staff member list", response.data);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    
     fetchData();
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-    
+
     try {
       const data = await axios.post(
         "http://localhost:4000/staff/add",
         {
-          name:StaffMemberName,
+          name: StaffMemberName,
           post,
           salary,
-      
         },
         { withCredentials: true }
       );
@@ -100,7 +98,7 @@ const SchoolStaff = () => {
           Add Transaction
         </button>
       </form>
-      <StaffTable staffMemberList={staffMemberList}/>
+      <StaffTable staffMemberList={staffMemberList} />
     </div>
   );
 };
