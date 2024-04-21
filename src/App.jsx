@@ -8,6 +8,8 @@ import SchoolExpenses from "./pages/SchoolExpenses";
 import SchoolStaff from "./pages/SchoolStaff";
 import SchoolAddClasses from "./pages/SchoolAddClasses";
 
+import AddSubjects from "./pages/AddSubjects";
+
 function App() {
   return (
     <>
@@ -20,6 +22,7 @@ function App() {
         <Route path="/expenses" element={<SchoolExpenses />} />
         <Route path="/staff" element={<SchoolStaff />} />
         <Route path="/class" element={<SchoolAddClasses />} />
+        <Route path="/subject" element={<AddSubjects />} />
       </Routes>
     </>
   );

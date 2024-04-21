@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ClassCards from "../components/ClassCards"; 
 // const baseURL = process.env.API_BASE_URL
 const SchoolAddClasses = () => {
   const [className, setClassName] = useState("");
   const [classesList, setClassesList] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const fetchClasses = async () => {
     try {
