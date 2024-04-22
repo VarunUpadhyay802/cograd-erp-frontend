@@ -6,6 +6,7 @@ const AddSubjects = () => {
   const [className, setClassName] = useState('');
   const [subjects, setSubjects] = useState([{ subName: '', subCode: '' }]);
   const [subjectsList,setSubjectsList] = useState([])
+  const [loading, setLoading] = useState(true);
   const handleSubjectChange = (index, field, value) => {
     const newSubjects = [...subjects]; // Create a copy of the subjects array
     newSubjects[index][field] = value; // Update the specific field of the specified subject
@@ -21,9 +22,21 @@ const AddSubjects = () => {
     const newSubjects = subjects.filter((_, i) => i !== index);
     setSubjects(newSubjects);
   };
-
   const handleSubmit = async (e) => {
+    fetchData()
     e.preventDefault();
+  
+    // Check if all required fields are filled
+    if (!className.trim()) {
+      console.error("Class name is required.");
+      return; // Prevent form submission if validation fails
+    }
+  
+    if (subjects.some(subject => !subject.subName.trim() || !subject.subCode.trim())) {
+      console.error("All subjects must have a name and code.");
+      return; // Prevent form submission if validation fails
+    }
+  
     try {
       const response = await axios.post(
         'http://localhost:4000/subject/add',
@@ -33,23 +46,42 @@ const AddSubjects = () => {
         },
         { withCredentials: true }
       );
+  
       console.log('Subjects Added:', response.data);
+  
+      // Reset form on successful submission
       setClassName('');
       setSubjects([{ subName: '', subCode: '' }]);
+      
+      // Optional: show a success message or call fetchData to refresh the list of subjects
     } catch (error) {
       console.error('Error adding subjects:', error);
+  
+      // Display a user-friendly error message or handle specific error status codes
+      if (error.response) {
+        // Server responded with an error status code
+        console.error('Error status:', error.response.status, 'Message:', error.response.data.message);
+      }
     }
   };
+  
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get("http://localhost:4000/subject/get", {
         withCredentials: true,
       });
-      setSubjectsList(response.data);
 
-      console.log("Subjects List", response.data);
+      if (response.status === 200 && Array.isArray(response.data)) {
+        setSubjectsList(response.data);
+      } else {
+        setSubjectsList([]);
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching subjects:", error);
+      setSubjectsList([]); // Reset to empty array in case of error
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -131,7 +163,11 @@ const AddSubjects = () => {
           Submit
         </button>
       </form>
-      <SubjectCards subjectsList={subjectsList}/>
+      {!loading && subjectsList.length > 0 ? (
+        <SubjectCards subjectsList={subjectsList} />
+      ) : (
+        <p>No subjects found</p>
+      )}
 
     </div>
   );
