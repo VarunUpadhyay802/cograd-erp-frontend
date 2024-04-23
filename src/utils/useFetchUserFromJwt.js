@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { setUser } from "./userSlice";
 import { jwtDecode } from "jwt-decode";
-
 const useFetchUserFromJwt = () => {
   const dispatch = useDispatch();
   const [cookies] = useCookies(["token"]);

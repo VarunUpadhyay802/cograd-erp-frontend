@@ -11,6 +11,8 @@ import SchoolRegister from "./pages/SchoolRegister";
 import HomePage from "./pages/HomePage";
 import TeacherAttendance from "./pages/TeacherAttendance";
 import Protected from "./components/Protected";
+import ChooseUser from "./pages/ChooseUser";
+import TeacherLogin from "./pages/TeacherLogin";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +68,14 @@ const router = createBrowserRouter([
   {
     path: "/schoolLogin",
     element: <SchoolLogin />,
+  },
+  {
+    path: "/chooseUser",
+    element: <ChooseUser />,
+  },
+  {
+    path: "/teacherLogin",
+    element: <TeacherLogin />,
   },
 ]);
 
