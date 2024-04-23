@@ -6,11 +6,11 @@ import SchoolHomePage from "./pages/SchoolHomePage";
 import SchoolExpenses from "./pages/SchoolExpenses";
 import SchoolStaff from "./pages/SchoolStaff";
 import SchoolAddClasses from "./pages/SchoolAddClasses";
-
 import AddSubjects from "./pages/AddSubjects";
 import SchoolRegister from "./pages/SchoolRegister";
 import HomePage from "./pages/HomePage";
 import TeacherAttendance from "./pages/TeacherAttendance";
+import Protected from "./components/Protected";
 
 const router = createBrowserRouter([
   {
@@ -18,42 +18,54 @@ const router = createBrowserRouter([
     element: <HomePage />,
     children: [
       {
-        path: "/schoolRegister",
-        element: <SchoolRegister />,
-      },
-      {
-        path: "/schoolLogin",
-        element: <SchoolLogin />,
-      },
-      {
-        path: "/school",
-        element: <SchoolHomePage />,
-      },
-      {
         path: "/expenses",
-        element: <SchoolExpenses />,
+        element: (
+          <Protected>
+            <SchoolExpenses />
+          </Protected>
+        ),
       },
       {
         path: "/staffs",
-        element: <SchoolStaff />,
+        element: (
+          <Protected>
+            <SchoolStaff />
+          </Protected>
+        ),
       },
       {
         path: "/subjects",
-        element: <AddSubjects />,
+        element: (
+          <Protected>
+            <AddSubjects />
+          </Protected>
+        ),
       },
       {
         path: "/classes",
-        element: <SchoolAddClasses />,
+        element: (
+          <Protected>
+            <SchoolAddClasses />
+          </Protected>
+        ),
       },
       {
         path: "/teacherAttendance",
-        element: <TeacherAttendance />,
-      },
-      {
-        path: "/schoolLogin",
-        element: <SchoolLogin />,
+        element: (
+          <Protected>
+            <TeacherAttendance />
+          </Protected>
+        ),
       },
     ],
+  },
+  {
+    path: "/schoolRegister",
+    element: <SchoolRegister />,
+  },
+  {
+    path: "/schoolLogin",
+    element: <SchoolLogin />,
   },
 ]);
 

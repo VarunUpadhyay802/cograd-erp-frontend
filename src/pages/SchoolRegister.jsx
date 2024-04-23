@@ -88,9 +88,9 @@ const SchoolRegister = () => {
             Dont have an account?{" "}
             <Link
               className="text-red-600 hover:underline hover:underline-offset-4"
-              to={"/principalRegister"}
+              to={"/schoolLogin"}
             >
-              Register
+              Login
             </Link>
           </div>
         </div>

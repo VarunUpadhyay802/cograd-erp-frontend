@@ -32,7 +32,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>S</Avatar>
+            <Avatar sx={{ width: 32, height: 32, bgcolor: "red" }}>S</Avatar>
           </IconButton>
         </Tooltip>
       </Box>

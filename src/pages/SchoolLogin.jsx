@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
+import { setUser } from "../utils/userSlice";
 
 const SchoolLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [cookies] = useCookies(["token"]);
+  const dispatch = useDispatch();
 
   const loginHandler = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
@@ -22,7 +27,8 @@ const SchoolLogin = () => {
       if (response.status === 200) {
         console.log("Login successful:", response.data);
         // Navigate to "/school" route if login was successful
-        navigate("/school");
+        dispatch(setUser(response.data));
+        navigate("/");
       } else {
         // Handle other response statuses if needed
         console.error("Error logging in:", response.data);
