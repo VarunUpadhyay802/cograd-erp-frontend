@@ -1,24 +1,19 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  Grid,
-  Paper,
-  Box,
-  Container,
-} from '@mui/material';
-import { AccountCircle, School, Group } from '@mui/icons-material';
-import styled from 'styled-components';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Grid, Paper, Box, Container } from "@mui/material";
+import { AccountCircle, School, Group } from "@mui/icons-material";
+import styled from "styled-components";
 
 const ChooseUser = () => {
   const navigate = useNavigate();
 
   const navigateHandler = (user) => {
-    if (user === 'Admin') {
-      navigate('/schoolLogin'); // Example route for admin login
-    } else if (user === 'Student') {
-      navigate('/studentLogin'); // Example route for student login
-    } else if (user === 'Teacher') {
-      navigate('/teacherlogin'); // Example route for teacher login
+    if (user === "Admin") {
+      navigate("/schoolLogin"); // Example route for admin login
+    } else if (user === "Student") {
+      navigate("/studentLogin"); // Example route for student login
+    } else if (user === "Teacher") {
+      navigate("/teacherlogin"); // Example route for teacher login
     }
   };
 
@@ -27,16 +22,20 @@ const ChooseUser = () => {
       <Container>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper onClick={() => navigateHandler('Admin')} elevation={3}>
+            <StyledPaper onClick={() => navigateHandler("Admin")} elevation={3}>
               <Box mb={2}>
                 <AccountCircle fontSize="large" />
               </Box>
               <StyledTypography>Admin</StyledTypography>
-              Login as an administrator to access the dashboard to manage app data.
+              Login as an administrator to access the dashboard to manage app
+              data.
             </StyledPaper>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper onClick={() => navigateHandler('Student')} elevation={3}>
+            <StyledPaper
+              onClick={() => navigateHandler("Student")}
+              elevation={3}
+            >
               <Box mb={2}>
                 <School fontSize="large" />
               </Box>
@@ -45,12 +44,16 @@ const ChooseUser = () => {
             </StyledPaper>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper onClick={() => navigateHandler('Teacher')} elevation={3}>
+            <StyledPaper
+              onClick={() => navigateHandler("Teacher")}
+              elevation={3}
+            >
               <Box mb={2}>
                 <Group fontSize="large" />
               </Box>
               <StyledTypography>Teacher</StyledTypography>
-              Login as a teacher to create courses, assignments, and track student progress.
+              Login as a teacher to create courses, assignments, and track
+              student progress.
             </StyledPaper>
           </Grid>
         </Grid>
