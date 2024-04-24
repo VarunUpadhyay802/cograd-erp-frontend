@@ -6,7 +6,15 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom"; // For navigation
+
 const TeachersList = ({ teacherList }) => {
+  const navigate = useNavigate();
+
+  const handleMakeClassTeacher = (teacherId) => {
+    navigate(`/classTeacherRegistration/${teacherId}`); // Navigate to the Class Teacher registration page
+  };
+
   return (
     <>
       {teacherList.map((teacher, index) => (
@@ -25,7 +33,12 @@ const TeachersList = ({ teacherList }) => {
             </Typography>
           </CardBody>
           <CardFooter className="pt-0">
-            <Button>Read More</Button>
+            <Button
+              className="font-mono text-rose-950"
+              onClick={() => handleMakeClassTeacher(teacher._id)} // Pass the teacher ID
+            >
+              Make Class Teacher
+            </Button>
           </CardFooter>
         </Card>
       ))}

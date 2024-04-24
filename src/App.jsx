@@ -17,6 +17,8 @@ import TeacherOptions from "./pages/TeacherOptions";
 import TeacherRegistration from "./pages/TeacherRegistration";
 import TeacherDashBoard from "./pages/TeacherDashBoard";
 
+import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
+
 import StudentAttendance from "./pages/StudentAttendance";
 
 const router = createBrowserRouter([
@@ -97,6 +99,10 @@ const router = createBrowserRouter([
   {
     path: "/student-mark",
     element: <StudentAttendance />,
+  },
+  {
+    path: "/classTeacherRegistration/:teacherId",
+    element: <ClassTeacherRegistration />,
   },
 ]);
 
