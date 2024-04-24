@@ -15,6 +15,9 @@ import ChooseUser from "./pages/ChooseUser";
 import TeacherLogin from "./pages/TeacherLogin";
 import TeacherOptions from "./pages/TeacherOptions";
 import TeacherRegistration from "./pages/TeacherRegistration";
+import TeacherDashBoard from "./pages/TeacherDashBoard";
+
+import StudentAttendance from "./pages/StudentAttendance";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +89,14 @@ const router = createBrowserRouter([
   {
     path: "/teacherRegistration",
     element: <TeacherRegistration />,
+  },
+  {
+    path: "/teacher/dashboard",
+    element: <TeacherDashBoard />,
+  },
+  {
+    path: "/student-mark",
+    element: <StudentAttendance />,
   },
 ]);
 

@@ -1,9 +1,11 @@
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import axios from 'axios';
+import TeachersList from '../components/TeachersList';
 
 const TeacherRegistration = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [teachers, setTeachers] = useState([]);
   const [password, setPassword] = useState('');
   const [teachSubjects, setTeachSubjects] = useState([{ subject: '', class: '' }]);
 
@@ -22,6 +24,23 @@ const TeacherRegistration = () => {
     updatedSubjects[index][key] = value;
     setTeachSubjects(updatedSubjects);
   };
+  useEffect(()=>{
+    fetchTeachers();
+  },[])
+  const fetchTeachers = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/teacherReg/get",
+        {
+          withCredentials: true,
+        }
+      );
+      setTeachers(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching teachers:", error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +57,7 @@ const TeacherRegistration = () => {
       );
       setName(" ");
       setEmail(" ");
-     
+     fetchTeachers();
       setTeachSubjects([{ subject: '', class: '' }]);
       setPassword(" ")
       console.log('Teacher registered:', response.data);
@@ -141,6 +160,8 @@ const TeacherRegistration = () => {
           Register Teacher
         </button>
       </form>
+      <h1 className='font-bold text-28'>All Teachers</h1>
+      <TeachersList teacherList={teachers}/>
     </div>
   );
 };
