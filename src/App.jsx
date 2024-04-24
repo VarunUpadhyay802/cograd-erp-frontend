@@ -13,6 +13,8 @@ import TeacherAttendance from "./pages/TeacherAttendance";
 import Protected from "./components/Protected";
 import ChooseUser from "./pages/ChooseUser";
 import TeacherLogin from "./pages/TeacherLogin";
+import TeacherOptions from "./pages/TeacherOptions";
+import TeacherRegistration from "./pages/TeacherRegistration";
 
 const router = createBrowserRouter([
   {
@@ -52,10 +54,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/teacherAttendance",
+        path: "/teacherChoose",
         element: (
           <Protected>
-            <TeacherAttendance />
+            <TeacherOptions />
           </Protected>
         ),
       },
@@ -76,6 +78,14 @@ const router = createBrowserRouter([
   {
     path: "/teacherLogin",
     element: <TeacherLogin />,
+  },
+  {
+    path: "/teacherAttendance",
+    element: <TeacherAttendance />,
+  },
+  {
+    path: "/teacherRegistration",
+    element: <TeacherRegistration />,
   },
 ]);
 

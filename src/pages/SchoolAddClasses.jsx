@@ -13,7 +13,7 @@ const SchoolAddClasses = () => {
       const response = await axios.get("http://localhost:4000/class/get", {
         withCredentials: true,
       });
-
+      console.log("classes fetched:",response.data);
       if (response.status === 200 && Array.isArray(response.data)) {
         setClassesList(response.data);
       } else {
