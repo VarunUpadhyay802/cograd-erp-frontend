@@ -23,8 +23,9 @@ const AddSubjects = () => {
     setSubjects(newSubjects);
   };
   const handleSubmit = async (e) => {
-    fetchData()
+    
     e.preventDefault();
+    fetchData();
   
     // Check if all required fields are filled
     if (!className.trim()) {
@@ -71,6 +72,7 @@ const AddSubjects = () => {
       const response = await axios.get("http://localhost:4000/subject/get", {
         withCredentials: true,
       });
+      console.log("fetched subject details",response.data);
 
       if (response.status === 200 && Array.isArray(response.data)) {
         setSubjectsList(response.data);

@@ -12,6 +12,13 @@ import TeacherAttendance from "./pages/TeacherAttendance";
 import Protected from "./components/Protected";
 import ChooseUser from "./pages/ChooseUser";
 import TeacherLogin from "./pages/TeacherLogin";
+import TeacherOptions from "./pages/TeacherOptions";
+import TeacherRegistration from "./pages/TeacherRegistration";
+import TeacherDashBoard from "./pages/TeacherDashBoard";
+
+import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
+
+import StudentAttendance from "./pages/StudentAttendance";
 
 const router = createBrowserRouter([
   {
@@ -51,10 +58,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/teacherAttendance",
+        path: "/teacherChoose",
         element: (
           <Protected>
-            <TeacherAttendance />
+            <TeacherOptions />
           </Protected>
         ),
       },
@@ -75,6 +82,26 @@ const router = createBrowserRouter([
   {
     path: "/teacherLogin",
     element: <TeacherLogin />,
+  },
+  {
+    path: "/teacherAttendance",
+    element: <TeacherAttendance />,
+  },
+  {
+    path: "/teacherRegistration",
+    element: <TeacherRegistration />,
+  },
+  {
+    path: "/teacher/dashboard",
+    element: <TeacherDashBoard />,
+  },
+  {
+    path: "/student-mark",
+    element: <StudentAttendance />,
+  },
+  {
+    path: "/classTeacherRegistration/:teacherId",
+    element: <ClassTeacherRegistration />,
   },
 ]);
 

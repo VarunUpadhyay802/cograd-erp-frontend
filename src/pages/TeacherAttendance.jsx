@@ -12,7 +12,7 @@ const TeacherAttendance = () => {
   const fetchTeachers = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/teacherAttendance/get",
+        "http://localhost:4000/teacherReg/get",
         {
           withCredentials: true,
         }
@@ -47,7 +47,7 @@ const TeacherAttendance = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:4000/teacherAttendance/mark",
+        "http://localhost:4000/teacherReg/mark",
         attendanceData,
         { withCredentials: true }
       );
