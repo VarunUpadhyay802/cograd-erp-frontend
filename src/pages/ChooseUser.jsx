@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Grid, Paper, Box, Container } from "@mui/material";
 import { AccountCircle, School, Group } from "@mui/icons-material";

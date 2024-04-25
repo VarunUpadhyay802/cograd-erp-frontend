@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const TeacherLogin = () => {
+const ClassTeacherLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -11,14 +11,14 @@ const TeacherLogin = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/teacher/login",
+        "http://localhost:4000/classTeacher/login",
         { email, password },
         { withCredentials: true } // Include cookies for authentication
       );
 
       if (response.status === 200) {
         console.log("Login successful:");
-        navigate("/teacher/dashboard"); // Redirect to teacher's dashboard
+        navigate("/classTeacherDashBoard"); // Redirect to teacher's dashboard
       } else {
         console.error("Login failed:", response.data);
       }
@@ -33,7 +33,7 @@ const TeacherLogin = () => {
         <div className="w-full bg-white rounded-lg shadow dark:border sm:max-w-md dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6">
             <h1 className="text-xl font-bold leading-tight text-gray-900 dark:text-white">
-              Teacher Login
+              Class Teacher Login
             </h1>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
@@ -41,14 +41,14 @@ const TeacherLogin = () => {
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Your email
+                Email
                 </label>
                 <input
                   type="email"
                   name="email"
                   id="email"
                   className="bg-gray-300 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="name@company.com"
+                  placeholder="schoolName-className-@cograd.in"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -118,4 +118,4 @@ const TeacherLogin = () => {
   );
 };
 
-export default TeacherLogin;
+export default ClassTeacherLogin;

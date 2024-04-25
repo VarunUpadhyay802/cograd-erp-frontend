@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { setUser } from "../utils/userSlice";
 
@@ -9,7 +9,6 @@ const SchoolLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [cookies] = useCookies(["token"]);
   const dispatch = useDispatch();
 
   const loginHandler = async (e) => {
@@ -25,7 +24,7 @@ const SchoolLogin = () => {
       );
       // Check if login was successful based on the response status code
       if (response.status === 200) {
-        console.log("Login successful:", response.data);
+        console.log("Login successful");
         // Navigate to "/school" route if login was successful
         dispatch(setUser(response.data));
         navigate("/");

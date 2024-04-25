@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ClassTeacherRegistration = () => {
   const { teacherId } = useParams(); // Extract the teacher ID from the URL parameters
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [className, setClassName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [className, setClassName] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
@@ -14,7 +14,7 @@ const ClassTeacherRegistration = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:4000/classTeacher/register',
+        "http://localhost:4000/classTeacher/register",
         {
           email,
           password,
@@ -24,11 +24,11 @@ const ClassTeacherRegistration = () => {
         { withCredentials: true }
       );
 
-      alert('Class Teacher registered successfully');
-      navigate('/'); // Redirect to a different page after successful registration
+      alert("Class Teacher registered successfully");
+      navigate("/"); // Redirect to a different page after successful registration
     } catch (error) {
-      console.error('Error registering class teacher:', error);
-      alert('Failed to register class teacher');
+      console.error("Error registering class teacher:", error);
+      alert("Failed to register class teacher");
     }
   };
 
@@ -37,7 +37,9 @@ const ClassTeacherRegistration = () => {
       <h2 className="text-xl font-semibold mb-4">Register Class Teacher</h2>
       <form onSubmit={handleRegister}>
         <div className="mb-4">
-          <label htmlFor="email" className="block mb-1">Email:</label>
+          <label htmlFor="email" className="block mb-1">
+            Email:
+          </label>
           <input
             type="email"
             id="email"
@@ -49,7 +51,9 @@ const ClassTeacherRegistration = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password" className="block mb-1">Password:</label>
+          <label htmlFor="password" className="block mb-1">
+            Password:
+          </label>
           <input
             type="password"
             id="password"
@@ -61,7 +65,9 @@ const ClassTeacherRegistration = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="className" className="block mb-1">Class Name:</label>
+          <label htmlFor="className" className="block mb-1">
+            Class Name:
+          </label>
           <input
             type="text"
             id="className"
