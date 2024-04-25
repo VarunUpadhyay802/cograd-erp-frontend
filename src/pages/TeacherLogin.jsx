@@ -8,10 +8,10 @@ const TeacherLogin = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/teacher/login", 
+        "http://localhost:4000/teacher/login",
         { email, password },
         { withCredentials: true } // Include cookies for authentication
       );
@@ -83,10 +83,7 @@ const TeacherLogin = () => {
                     />
                   </div>
                   <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500"
-                    >
+                    <label htmlFor="remember" className="text-gray-500">
                       Remember me
                     </label>
                   </div>

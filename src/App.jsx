@@ -2,7 +2,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 // import HomePage from "./HomePage";
 import SchoolLogin from "./pages/SchoolLogin";
-import SchoolHomePage from "./pages/SchoolHomePage";
 import SchoolExpenses from "./pages/SchoolExpenses";
 import SchoolStaff from "./pages/SchoolStaff";
 import SchoolAddClasses from "./pages/SchoolAddClasses";
@@ -86,5 +85,5 @@ function App() {
     </>
   );
 }
-
+``;
 export default App;
