@@ -18,6 +18,10 @@ import TeacherDashBoard from "./pages/TeacherDashBoard";
 
 import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
 
+import ClassTeacherDashBoard from "./pages/ClassTeacherDashBoard"
+
+import ClassTeacherLogin from "./pages/ClassTeacherLogin";
+
 import StudentAttendance from "./pages/StudentAttendance";
 
 const router = createBrowserRouter([
@@ -84,6 +88,10 @@ const router = createBrowserRouter([
     element: <TeacherLogin />,
   },
   {
+    path: "/classTeacherLogin",
+    element: <ClassTeacherLogin />,
+  },
+  {
     path: "/teacherAttendance",
     element: <TeacherAttendance />,
   },
@@ -102,6 +110,10 @@ const router = createBrowserRouter([
   {
     path: "/classTeacherRegistration/:teacherId",
     element: <ClassTeacherRegistration />,
+  },
+  {
+    path: "/classTeacherDashBoard",
+    element: <ClassTeacherDashBoard />,
   },
 ]);
 

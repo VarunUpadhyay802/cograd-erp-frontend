@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import {
   Card,
   CardBody,
@@ -25,11 +25,11 @@ const TeachersList = ({ teacherList }) => {
             </Typography>
             <Typography>
               Subjects:
-              {teacher.teachSubjects.map((subject, index) => (
-                <ul key={index}>
-                  <li>{subject._id}</li>
-                </ul>
-              ))}
+              <ul>
+                {teacher.teachSubjects.map((subject, index) => (
+                  <li key={index}>{subject._id}</li>
+                ))}
+              </ul>
             </Typography>
           </CardBody>
           <CardFooter className="pt-0">
