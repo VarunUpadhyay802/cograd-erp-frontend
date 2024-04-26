@@ -32,6 +32,7 @@ import { useDispatch } from "react-redux";
 import { clearUser } from "../utils/userSlice";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PropTypes from "prop-types";
+import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 
 const drawerWidth = 240;
 
@@ -180,6 +181,7 @@ export default function HomePage(props) {
           "Classes",
           "Subjects",
           "Teachers",
+          "Students",
           "Transactions",
           "Staffs",
         ].map((text, index) => (
@@ -202,7 +204,9 @@ export default function HomePage(props) {
                 : index === 3
                 ? "/teacherChoose"
                 : index === 4
-                ? "expenses"
+                ? "/students"
+                : index === 5
+                ? "/expenses"
                 : "/staffs"
             } // Define the route to navigate to
           >
@@ -217,6 +221,8 @@ export default function HomePage(props) {
                 ) : index === 3 ? (
                   <PeopleAltIcon />
                 ) : index === 4 ? (
+                  <PermContactCalendarIcon />
+                ) : index === 5 ? (
                   <ReceiptLongIcon />
                 ) : (
                   <EngineeringIcon />
@@ -325,6 +331,7 @@ export default function HomePage(props) {
                 "Classes",
                 "Subjects",
                 "Teachers",
+                "Students",
                 "Transactions",
                 "Staffs",
               ].map((text, index) => (
@@ -343,7 +350,9 @@ export default function HomePage(props) {
                       : index === 3
                       ? "/teacherChoose"
                       : index === 4
-                      ? "expenses"
+                      ? "/students"
+                      : index === 5
+                      ? "/expenses"
                       : "/staffs"
                   }
                 >
@@ -371,6 +380,8 @@ export default function HomePage(props) {
                       ) : index === 3 ? (
                         <PeopleAltIcon />
                       ) : index === 4 ? (
+                        <PermContactCalendarIcon />
+                      ) : index === 5 ? (
                         <ReceiptLongIcon />
                       ) : (
                         <EngineeringIcon />

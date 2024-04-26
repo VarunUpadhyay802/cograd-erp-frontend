@@ -18,11 +18,12 @@ import TeacherDashBoard from "./pages/TeacherDashBoard";
 
 import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
 
-import ClassTeacherDashBoard from "./pages/ClassTeacherDashBoard"
+import ClassTeacherDashBoard from "./pages/ClassTeacherDashBoard";
 
 import ClassTeacherLogin from "./pages/ClassTeacherLogin";
 
 import StudentAttendance from "./pages/StudentAttendance";
+import StudentRegistrationPage from "./pages/Students/StudentRegistrationPage";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
         element: (
           <Protected>
             <TeacherOptions />
+          </Protected>
+        ),
+      },
+      {
+        path: "/students",
+        element: (
+          <Protected>
+            <StudentRegistrationPage />
           </Protected>
         ),
       },
