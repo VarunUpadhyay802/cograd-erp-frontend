@@ -51,9 +51,11 @@ const TeacherAttendance = () => {
         attendanceData,
         { withCredentials: true }
       );
+     
       console.log("Teacher Attendances success:", response.data);
       alert("Attendance recorded successfully!");
     } catch (error) {
+      
       console.error("Error recording attendance:", error);
       alert("Error recording attendance");
     }
