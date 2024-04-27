@@ -296,9 +296,9 @@ export default function HomePage(props) {
                 <MenuIcon />
               </IconButton>
               <div className="flex justify-between items-center w-full">
-                <Typography variant="h6" noWrap component="div">
+                <div className="text-12 xs:text-14 sm:text-lg">
                   School Management System
-                </Typography>
+                </div>
                 <AccountMenu />
               </div>
             </Toolbar>
@@ -509,10 +509,10 @@ export default function HomePage(props) {
           sx={{
             flexGrow: 1,
             p: 3,
-            //   display: "flex",
-            //   flexDirection: "column",
-            //   minHeight: "100vh",
-            //   maxWidth: "100vw",
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+            maxWidth: "100vw",
           }}
         >
           <DrawerHeader />

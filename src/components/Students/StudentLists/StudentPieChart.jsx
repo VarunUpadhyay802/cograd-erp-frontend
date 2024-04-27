@@ -1,15 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 
 const StudentPieChart = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [chartWidth, setChartWidth] = useState(500); // Default width
+  const [chartLength, setChartLength] = useState(300); // Default width
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize); // Cleanup
+  }, []);
+
+  useEffect(() => {
+    const chartWidth = windowWidth <= 640 ? 400 : 500; // Adjust for sm size
+    const chartLength = windowWidth <= 640 ? 250 : 300; // Adjust for sm size
+
+    setChartWidth(chartWidth);
+    setChartLength(chartLength);
+  }, [windowWidth]);
   const chartSetting = {
     xAxis: [
       {
         label: "No. of Visits",
       },
     ],
-    width: 500,
-    height: 300,
+    width: `${chartWidth}`,
+    height: chartLength,
   };
   const dataset = [
     {
