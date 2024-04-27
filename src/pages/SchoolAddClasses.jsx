@@ -69,7 +69,7 @@ const SchoolAddClasses = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <>    <div className="max-w-md ">
       <h2 className="text-xl font-semibold mb-4">Add Class</h2>
 
       <form onSubmit={handleSubmit}>
@@ -95,12 +95,17 @@ const SchoolAddClasses = () => {
         </button>
       </form>
 
-      {!loading && classesList.length > 0 ? (
-        <ClassCards classesList={classesList} />
+      
+    </div>
+    {!loading && classesList.length > 0 ? (
+     <div className="md:flex :flex-row gap-3 ">
+         <ClassCards classesList={classesList}  />
+     </div>
       ) : (
         <p>No classes found</p>
       )}
-    </div>
+    </>
+
   );
 };
 

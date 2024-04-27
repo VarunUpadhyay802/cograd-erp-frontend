@@ -200,7 +200,7 @@ export default function HomePage(props) {
                 : index === 1
                 ? "/classes"
                 : index === 2
-                ? "/subjects"
+                ? "/subjectsOption"
                 : index === 3
                 ? "/teacherChoose"
                 : index === 4
@@ -346,7 +346,7 @@ export default function HomePage(props) {
                       : index === 1
                       ? "/classes"
                       : index === 2
-                      ? "/subjects"
+                      ? "/subjectsOption"
                       : index === 3
                       ? "/teacherChoose"
                       : index === 4

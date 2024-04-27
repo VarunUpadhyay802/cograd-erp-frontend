@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SubjectCards from '../components/SubjectCards'; // A component to display a list of subjects
+import ClassSelector from '../components/ClassSelector'; // A component to select a class
 
-import SubjectCards from '../components/SubjectCards';
-import ClassSelector from '../components/ClassSelector';
 const AddSubjects = () => {
-  const [classID, setClassID] = useState('');
-  const [subjects, setSubjects] = useState([{ subName: '', subCode: '' }]);
-  const [subjectsList, setSubjectsList] = useState([]);
+  const [classID, setClassID] = useState(''); // Store the selected class ID
+  const [subjects, setSubjects] = useState([{ subName: '', subCode: '' }]); // For adding new subjects
+  const [subjectsList, setSubjectsList] = useState([]); // List of subjects for the selected class
   const [loading, setLoading] = useState(true);
 
   const handleSubjectChange = (index, field, value) => {
     const newSubjects = [...subjects];
     newSubjects[index][field] = value;
-    setSubjects(newSubjects);
+    setSubjects(newSubjects); // Update subject information
   };
 
   const addSubjectField = () => {
-    setSubjects([...subjects, { subName: '', subCode: '' }]);
+    setSubjects([...subjects, { subName: '', subCode: '' }]); // Add another subject field
   };
 
   const removeSubjectField = (index) => {
-    const newSubjects = subjects.filter((_, i) => i !== index);
+    const newSubjects = subjects.filter((_, i) => i !== index); // Remove a subject field
     setSubjects(newSubjects);
   };
 
-  const fetchSubjects = async () => {
+  const fetchSubjects = async (classID) => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:4000/subject/get", {
+      const response = await axios.get(`http://localhost:4000/subject/classSubjects/${classID}`, {
         withCredentials: true,
       });
 
       if (response.status === 200 && Array.isArray(response.data)) {
-        setSubjectsList(response.data);
+        setSubjectsList(response.data); // Store subjects related to the selected class
       } else {
         setSubjectsList([]);
       }
@@ -44,20 +44,23 @@ const AddSubjects = () => {
     }
   };
 
+  // Fetch subjects for the selected class ID
   useEffect(() => {
-    fetchSubjects();
-  }, []);
+    if (classID) {
+      fetchSubjects(classID); // Fetch only when a class ID is set
+    }
+  }, [classID]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
     if (!classID) {
-      console.error("Class ID is required.");
+      console.error("Class ID is required."); // Class ID must be selected
       return;
     }
 
     if (subjects.some((subject) => !subject.subName.trim() || !subject.subCode.trim())) {
-      console.error("All subjects must have a name and code.");
+      console.error("All subjects must have a name and code."); // Each subject must have a name and code
       return;
     }
 
@@ -65,15 +68,15 @@ const AddSubjects = () => {
       const response = await axios.post(
         'http://localhost:4000/subject/add',
         {
-          className: classID,
+          className: classID, // Class to which the subjects are being added
           subjects,
         },
-        { withCredentials: true }
+        { withCredentials: true } // Include credentials in the request
       );
 
       console.log('Subjects added:', response.data);
 
-      // Reset form after successful submission
+      // Reset the form after successful submission
       setClassID('');
       setSubjects([{ subName: '', subCode: '' }]);
     } catch (error) {
@@ -84,16 +87,16 @@ const AddSubjects = () => {
   return (
     <div className="max-w-md mx-auto">
       <h2 className="text-xl font-semibold mb-4">Add Subjects</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}> {/* Handle the form submission */}
         <div className="mb-4">
           <label htmlFor="classID" className="block mb-1">
             Select Class:
           </label>
-          <ClassSelector setClassID={setClassID} />
+          <ClassSelector setClassID={setClassID} /> {/* Update classID on class selection */}
         </div>
 
         {subjects.map((subject, index) => (
-          <div key={index} className="mb-4">
+          <div key={index} className="mb-4"> {/* Subject input fields */}
             <div className="flex gap-2">
               <div>
                 <label htmlFor={`subName-${index}`} className="block mb-1">

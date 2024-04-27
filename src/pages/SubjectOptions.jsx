@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
-
+import { Outlet } from "react-router-dom";
 import Card from "../components/Card";
 
 
-const TeacherOptions = ({ cardData }) => {
+const SubjectOptions = ({ cardData }) => {
   return (
     <div className="p-4 flex gap-3">
-  
-    <Card link="/teacherAttendance" title="Teacher's Attendance">
+        
+    <Card link="/subjectsOption/add" title="Add Subjects">
       <p>Lorem ipsum dolor sit amet assumenda commodi quidem at tenetur ab nobis.</p>
     </Card>
-    <Card link="/teacherRegistration" title="Registration">
+    <Card link="/subjectsOption/view" title="See  Subjects">
       <p>Lorem ipsum dolor sit amet assumenda commodi quidem at tenetur ab nobis.</p>
     </Card>
 
@@ -21,4 +21,4 @@ const TeacherOptions = ({ cardData }) => {
   );
 };
 
-export default TeacherOptions;
+export default SubjectOptions;
