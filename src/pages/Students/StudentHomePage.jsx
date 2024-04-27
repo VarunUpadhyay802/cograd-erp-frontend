@@ -8,7 +8,6 @@ const StudentHomePage = () => {
   return (
     <div>
       <div className="text-2xl font-bold text-gray-500 mb-6">
-        {" "}
         Student Homepage
       </div>
       <div className="flex flex-col gap-4 lg:gap-0 lg:flex-row justify-between items-center mb-6">
