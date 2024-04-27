@@ -1,0 +1,83 @@
+/* .input#file-upload-button {
+  appearance: none;
+  background: #000;
+} */
+
+.MuiDataGrid-cell,
+.MuiDataGrid-cell--textLeft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+.phone-column {
+  justify-content: flex-start;
+  padding-left: 0.8rem;
+}
+
+.MuiDataGrid-columnHeaderDraggableContainer {
+  height: 2.5rem;
+  /* // border: 2px solid rgb(220, 212, 212); */
+  text-align: center;
+}
+.MuiDataGrid-columnHeaderTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+  font-weight: 600;
+}
+
+.MuiDataGrid-iconButtonContainer {
+  display: none;
+}
+
+.MuiDataGrid-menuIcon {
+  display: none;
+}
+
+.MuiDataGrid-toolbarContainer {
+  flex-direction: row-reverse;
+
+  /* @include sm {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    } */
+}
+
+/* .MuiInputBase-input {
+  @include sm {
+      font-size: 1rem;
+    } 
+} */
+
+/* StudentLists.css */
+/* StudentLists.css */
+.dataGrid .MuiDataGrid-root {
+  /* background-color: #f0f0f0; Background color of the entire grid */
+  padding: 20px;
+}
+
+.dataGrid .MuiDataGrid-columnsContainer {
+  justify-content: center; /* Center align columns */
+}
+
+.dataGrid .MuiDataGrid-cell--textLeft {
+  text-align: center !important; /* Center align cell content */
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.dataGrid .MuiDataGrid-columnHeaderTitle {
+  font-weight: 600;
+}
+
+.name-column {
+  text-align: left !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+}

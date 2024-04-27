@@ -4,17 +4,22 @@ import axios from "axios";
 const StudentAttendance = () => {
   const [students, setStudents] = useState([]);
   const [attendanceStatus, setAttendanceStatus] = useState([]);
-  const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
+  const [currentDate, setCurrentDate] = useState(
+    new Date().toISOString().slice(0, 10)
+  );
 
   // Fetch students on component mount
   const fetchStudents = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/studentAttendance/studentsList", {
-        withCredentials: true,
-        // You might need to provide the class teacher ID here, depending on your backend route
-      });
+      const response = await axios.get(
+        "http://localhost:4000/studentAttendance/studentsList",
+        {
+          withCredentials: true,
+          // You might need to provide the class teacher ID here, depending on your backend route
+        }
+      );
       setStudents(response.data.students);
-      console.log("student list fetched",response.data.students);
+      console.log("student list fetched", response.data.students);
       setAttendanceStatus(Array(response.data.students.length).fill("a"));
     } catch (error) {
       console.error("Error fetching students:", error);
@@ -41,12 +46,15 @@ const StudentAttendance = () => {
         date: currentDate,
       };
 
-      const response = await axios.post("http://localhost:4000/studentAttendance/mark", attendanceData, {
-        withCredentials: true,
-
-      });
+      const response = await axios.post(
+        "http://localhost:4000/studentAttendance/mark",
+        attendanceData,
+        {
+          withCredentials: true,
+        }
+      );
       if (response.status === 400) {
-alert("Recorded already");
+        alert("Recorded already");
       }
       console.log("Student Attendances success:", response);
       alert("Attendance recorded successfully!");

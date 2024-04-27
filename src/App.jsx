@@ -24,6 +24,7 @@ import ClassTeacherLogin from "./pages/ClassTeacherLogin";
 
 import StudentAttendance from "./pages/StudentAttendance";
 import StudentRegistrationPage from "./pages/Students/StudentRegistrationPage";
+import StudentHomePage from "./pages/Students/StudentHomePage";
 
 const router = createBrowserRouter([
   {
@@ -71,10 +72,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/students",
+        path: "/studentRegistration",
         element: (
           <Protected>
             <StudentRegistrationPage />
+          </Protected>
+        ),
+      },
+      {
+        path: "/students",
+        element: (
+          <Protected>
+            <StudentHomePage />
           </Protected>
         ),
       },

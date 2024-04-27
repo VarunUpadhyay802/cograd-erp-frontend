@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // import { Navigate } from "react-router-dom";
-import "./student.css";
+// import "./student.css";
 
 const StudentsRegistration = () => {
   const [name, setName] = useState("");
