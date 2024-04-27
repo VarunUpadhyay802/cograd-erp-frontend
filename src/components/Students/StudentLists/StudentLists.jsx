@@ -71,8 +71,9 @@ const StudentLists = () => {
   ];
 
   return (
-    <div className="dataGrid w-auto lg:w-[82.5vw] p-5 bg-white">
+    <div className="dataGrid w-full bg-white">
       <DataGrid
+        className="dataGrid_main p-4"
         rows={rows}
         columns={columns}
         initialState={{

@@ -81,3 +81,13 @@
   display: flex !important;
   justify-content: flex-start !important;
 }
+
+.dataGrid .dataGrid_main {
+  width: auto;
+}
+
+@media screen and (min-width: 1000px) {
+  .dataGrid .dataGrid_main {
+    width: calc(100% - 80px);
+  }
+}
