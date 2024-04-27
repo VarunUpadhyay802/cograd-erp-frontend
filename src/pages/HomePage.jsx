@@ -277,7 +277,7 @@ export default function HomePage(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <div className="flex flex-col w-full appearance-none">
+    <div className="flex flex-col w-full overflow-hidden appearance-none">
       <Box sx={{ display: "flex", width: "100%" }}>
         <CssBaseline />
         <div className=" hidden lg:block">

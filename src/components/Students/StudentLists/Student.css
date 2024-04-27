@@ -13,10 +13,17 @@
   text-align: center !important; /* Center align cell content */
   display: flex !important;
   justify-content: center !important;
+  align-items: center !important;
 }
 
 .dataGrid .MuiDataGrid-columnHeaderTitle {
   font-weight: 600;
+}
+
+.dataGrid .MuiDataGrid-columnHeaderTitleContainer {
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
 }
 
 .name-column {
