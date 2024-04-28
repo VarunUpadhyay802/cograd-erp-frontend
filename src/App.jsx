@@ -65,14 +65,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/teacherChoose",
-        element: (
-          <Protected>
-            <TeacherOptions />
-          </Protected>
-        ),
-      },
-      {
         path: "/teacherRegistration",
         element: (
           <Protected>
