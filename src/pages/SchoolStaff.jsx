@@ -50,56 +50,64 @@ const SchoolStaff = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto">
-      <h2 className="text-xl font-semibold mb-4">Add Staff Member</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="StaffMemberName" className="block mb-1">
-            StaffMemberName:
-          </label>
-          <input
-            type="text"
-            id="StaffMemberName"
-            value={StaffMemberName}
-            onChange={(e) => setStaffMemberName(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
+    <>
+      <div className="flex flex-col gap-14 ">
+        <div className=" mx-auto p-3   w-full ">
+         
+          <form onSubmit={handleSubmit} className="sm:flex  sm:gap-2 justify-center">
+            <div className="mb-4">
+              <label htmlFor="StaffMemberName" className="block mb-1">
+                Name:
+              </label>
+              <input 
+                type="text"
+                id="StaffMemberName"
+                value={StaffMemberName}
+                onChange={(e) => setStaffMemberName(e.target.value)}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="post" className="block mb-1">
+                Designation:
+              </label>
+              <input
+                type="text"
+                id="post"
+                value={post}
+                onChange={(e) => setPost(e.target.value)}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="salary" className="block mb-1">
+                Salary(amount)
+              </label>
+              <input
+                type="number"
+                id="salary"
+                value={salary}
+                onChange={(e) => setSalary(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            <button
+              type="submit"
+              className=" bg-blue-500 h-[90%] text-white p-2 my-auto rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            >
+              Add Staff Member
+            </button>
+           
+          </form>
         </div>
-        <div className="mb-4">
-          <label htmlFor="post" className="block mb-1">
-            post:
-          </label>
-          <input
-            type="text"
-            id="post"
-            value={post}
-            onChange={(e) => setPost(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
+
+        <div className=" ">
+          <StaffTable staffMemberList={staffMemberList} />
         </div>
-        <div className="mb-4">
-          <label htmlFor="salary" className="block mb-1">
-            Salary(amount)
-          </label>
-          <input
-            type="number"
-            id="salary"
-            value={salary}
-            onChange={(e) => setSalary(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Add Transaction
-        </button>
-      </form>
-      <StaffTable staffMemberList={staffMemberList} />
-    </div>
+      </div>
+    </>
   );
 };
 
