@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
-import { setUser } from "./userSlice";
+import { fetchUserStart, setUser } from "./userSlice";
 import { jwtDecode } from "jwt-decode";
 const useFetchUserFromJwt = () => {
   const dispatch = useDispatch();
@@ -9,6 +9,7 @@ const useFetchUserFromJwt = () => {
 
   useEffect(() => {
     if (cookies.token) {
+      dispatch(fetchUserStart());
       console.log(cookies.token);
       const decodedToken = jwtDecode(cookies.token);
       console.log(decodedToken);
