@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import StaffTable from "../components/StaffTable";
+import StaffTable from "../../components/StaffTable";
 
 const SchoolStaff = () => {
   const [StaffMemberName, setStaffMemberName] = useState("");
@@ -53,13 +53,15 @@ const SchoolStaff = () => {
     <>
       <div className="flex flex-col gap-14 ">
         <div className=" mx-auto p-3   w-full ">
-         
-          <form onSubmit={handleSubmit} className="sm:flex  sm:gap-2 justify-center">
+          <form
+            onSubmit={handleSubmit}
+            className="sm:flex  sm:gap-2 justify-center"
+          >
             <div className="mb-4">
               <label htmlFor="StaffMemberName" className="block mb-1">
                 Name:
               </label>
-              <input 
+              <input
                 type="text"
                 id="StaffMemberName"
                 value={StaffMemberName}
@@ -99,7 +101,6 @@ const SchoolStaff = () => {
             >
               Add Staff Member
             </button>
-           
           </form>
         </div>
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const SchoolRegister = () => {
+const SchoolsRegister = () => {
   const [schoolName, setSchoolName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -99,4 +99,4 @@ const SchoolRegister = () => {
   );
 };
 
-export default SchoolRegister;
+export default SchoolsRegister;

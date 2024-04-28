@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
-import { setUser } from "../utils/userSlice";
+import { setUser } from "../../utils/userSlice";
 
 const SchoolLogin = () => {
   const [email, setEmail] = useState("");

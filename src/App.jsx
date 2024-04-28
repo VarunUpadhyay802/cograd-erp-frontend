@@ -1,12 +1,11 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 // import HomePage from "./HomePage";
-import SchoolLogin from "./pages/SchoolLogin";
-import SchoolExpenses from "./pages/SchoolExpenses";
-import SchoolStaff from "./pages/SchoolStaff";
-import SchoolAddClasses from "./pages/SchoolAddClasses";
+import SchoolLogin from "./pages/School/SchoolLogin";
+import SchoolExpenses from "./pages/School/SchoolExpenses";
+import SchoolStaff from "./pages/School/SchoolStaff";
+import SchoolAddClasses from "./pages/School/SchoolAddClasses";
 import AddSubjects from "./pages/AddSubjects";
-import SchoolRegister from "./pages/SchoolRegister";
 import HomePage from "./pages/HomePage";
 import TeacherAttendance from "./pages/TeacherAttendance";
 import Protected from "./components/Protected";
@@ -26,15 +25,25 @@ import StudentAttendance from "./pages/StudentAttendance";
 import StudentRegistrationPage from "./pages/Students/StudentRegistrationPage";
 import StudentHomePage from "./pages/Students/StudentHomePage";
 import ViewSubjects from "./pages/ViewSubjects";
+import SchoolsRegister from "./pages/School/SchoolsRegister";
+import SchoolHomePage from "./pages/School/SchoolHomePage";
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <Protected>
-        <HomePage />{" "}
+        <HomePage />
       </Protected>
     ),
     children: [
+      {
+        path: "/",
+        element: (
+          <Protected>
+            <SchoolHomePage />
+          </Protected>
+        ),
+      },
       {
         path: "/expenses",
         element: (
@@ -124,7 +133,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/schoolRegister",
-    element: <SchoolRegister />,
+    element: <SchoolsRegister />,
   },
   {
     path: "/schoolLogin",

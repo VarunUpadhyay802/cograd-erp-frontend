@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ClassCards from "../components/ClassCards";
+import ClassCards from "../../components/ClassCards";
 
 const SchoolAddClasses = () => {
   const [className, setClassName] = useState("");
@@ -13,7 +13,7 @@ const SchoolAddClasses = () => {
       const response = await axios.get("http://localhost:4000/class/get", {
         withCredentials: true,
       });
-      console.log("classes fetched:",response.data);
+      console.log("classes fetched:", response.data);
       if (response.status === 200 && Array.isArray(response.data)) {
         setClassesList(response.data);
       } else {
@@ -69,43 +69,42 @@ const SchoolAddClasses = () => {
   };
 
   return (
-    <>    <div className="max-w-md ">
-      <h2 className="text-xl font-semibold mb-4">Add Class</h2>
+    <>
+      {" "}
+      <div className="max-w-md ">
+        <h2 className="text-xl font-semibold mb-4">Add Class</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="className" className="block mb-1">
-            Class Name:
-          </label>
-          <input
-            type="text"
-            id="className"
-            value={className}
-            onChange={(e) => setClassName(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="className" className="block mb-1">
+              Class Name:
+            </label>
+            <input
+              type="text"
+              id="className"
+              value={className}
+              onChange={(e) => setClassName(e.target.value)}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          >
+            Add Class
+          </button>
+        </form>
+      </div>
+      {!loading && classesList.length > 0 ? (
+        <div className="md:flex :flex-row gap-3 ">
+          <ClassCards classesList={classesList} />
         </div>
-
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Add Class
-        </button>
-      </form>
-
-      
-    </div>
-    {!loading && classesList.length > 0 ? (
-     <div className="md:flex :flex-row gap-3 ">
-         <ClassCards classesList={classesList}  />
-     </div>
       ) : (
         <p>No classes found</p>
       )}
     </>
-
   );
 };
 

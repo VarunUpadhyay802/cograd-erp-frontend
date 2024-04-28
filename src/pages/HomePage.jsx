@@ -523,6 +523,7 @@ export default function HomePage(props) {
             display: "flex",
             flexDirection: "column",
             minHeight: "100vh",
+            bgcolor: "#F8F8FB",
             maxWidth: "100vw",
           }}
         >
