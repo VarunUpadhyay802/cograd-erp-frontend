@@ -1,22 +1,23 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 function Protected({ children }) {
-  const user = useSelector((state) => state.user._id);
-  const fetching = useSelector((state) => state.user.isFetching);
-  //   const userRole = useSelector((state) => state.user.role);
+  const isLoggedIn = () => {
+    const token = Cookies.get("token");
+    console.log(!!token);
+
+    return !!token;
+  };
 
   useEffect(() => {
-    if (!user && !fetching) {
-      // Navigate if user is not logged in and fetching is done
-      navigateToLogin();
-    }
-  }, [fetching, user]);
+    isLoggedIn();
+  }, []);
 
-  const navigateToLogin = () => {
-    return <Navigate to="/schoolLogin" replace={true}></Navigate>;
-  };
+  if (!isLoggedIn()) {
+    return <Navigate to="/chooseUser" replace={true}></Navigate>;
+  }
 
   //   if (userRole && userRole !== "PRINCIPAL") {
   //     return <Navigate to="/" replace={true}></Navigate>;

@@ -12,7 +12,7 @@ const StaffTable = ({ staffMemberList }) => {
       width: 150, // Column width for the photo
       renderCell: (params) => (
         <div>
-           <img src="/public/team.png" alt="" className="h-8 w-8" />
+          <img src="/team.png" alt="" className="h-8 w-8" />
           {/* Add styling to make it rounded */}
         </div>
       ),

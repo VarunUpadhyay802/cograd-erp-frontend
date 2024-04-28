@@ -29,7 +29,11 @@ import ViewSubjects from "./pages/ViewSubjects";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <Protected>
+        <HomePage />{" "}
+      </Protected>
+    ),
     children: [
       {
         path: "/expenses",

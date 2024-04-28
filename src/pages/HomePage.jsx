@@ -33,7 +33,7 @@ import { clearUser } from "../utils/userSlice";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PropTypes from "prop-types";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const drawerWidth = 240;
 
@@ -153,16 +153,17 @@ export default function HomePage(props) {
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
   };
-  const isLoggedIn = () => {
 
-    const token = Cookies.get('token'); // 'token' should match the name of the token set in the backend
-    console.log("schoolToken",token);
+  const isLoggedIn = () => {
+    const token = Cookies.get("token"); // 'token' should match the name of the token set in the backend
+    console.log("schoolToken", token);
     console.log(!!token);
-    return (!!token);
+    return !!token;
   };
-  React.useEffect(()=>{
+  React.useEffect(() => {
     isLoggedIn();
-  },[])
+  }, []);
+
   const handleDrawerToggle = () => {
     if (!isClosing) {
       setMobileOpen(!mobileOpen);
@@ -247,7 +248,7 @@ export default function HomePage(props) {
         ))}
       </List>
       <Divider />
-      {!isLoggedIn?(<List>
+      <List>
         {["Profile", "Logout"].map((text, index) => (
           <ListItem
             key={text}
@@ -278,39 +279,7 @@ export default function HomePage(props) {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>):(<List>
-        {["Profile", "Login"].map((text, index) => (
-          <ListItem
-            key={text}
-            disablePadding
-            sx={{
-              display: "block",
-              "&:hover": { bgcolor: "#FAA912" },
-              transition: "all 0.3s ease-in-out",
-            }}
-            component={Link}
-            to={index === 0 ? "/profile" : ""}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-              onClick={index === 1 ? handleLogout : null} // Add onClick event handler
-            >
-              <ListItemIcon sx={{ color: "white" }}>
-                {index === 0 ? <AccountCircleIcon /> : <LogoutIcon />}
-              </ListItemIcon>
-              <ListItemText
-                primary={text}
-                sx={{ color: "white", fontSize: "0.5rem" }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>)}
-      
+      </List>
     </div>
   );
 
