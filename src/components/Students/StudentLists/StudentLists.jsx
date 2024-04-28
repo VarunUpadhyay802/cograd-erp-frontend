@@ -34,40 +34,40 @@ const StudentLists = () => {
   ];
 
   const rows = [
-    { id: 1, name: "Jon Snow", email: "jon@example.com", time: 1.5 },
+    { id: 1, name: "Amit Sharma", email: "amit@cograd.in", time: 1.5 },
     {
       id: 2,
-      name: "Cersei Lannister",
-      email: "cersei@example.com",
+      name: "Sita Gupta",
+      email: "sita@cograd.in",
       time: 1.25,
     },
     {
       id: 3,
-      name: "Jaime Lannister",
-      email: "jaime@example.com",
+      name: "Rajesh Kumar",
+      email: "rajesh@cograd.in",
       time: 1.75,
     },
-    { id: 4, name: "Arya Stark", email: "arya@example.com", time: 0.5 },
+    { id: 4, name: "Priya Singh", email: "priya@cograd.in", time: 0.5 },
     {
       id: 5,
-      name: "Daenerys Targaryen",
-      email: "daenerys@example.com",
+      name: "Vikram Patel",
+      email: "vikram@cograd.in",
       time: 2,
     },
-    { id: 6, name: "Melisandre", email: "melisandre@example.com", time: 2 },
+    { id: 6, name: "Neha Mehra", email: "neha@cograd.in", time: 2 },
     {
       id: 7,
-      name: "Ferrara Clifford",
-      email: "ferrara@example.com",
+      name: "Sanjay Verma",
+      email: "sanjay@cograd.in",
       time: 1.75,
     },
     {
       id: 8,
-      name: "Rossini Frances",
-      email: "rossini@example.com",
+      name: "Sunita Reddy",
+      email: "sunita@cograd.in",
       time: 1.5,
     },
-    { id: 9, name: "Harvey Roxie", email: "harvey@example.com", time: 2 },
+    { id: 9, name: "Ravi Deshmukh", email: "ravi@cograd.in", time: 2 },
   ];
 
   return (
