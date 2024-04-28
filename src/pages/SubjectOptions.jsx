@@ -1,23 +1,25 @@
 /* eslint-disable react/prop-types */
-import { Outlet } from "react-router-dom";
-import Card from "../components/Card";
 
+import Card from "../components/Card";
 
 const SubjectOptions = ({ cardData }) => {
   return (
-    <div className="p-4 flex gap-3">
+    <div className="flex flex-col gap-4 xs:flex xs:flex-row">
+      <Card
+        link="/subjectsOption/add"
+        title="Add Subjects"
+        subtext="Add subjects to a particular Class by entering subname and subcode"
+      >
+       
+      </Card>
+      <Card link="/subjectsOption/view" title="See  Subjects"  subtext="Add subjects to a particular Class by entering subname and subcode">
         
-    <Card link="/subjectsOption/add" title="Add Subjects">
-      <p>Lorem ipsum dolor sit amet assumenda commodi quidem at tenetur ab nobis.</p>
-    </Card>
-    <Card link="/subjectsOption/view" title="See  Subjects">
-      <p>Lorem ipsum dolor sit amet assumenda commodi quidem at tenetur ab nobis.</p>
-    </Card>
+      </Card>
 
-    {/* <Card title="Contact Us">
+      {/* <Card title="Contact Us">
       <p>Feel free to reach out to us via email or phone.</p>
     </Card> */}
-  </div>
+    </div>
   );
 };
 

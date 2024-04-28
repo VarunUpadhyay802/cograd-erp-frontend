@@ -45,7 +45,7 @@ const ClassSelector = ({ setClassID }) => {
           onChange={handleClassChange}
           className="px-3 py-2 border border-gray-300 rounded"
         >
-          <option value="">Select a class</option>
+          <option className='mb-1 mt-2 text-15 text-gray-500' value="">Select a class</option>
           {classesList.map((classItem) => (
             <option key={classItem._id} value={classItem._id}>
               {classItem.className}

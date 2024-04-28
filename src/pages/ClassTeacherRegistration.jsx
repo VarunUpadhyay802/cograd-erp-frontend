@@ -33,6 +33,7 @@ const ClassTeacherRegistration = () => {
   };
 
   return (
+   
     <div className="max-w-lg mx-auto">
       <h2 className="text-xl font-semibold mb-4">Register Class Teacher</h2>
       <form onSubmit={handleRegister}>
@@ -80,7 +81,7 @@ const ClassTeacherRegistration = () => {
 
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex-wrap"
         >
           Register Class Teacher
         </button>
