@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ClassCards from "../../components/ClassCards";
-
+import { Modal, Box } from "@mui/material";
 const SchoolAddClasses = () => {
   const [className, setClassName] = useState("");
   const [classesList, setClassesList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false); // State to control modal visibility
+  const handleOpen = () => setOpenModal(true); // Open the modal
+  const handleClose = () => setOpenModal(false); // Close the modal
 
   const fetchClasses = async () => {
     setLoading(true);
@@ -55,6 +58,8 @@ const SchoolAddClasses = () => {
         setClassName(""); // Clear the input field after successful addition
         fetchClasses(); // Refresh the list of classes after addition
       }
+      handleClose();
+      setClassName("");
     } catch (error) {
       if (error.response) {
         console.error(
@@ -69,9 +74,34 @@ const SchoolAddClasses = () => {
   };
 
   return (
-    <>
-      {" "}
-      <div className="max-w-md ">
+      <>
+      <div className="flex flex-col gap-4 items-center">
+     <div className="items-center">
+      
+          <button
+            onClick={handleOpen}
+            className="flex gap-2 bg-[#AEE6E6] text-white px-4 py-2 rounded hover:bg-[#41C9E2] max-w-36"
+          >
+            <p className="text-black font-ProductTitle">Add Class</p>
+            <img src="/class.png" alt="" className="h-7 w-7" />
+          </button>
+        </div>
+        
+        <Modal open={openModal} onClose={handleClose}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 330,
+              backgroundColor: "white",
+              padding: 4,
+              borderRadius: 2,
+              boxShadow: 24,
+            }}
+          >
+ <div className="max-w-md ">
         <h2 className="text-xl font-semibold mb-4">Add Class</h2>
 
         <form onSubmit={handleSubmit}>
@@ -97,13 +127,19 @@ const SchoolAddClasses = () => {
           </button>
         </form>
       </div>
-      {!loading && classesList.length > 0 ? (
-        <div className="md:flex :flex-row gap-3 ">
+          </Box>
+        </Modal>
+       
+        <div>
+        {!loading && classesList.length > 0 ? (
+        <div className="   flex flex-col gap-3 sm:flex sm:flex-row sm:flex-wrap ">
           <ClassCards classesList={classesList} />
         </div>
       ) : (
         <p>No classes found</p>
       )}
+        </div>
+        </div>
     </>
   );
 };
