@@ -1,7 +1,7 @@
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid"; // DataGrid and toolbar for table representation
 import Paper from "@mui/material/Paper"; // Paper for wrapping the grid
-import PaymentsIcon from '@mui/icons-material/Payments';
+import PaymentsIcon from "@mui/icons-material/Payments";
 const ExpenseTable = ({ transactions }) => {
   // Define the columns with an additional "Profile" field
   const columns = [
