@@ -29,7 +29,7 @@ const StudentPieChart = () => {
         label: "No. of Visits",
       },
     ],
-    width: `${chartWidth}`,
+    width: chartWidth,
     height: chartLength,
   };
   const dataset = [

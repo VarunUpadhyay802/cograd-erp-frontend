@@ -1,5 +1,5 @@
 import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import "./Student.css";
 
 const StudentLists = () => {
@@ -71,7 +71,7 @@ const StudentLists = () => {
   ];
 
   return (
-    <div className="dataGrid w-full bg-white">
+    <div className="dataGrid w-full">
       <DataGrid
         className="dataGrid_main p-4"
         rows={rows}
@@ -84,8 +84,17 @@ const StudentLists = () => {
           },
         }}
         pageSizeOptions={[10]}
-        checkboxSelection
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true, // Allow quick filtering
+            quickFilterProps: { debounceMs: 500 }, // Debounce time for quick filtering
+          },
+        }}
         disableRowSelectionOnClick
+        disableColumnFilter
+        disableColumnSelector
+        disableDensitySelector
       />
     </div>
   );

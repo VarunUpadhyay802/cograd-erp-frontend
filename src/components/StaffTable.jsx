@@ -46,7 +46,7 @@ const StaffTable = ({ staffMemberList }) => {
   })); // Converting the list to a format DataGrid can use
 
   return (
-    <div className="dataGrid w-full bg-white">
+    <div className="dataGrid w-full">
       <Paper>
         <DataGrid
           className="dataGrid_main p-4"

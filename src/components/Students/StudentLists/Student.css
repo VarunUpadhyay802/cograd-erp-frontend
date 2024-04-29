@@ -3,10 +3,16 @@
 .dataGrid .MuiDataGrid-root {
   /* background-color: #f0f0f0; Background color of the entire grid */
   padding: 20px;
+  background: #fff;
 }
 
 .dataGrid .MuiDataGrid-columnsContainer {
   justify-content: center; /* Center align columns */
+}
+
+.dataGrid .MuiDataGrid-toolbarContainer {
+  display: flex !important;
+  flex-direction: row-reverse !important;
 }
 
 .dataGrid .MuiDataGrid-cell--textLeft {

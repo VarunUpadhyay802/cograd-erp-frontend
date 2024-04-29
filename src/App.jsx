@@ -27,6 +27,10 @@ import StudentHomePage from "./pages/Students/StudentHomePage";
 import ViewSubjects from "./pages/ViewSubjects";
 import SchoolsRegister from "./pages/School/SchoolsRegister";
 import SchoolHomePage from "./pages/School/SchoolHomePage";
+import StudentLogin from "./pages/Students/SingleStudent/StudentLogin";
+import MainHomepage from "./pages/MainHomepage";
+import AttendanceReport from "./components/Students/SingleStudent/AttendanceReport";
+import StudentAttendanceReport from "./pages/Students/SingleStudent/StudentAttendanceReport";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,7 +44,7 @@ const router = createBrowserRouter([
         path: "/",
         element: (
           <Protected>
-            <SchoolHomePage />
+            <MainHomepage />
           </Protected>
         ),
       },
@@ -129,6 +133,10 @@ const router = createBrowserRouter([
         path: "/students",
         element: <StudentHomePage />,
       },
+      {
+        path: "/studentAttendance",
+        element: <StudentAttendanceReport />,
+      },
     ],
   },
   {
@@ -138,6 +146,10 @@ const router = createBrowserRouter([
   {
     path: "/schoolLogin",
     element: <SchoolLogin />,
+  },
+  {
+    path: "/studentLogin",
+    element: <StudentLogin />,
   },
   {
     path: "/chooseUser",

@@ -34,6 +34,10 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PropTypes from "prop-types";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { clearStudent } from "../utils/studentSlice";
+import SchoolMenuList from "../components/School/SchoolMenuList";
+import StudentMenuList from "../components/Students/SingleStudent/StudentMenuList";
 
 const drawerWidth = 240;
 
@@ -126,25 +130,41 @@ export default function HomePage(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-
   const navigate = useNavigate();
 
   useFetchUserFromJwt();
 
   const dispatch = useDispatch();
+  const token = Cookies.get("token");
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:4000/school/logout", {
-        method: "POST",
-        credentials: "include", // Include cookies in the request
-      });
+      if (role === "PRINCIPAL") {
+        const response = await fetch("http://localhost:4000/school/logout", {
+          method: "POST",
+          credentials: "include", // Include cookies in the request
+        });
 
-      const data = await response.json();
-      console.log("Logged out:", data.message);
-      dispatch(clearUser());
-      // Redirect to the login page after successful logout
-      navigate("/schoolLogin");
+        dispatch(clearUser());
+        const data = await response.json();
+        console.log("Logged out:", data.message);
+
+        // Redirect to the login page after successful logout
+        navigate("/chooseUser");
+      } else if (role === "STUDENT") {
+        const response = await fetch("http://localhost:4000/student/logout", {
+          method: "POST",
+          credentials: "include", // Include cookies in the request
+        });
+
+        dispatch(clearStudent());
+        const data = await response.json();
+        console.log("Logged out:", data.message);
+        // Redirect to the login page after successful logout
+        navigate("/chooseUser");
+      }
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -186,67 +206,8 @@ export default function HomePage(props) {
           />
         </div>
       </Link>
-      <List>
-        {[
-          "Home",
-          "Classes",
-          "Subjects",
-          "Teachers",
-          "Students",
-          "Transactions",
-          "Staffs",
-        ].map((text, index) => (
-          <ListItem
-            key={text}
-            disablePadding
-            sx={{
-              display: "block",
-              "&:hover": { bgcolor: "#FAA912" },
-              transition: "all 0.3s ease-in-out",
-            }}
-            component={Link} // Use Link component from react-router-dom
-            to={
-              index === 0
-                ? "/"
-                : index === 1
-                ? "/classes"
-                : index === 2
-                ? "/subjectsOption"
-                : index === 3
-                ? "/teacherChoose"
-                : index === 4
-                ? "/students"
-                : index === 5
-                ? "/expenses"
-                : "/staffs"
-            } // Define the route to navigate to
-          >
-            <ListItemButton onClick={() => setMobileOpen(false)}>
-              <ListItemIcon sx={{ color: "white" }}>
-                {index === 0 ? (
-                  <HomeIcon />
-                ) : index === 1 ? (
-                  <ClassOutlinedIcon />
-                ) : index === 2 ? (
-                  <AssignmentIcon />
-                ) : index === 3 ? (
-                  <PeopleAltIcon />
-                ) : index === 4 ? (
-                  <PermContactCalendarIcon />
-                ) : index === 5 ? (
-                  <ReceiptLongIcon />
-                ) : (
-                  <EngineeringIcon />
-                )}
-              </ListItemIcon>
-              <ListItemText
-                primary={text}
-                sx={{ color: "white", fontSize: "0.5rem" }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
+      {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />}
       <Divider />
       <List>
         {["Profile", "Logout"].map((text, index) => (
@@ -255,7 +216,7 @@ export default function HomePage(props) {
             disablePadding
             sx={{
               display: "block",
-              "&:hover": { bgcolor: "#FAA912" },
+              "&:hover": { bgcolor: "#6F52ED" },
               transition: "all 0.3s ease-in-out",
             }}
             component={Link}
@@ -336,83 +297,23 @@ export default function HomePage(props) {
               </IconButton>
             </DrawerHeader>
             <Divider />
-            <List>
-              {[
-                "Home",
-                "Classes",
-                "Subjects",
-                "Teachers",
-                "Students",
-                "Transactions",
-                "Staffs",
-              ].map((text, index) => (
-                <ListItem
-                  key={text}
-                  disablePadding
-                  sx={{ display: "block" }}
-                  component={Link}
-                  to={
-                    index === 0
-                      ? "/"
-                      : index === 1
-                      ? "/classes"
-                      : index === 2
-                      ? "/subjectsOption"
-                      : index === 3
-                      ? "/teacherChoose"
-                      : index === 4
-                      ? "/students"
-                      : index === 5
-                      ? "/expenses"
-                      : "/staffs"
-                  }
-                >
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                        color: "white",
-                      }}
-                    >
-                      {index === 0 ? (
-                        <HomeIcon />
-                      ) : index === 1 ? (
-                        <ClassOutlinedIcon />
-                      ) : index === 2 ? (
-                        <AssignmentIcon />
-                      ) : index === 3 ? (
-                        <PeopleAltIcon />
-                      ) : index === 4 ? (
-                        <PermContactCalendarIcon />
-                      ) : index === 5 ? (
-                        <ReceiptLongIcon />
-                      ) : (
-                        <EngineeringIcon />
-                      )}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={text}
-                      sx={{ opacity: open ? 1 : 0, color: "white" }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
+            {role === "PRINCIPAL" && (
+              <SchoolMenuList setMobileOpen={setMobileOpen} />
+            )}
+            {role === "STUDENT" && (
+              <StudentMenuList setMobileOpen={setMobileOpen} />
+            )}
             <Divider />
             <List>
               {["Profile", "Logout"].map((text, index) => (
                 <ListItem
                   key={text}
                   disablePadding
-                  sx={{ display: "block" }}
+                  sx={{
+                    display: "block",
+                    "&:hover": { bgcolor: "#6F52ED" },
+                    transition: "all 0.3s ease-in-out",
+                  }}
                   component={Link}
                   to={index === 0 ? "/profile" : ""}
                 >
