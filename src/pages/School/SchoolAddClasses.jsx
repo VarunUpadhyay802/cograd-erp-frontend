@@ -75,8 +75,8 @@ const SchoolAddClasses = () => {
 
   return (
       <>
-      <div className="flex flex-col gap-4 items-center xs:items-start">
-     <div className="">
+      <div className="flex flex-col gap-4 items-center">
+     <div className="items-center">
       
           <button
             onClick={handleOpen}
@@ -132,7 +132,7 @@ const SchoolAddClasses = () => {
        
         <div>
         {!loading && classesList.length > 0 ? (
-        <div className=" items-center flex flex-col gap-3 sm:flex sm:flex-row sm:flex-wrap mx-auto">
+        <div className="   flex flex-col gap-3 sm:flex sm:flex-row sm:flex-wrap ">
           <ClassCards classesList={classesList} />
         </div>
       ) : (
