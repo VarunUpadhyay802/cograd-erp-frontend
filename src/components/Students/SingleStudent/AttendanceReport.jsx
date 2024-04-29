@@ -3,7 +3,7 @@ import React from "react";
 
 const colors = ["green", "red"];
 
-const AttendanceReport = () => {
+const AttendanceReport = ({ width, height }) => {
   return (
     <div className="flex w-full justify-center mb-4">
       <PieChart
@@ -15,8 +15,8 @@ const AttendanceReport = () => {
             ],
           },
         ]}
-        width={400}
-        height={200}
+        width={width}
+        height={height}
         colors={colors}
       />
     </div>

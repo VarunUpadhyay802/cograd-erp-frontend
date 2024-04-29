@@ -6,7 +6,7 @@ const StudentAttendanceReport = () => {
   return (
     <div>
       <div className="text-2xl font-bold mb-4">Attendance Report</div>
-      <AttendanceReport />
+      <AttendanceReport width={400} height={200} />
       <AttendanceReportTable />
     </div>
   );

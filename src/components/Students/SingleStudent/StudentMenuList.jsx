@@ -12,7 +12,7 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { Link } from "react-router-dom";
 
-const StudentMenuList = (setMobileOpen) => {
+const StudentMenuList = ({ setMobileOpen }) => {
   return (
     <List>
       {["Home", "Marks", "Attendance", "Complains"].map((text, index) => (

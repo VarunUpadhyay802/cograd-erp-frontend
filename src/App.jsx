@@ -31,6 +31,8 @@ import StudentLogin from "./pages/Students/SingleStudent/StudentLogin";
 import MainHomepage from "./pages/MainHomepage";
 import AttendanceReport from "./components/Students/SingleStudent/AttendanceReport";
 import StudentAttendanceReport from "./pages/Students/SingleStudent/StudentAttendanceReport";
+import MarksSheetPage from "./pages/Students/SingleStudent/MarksSheetPage";
+import ComplainPage from "./pages/Students/SingleStudent/ComplainPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -136,6 +138,14 @@ const router = createBrowserRouter([
       {
         path: "/studentAttendance",
         element: <StudentAttendanceReport />,
+      },
+      {
+        path: "/marks",
+        element: <MarksSheetPage />,
+      },
+      {
+        path: "/studentComplains",
+        element: <ComplainPage />,
       },
     ],
   },

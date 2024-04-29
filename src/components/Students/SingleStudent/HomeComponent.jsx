@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
-import { PieChart } from "@mui/x-charts/PieChart";
 import AttendanceReport from "./AttendanceReport";
 
 const HomeComponent = () => {
   const totalAssignments = 12;
   const totalSubjects = 9;
-
-  const colors = ["green", "red"];
 
   return (
     <div>
@@ -32,7 +29,7 @@ const HomeComponent = () => {
             className="text-2xl text-green-500"
           />
         </div>
-        <AttendanceReport />
+        <AttendanceReport width={280} height={150} />
       </div>
       <div className="flex md:flex-row flex-col gap-4 mt-4">
         <div className="md:flex-1 h-178 border p-3 rounded-md shadow-sm bg-white">

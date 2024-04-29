@@ -74,10 +74,9 @@ const SchoolAddClasses = () => {
   };
 
   return (
-      <>
+    <>
       <div className="flex flex-col gap-4 items-center">
-     <div className="items-center">
-      
+        <div className="items-center">
           <button
             onClick={handleOpen}
             className="flex gap-2 bg-[#AEE6E6] text-white px-4 py-2 rounded hover:bg-[#41C9E2] max-w-36"
@@ -86,7 +85,7 @@ const SchoolAddClasses = () => {
             <img src="/class.png" alt="" className="h-7 w-7" />
           </button>
         </div>
-        
+
         <Modal open={openModal} onClose={handleClose}>
           <Box
             sx={{
@@ -101,45 +100,45 @@ const SchoolAddClasses = () => {
               boxShadow: 24,
             }}
           >
- <div className="max-w-md ">
-        <h2 className="text-xl font-semibold mb-4">Add Class</h2>
+            <div className="max-w-md ">
+              <h2 className="text-xl font-semibold mb-4">Add Class</h2>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="className" className="block mb-1">
-              Class Name:
-            </label>
-            <input
-              type="text"
-              id="className"
-              value={className}
-              onChange={(e) => setClassName(e.target.value)}
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-            />
-          </div>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label htmlFor="className" className="block mb-1">
+                    Class Name:
+                  </label>
+                  <input
+                    type="text"
+                    id="className"
+                    value={className}
+                    onChange={(e) => setClassName(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                  />
+                </div>
 
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-          >
-            Add Class
-          </button>
-        </form>
-      </div>
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                >
+                  Add Class
+                </button>
+              </form>
+            </div>
           </Box>
         </Modal>
-       
+
         <div>
-        {!loading && classesList.length > 0 ? (
-        <div className="   flex flex-col gap-3 sm:flex sm:flex-row sm:flex-wrap ">
-          <ClassCards classesList={classesList} />
+          {!loading && classesList.length > 0 ? (
+            <div className="   flex flex-col gap-3 sm:flex sm:flex-row sm:flex-wrap ">
+              <ClassCards classesList={classesList} />
+            </div>
+          ) : (
+            <p>No classes found</p>
+          )}
         </div>
-      ) : (
-        <p>No classes found</p>
-      )}
-        </div>
-        </div>
+      </div>
     </>
   );
 };
