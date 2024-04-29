@@ -8,7 +8,7 @@ const ClassCards = ({ classesList }) => {
         <div
           key={index}
           className="
-          p-6 sm:p-8 sm:w-1/2 md:w-1/4 bg-white border border-gray-200 rounded-lg shadow-sm"
+          p-6 sm:p-8 max-w-xs  bg-white border border-gray-200 rounded-lg shadow-sm"
         >
           <h2 className="text-xl font-semibold text-gray-800 mb-2">
             {item.className}

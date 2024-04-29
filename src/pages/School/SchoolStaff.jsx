@@ -131,7 +131,7 @@ const SchoolStaff = () => {
           </Box>
         </Modal>
 
-        <div className=" ">
+        <div className="flex flex-row gap-3 ">
           <StaffTable staffMemberList={staffMemberList} />
         </div>
       </div>

@@ -76,132 +76,151 @@ const TeacherRegistration = () => {
     <>
       <div className="flex flex-col gap-3 ">
         <div className="mx-auto sm:mx-0">
-        <button
-          onClick={handleOpen}
-          className="flex gap-2 bg-[#AEE6E6] text-white px-4 py-2 rounded hover:bg-[#41C9E2] max-w-72 ml-4"
-        >
-          <p className="text-black font-ProductTitle">Teacher Registration Form</p>
-          <img src="/staff.png" alt="" className="h-7 w-7" />
-        </button>
+          <button
+            onClick={handleOpen}
+            className="flex gap-2 bg-[#AEE6E6] text-white px-4 py-2 rounded hover:bg-[#41C9E2] max-w-72 ml-4"
+          >
+            <p className="text-black font-ProductTitle">
+              Teacher Registration Form
+            </p>
+            <img src="/staff.png" alt="" className="h-7 w-7" />
+          </button>
         </div>
         <div>
-        <Modal open={openModal} onClose={handleClose}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: 400,
-              backgroundColor: "white",
-              padding: 4,
-              borderRadius: 2,
-              boxShadow: 24,
-            }}
-          >
-            {" "}
-            <div className="max-w-md mx-auto">
-            <h2 className="text-xl font-semibold mb-4">Register New Teacher</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block mb-1">
-            Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
+          <Modal open={openModal} onClose={handleClose}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                backgroundColor: "white",
+                padding: 4,
+                borderRadius: 2,
+                boxShadow: 24,
+              }}
+            >
+              {" "}
+              <div className="max-w-md mx-auto">
+                <h2 className="text-xl font-semibold mb-4">
+                  Register New Teacher
+                </h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-4">
+                    <label htmlFor="name" className="block mb-1">
+                      Name:
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="email" className="block mb-1">
+                      Email:
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="password" className="block mb-1">
+                      Password:
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">
+                    Teachable Subjects
+                  </h3>
+                  {teachSubjects.map((subject, index) => (
+                    <div key={index} className="mb-4 flex items-center">
+                      <div className="flex-1">
+                        <label
+                          htmlFor={`subject-${index}`}
+                          className="block mb-1"
+                        >
+                          Subject:
+                        </label>
+                        <input
+                          type="text"
+                          id={`subject-${index}`}
+                          value={subject.subject}
+                          onChange={(e) =>
+                            handleSubjectChange(
+                              index,
+                              "subject",
+                              e.target.value
+                            )
+                          }
+                          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                        />
+                      </div>
+                      <div className="flex-1 ml-4">
+                        <label
+                          htmlFor={`class-${index}`}
+                          className="block mb-1"
+                        >
+                          Class:
+                        </label>
+                        <input
+                          type="text"
+                          id={`class-${index}`}
+                          value={subject.class}
+                          onChange={(e) =>
+                            handleSubjectChange(index, "class", e.target.value)
+                          }
+                          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                        />
+                      </div>
+                      {index > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => removeSubject(index)}
+                          className="ml-4 text-red-500"
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={addSubject}
+                    className="text-blue-500 mb-4"
+                  >
+                    Add Another Subject
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
+                  >
+                    Register Teacher
+                  </button>
+                </form>
+              </div>
+            </Box>
+          </Modal>
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block mb-1">
-            Email:
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block mb-1">
-            Password:
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <h3 className="text-lg font-semibold mb-2">Teachable Subjects</h3>
-        {teachSubjects.map((subject, index) => (
-          <div key={index} className="mb-4 flex items-center">
-            <div className="flex-1">
-              <label htmlFor={`subject-${index}`} className="block mb-1">
-                Subject:
-              </label>
-              <input
-                type="text"
-                id={`subject-${index}`}
-                value={subject.subject}
-                onChange={(e) => handleSubjectChange(index, 'subject', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              />
-            </div>
-            <div className="flex-1 ml-4">
-              <label htmlFor={`class-${index}`} className="block mb-1">
-                Class:
-              </label>
-              <input
-                type="text"
-                id={`class-${index}`}
-                value={subject.class}
-                onChange={(e) => handleSubjectChange(index, 'class', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              />
-            </div>
-            {index > 0 && (
-              <button
-                type="button"
-                onClick={() => removeSubject(index)}
-                className="ml-4 text-red-500"
-              >
-                Remove
-              </button>
-            )}
-          </div>
-        ))}
-        <button type="button" onClick={addSubject} className="text-blue-500 mb-4">
-          Add Another Subject
-        </button>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
-        >
-          Register Teacher
-        </button>
-      </form>
-            </div>
-          </Box>
-        </Modal>
-
-       
-        </div>
-      <div className="  sm:flex sm:flex-row md:flex sm:flex-wrap   md:p-2 mx-auto ">
-      
-        
+        <div className="  sm:flex sm:flex-row md:flex sm:flex-wrap   md:p-2 mx-auto ">
           <TeachersList teacherList={teachers} />
-       
-      </div>
+        </div>
       </div>
     </>
   );
