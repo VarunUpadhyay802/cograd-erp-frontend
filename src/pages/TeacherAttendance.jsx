@@ -1,37 +1,32 @@
-import { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { useState } from "react";
+import { fetchTeachers } from "../utils/teacherSlice";
 import axios from "axios";
 
 const TeacherAttendance = () => {
-  const [teachers, setTeachers] = useState([]);
+  const dispatch = useDispatch();
+
+  const teachers = useSelector((state) => state.teachers.teachers);
+  const isLoading = useSelector((state) => state.teachers.loading);
+  const error = useSelector((state) => state.teachers.error);
+
   const [attendanceStatus, setAttendanceStatus] = useState([]);
   const [currentDate, setCurrentDate] = useState(
-    new Date().toISOString().slice(0, 10)
-  ); // ISO date format
-
-  // Fetch teachers on component mount
-  const fetchTeachers = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:4000/teacherReg/get",
-        {
-          withCredentials: true,
-        }
-      );
-      setTeachers(response.data);
-      console.log(response.data);
-      // Initialize attendance status array with default "a" (absent)
-      setAttendanceStatus(Array(response.data.length).fill("a"));
-    } catch (error) {
-      console.error("Error fetching teachers:", error);
-    }
-  };
+    new Date().toISOString().slice(0, 10) // ISO date format
+  );
 
   useEffect(() => {
-    fetchTeachers();
-  }, []);
+    if (teachers.length === 0) {
+      dispatch(fetchTeachers()); // Fetch only if it's not already in Redux
+    } else {
+      // If teachers are already in Redux, initialize attendance status
+      setAttendanceStatus(Array(teachers.length).fill("a"));
+    }
+  }, [dispatch, teachers]);
 
   const handleStatusChange = (index, value) => {
-    // Update the attendance status for a specific teacher
     const updatedStatus = [...attendanceStatus];
     updatedStatus[index] = value;
     setAttendanceStatus(updatedStatus);
@@ -46,20 +41,26 @@ const TeacherAttendance = () => {
         date: currentDate,
       };
 
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:4000/teacherReg/mark",
         attendanceData,
         { withCredentials: true }
       );
-     
-      console.log("Teacher Attendances success:", response.data);
+
       alert("Attendance recorded successfully!");
     } catch (error) {
-      
-      console.error("Error recording attendance:", error);
       alert("Error recording attendance");
+      console.error("Error:", error);
     }
   };
+
+  if (isLoading) {
+    return <p>Loading teachers...</p>;
+  }
+
+  if (error) {
+    return <p>Error fetching teachers: {error}</p>;
+  }
 
   return (
     <div className="max-w-md mx-auto">
