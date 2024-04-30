@@ -6,20 +6,21 @@ import StudentHomePage from "./Students/StudentHomePage";
 import SingleStudentHomepage from "./Students/SingleStudent/SingleStudentHomepage";
 
 const MainHomepage = () => {
-  const [role, setRole] = useState("");
-  const token = Cookies.get("token");
+  //   const [role, setRole] = useState("");
+  //   const token = Cookies.get("token");
 
-  useEffect(() => {
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      setRole(decodedToken.role);
-    }
-  }, [token]);
+  //   useEffect(() => {
+  //     if (token) {
+  //       const decodedToken = jwtDecode(token);
+  //       setRole(decodedToken.role);
+  //     }
+  //   }, [token]);
 
   return (
     <div>
-      {role && role === "PRINCIPAL" && <SchoolHomePage />}
-      {role && role === "STUDENT" && <SingleStudentHomepage />}
+      {/* {role && role === "PRINCIPAL" && <SchoolHomePage />} */}
+      {/* {role && role === "STUDENT" && <SingleStudentHomepage />} */}
+      <SchoolHomePage />
     </div>
   );
 };

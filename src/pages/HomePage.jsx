@@ -135,44 +135,44 @@ export default function HomePage(props) {
   useFetchUserFromJwt();
 
   const dispatch = useDispatch();
-  const token = Cookies.get("token");
-  const decodedToken = jwtDecode(token);
-  const role = decodedToken.role;
+  // const token = Cookies.get("token");
+  // const decodedToken = jwtDecode(token);
+  // const role = decodedToken.role;
 
-  const handleLogout = async () => {
-    try {
-      if (role === "PRINCIPAL") {
-        const response = await fetch("http://localhost:4000/school/logout", {
-          method: "POST",
-          credentials: "include", // Include cookies in the request
-        });
+  // const handleLogout = async () => {
+  //   try {
+  //     if (role === "PRINCIPAL") {
+  //       const response = await fetch("http://localhost:4000/school/logout", {
+  //         method: "POST",
+  //         credentials: "include", // Include cookies in the request
+  //       });
 
-        dispatch(clearUser());
-        const data = await response.json();
-        console.log("Logged out:", data.message);
+  //       dispatch(clearUser());
+  //       const data = await response.json();
+  //       console.log("Logged out:", data.message);
 
-        // Redirect to the login page after successful logout
-        navigate("/chooseUser");
-      } else if (role === "STUDENT") {
-        const response = await fetch("http://localhost:4000/student/logout", {
-          method: "POST",
-          credentials: "include", // Include cookies in the request
-        });
+  //       // Redirect to the login page after successful logout
+  //       navigate("/chooseUser");
+  //     } else if (role === "STUDENT") {
+  //       const response = await fetch("http://localhost:4000/student/logout", {
+  //         method: "POST",
+  //         credentials: "include", // Include cookies in the request
+  //       });
 
-        dispatch(clearStudent());
-        const data = await response.json();
-        console.log("Logged out:", data.message);
-        // Redirect to the login page after successful logout
-        navigate("/chooseUser");
-      }
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  };
+  //       dispatch(clearStudent());
+  //       const data = await response.json();
+  //       console.log("Logged out:", data.message);
+  //       // Redirect to the login page after successful logout
+  //       navigate("/chooseUser");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error logging out:", error);
+  //   }
+  // };
 
-  const handleDrawerTransitionEnd = () => {
-    setIsClosing(false);
-  };
+  // const handleDrawerTransitionEnd = () => {
+  //   setIsClosing(false);
+  // };
 
   // const isLoggedIn = () => {
   //   const token = Cookies.get("token"); // 'token' should match the name of the token set in the backend
@@ -188,6 +188,10 @@ export default function HomePage(props) {
     if (!isClosing) {
       setMobileOpen(!mobileOpen);
     }
+  };
+
+  const handleDrawerTransitionEnd = () => {
+    setIsClosing(false);
   };
 
   const drawer = (
@@ -206,8 +210,9 @@ export default function HomePage(props) {
           />
         </div>
       </Link>
-      {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
-      {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />}
+      {/* {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
+      {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />} */}
+      <SchoolMenuList setMobileOpen={setMobileOpen} />
       <Divider />
       <List>
         {["Profile", "Logout"].map((text, index) => (
@@ -228,7 +233,7 @@ export default function HomePage(props) {
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
               }}
-              onClick={index === 1 ? handleLogout : null} // Add onClick event handler
+              // onClick={index === 1 ? handleLogout : null} // Add onClick event handler
             >
               <ListItemIcon sx={{ color: "white" }}>
                 {index === 0 ? <AccountCircleIcon /> : <LogoutIcon />}
@@ -297,12 +302,13 @@ export default function HomePage(props) {
               </IconButton>
             </DrawerHeader>
             <Divider />
-            {role === "PRINCIPAL" && (
+            {/* {role === "PRINCIPAL" && (
               <SchoolMenuList setMobileOpen={setMobileOpen} />
             )}
             {role === "STUDENT" && (
               <StudentMenuList setMobileOpen={setMobileOpen} />
-            )}
+            )} */}
+            <SchoolMenuList setMobileOpen={setMobileOpen} />
             <Divider />
             <List>
               {["Profile", "Logout"].map((text, index) => (
@@ -323,7 +329,7 @@ export default function HomePage(props) {
                       justifyContent: open ? "initial" : "center",
                       px: 2.5,
                     }}
-                    onClick={index === 1 ? handleLogout : null} // Add onClick event handler
+                    // onClick={index === 1 ? handleLogout : null} // Add onClick event handler
                   >
                     <ListItemIcon
                       sx={{

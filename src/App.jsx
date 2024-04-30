@@ -36,19 +36,11 @@ import ComplainPage from "./pages/Students/SingleStudent/ComplainPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Protected>
-        <HomePage />
-      </Protected>
-    ),
+    element: <HomePage />,
     children: [
       {
         path: "/",
-        element: (
-          <Protected>
-            <MainHomepage />
-          </Protected>
-        ),
+        element: <MainHomepage />,
       },
       {
         path: "/expenses",
