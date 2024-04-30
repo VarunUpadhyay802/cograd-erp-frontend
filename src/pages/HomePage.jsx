@@ -174,15 +174,15 @@ export default function HomePage(props) {
     setIsClosing(false);
   };
 
-  const isLoggedIn = () => {
-    const token = Cookies.get("token"); // 'token' should match the name of the token set in the backend
-    console.log("schoolToken", token);
-    console.log(!!token);
-    return !!token;
-  };
-  React.useEffect(() => {
-    isLoggedIn();
-  }, []);
+  // const isLoggedIn = () => {
+  //   const token = Cookies.get("token"); // 'token' should match the name of the token set in the backend
+  //   console.log("schoolToken", token);
+  //   console.log(!!token);
+  //   return !!token;
+  // };
+  // React.useEffect(() => {
+  //   isLoggedIn();
+  // }, []);
 
   const handleDrawerToggle = () => {
     if (!isClosing) {
