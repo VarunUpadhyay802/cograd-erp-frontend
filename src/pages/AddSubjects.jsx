@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import SubjectCards from "../components/SubjectCards";
 import ClassSelector from "../components/ClassSelector";
@@ -105,23 +105,21 @@ const AddSubjects = () => {
             sx={{
               position: "absolute",
               top: {
-                xs: "60%", // Shorter width on smaller screens
-                sm: "55%", // Wider width on medium screens
-                lg: "50%", // Wider width on larger screens
+                xs: "60%", 
+                sm: "55%",
+                lg: "50%", 
               },
               left: "50%",
               transform: "translate(-50%, -50%)",
               width: {
-                xs: 350, // Shorter width on smaller screens
-                sm: 400, // Wider width on medium screens
-                lg: 600, // Wider width on larger screens
+                xs: 350, 
+                sm: 400, 
+                lg: 600, 
               },
               padding: 4,
               borderRadius: 4,
               boxShadow: 24,
               backgroundColor: "white",
-              
-              
             }}
           >
             <h2 className="text-2xl font-bold text-gray-800">Add Subjects</h2>
@@ -184,21 +182,21 @@ const AddSubjects = () => {
                   )}
                 </div>
               ))}
-            <div className="flex flex-col gap-3 ">
-            <button
-                type="button"
-                onClick={addSubjectField}
-                className="bg-green-500 text-white px-4 py-2 rounded-lg w-full"
-              >
-                Add Another Subject
-              </button>
-              <button
-                type="submit"
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200 w-full"
-              >
-                Submit
-              </button>
-            </div>
+              <div className="flex flex-col gap-3 ">
+                <button
+                  type="button"
+                  onClick={addSubjectField}
+                  className="bg-green-500 text-white px-4 py-2 rounded-lg w-full"
+                >
+                  Add Another Subject
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200 w-full"
+                >
+                  Submit
+                </button>
+              </div>
             </form>
           </Box>
         </Modal>
@@ -207,7 +205,9 @@ const AddSubjects = () => {
           {!loading && subjectsList.length > 0 ? (
             <SubjectCards subjectsList={subjectsList} />
           ) : (
-            <p className="text-lg text-gray-700 font-bold">Please add subjects.</p>
+            <p className="text-lg text-gray-700 font-bold">
+              Please add subjects.
+            </p>
           )}
         </div>
       </div>

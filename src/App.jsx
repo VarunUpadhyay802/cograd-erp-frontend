@@ -8,6 +8,7 @@ import SchoolAddClasses from "./pages/School/SchoolAddClasses";
 import AddSubjects from "./pages/AddSubjects";
 import HomePage from "./pages/HomePage";
 import TeacherAttendance from "./pages/TeacherAttendance";
+import TeacherList from "./pages/TeacherList";
 import Protected from "./components/Protected";
 import ChooseUser from "./pages/ChooseUser";
 import TeacherLogin from "./pages/TeacherLogin";
@@ -29,7 +30,7 @@ import SchoolsRegister from "./pages/School/SchoolsRegister";
 import SchoolHomePage from "./pages/School/SchoolHomePage";
 import StudentLogin from "./pages/Students/SingleStudent/StudentLogin";
 import MainHomepage from "./pages/MainHomepage";
-import AttendanceReport from "./components/Students/SingleStudent/AttendanceReport";
+// import AttendanceReport from "./components/Students/SingleStudent/AttendanceReport";
 import StudentAttendanceReport from "./pages/Students/SingleStudent/StudentAttendanceReport";
 import MarksSheetPage from "./pages/Students/SingleStudent/MarksSheetPage";
 import ComplainPage from "./pages/Students/SingleStudent/ComplainPage";
@@ -72,6 +73,14 @@ const router = createBrowserRouter([
         element: (
           <Protected>
             <TeacherOptions />
+          </Protected>
+        ),
+      },
+      {
+        path: "/teacherList",
+        element: (
+          <Protected>
+            <TeacherList />
           </Protected>
         ),
       },

@@ -14,6 +14,10 @@ const TeacherOptions = ({ cardData }) => {
       <p>Lorem ipsum dolor sit amet assumenda commodi quidem at tenetur ab nobis.</p>
     </Card>
 
+    <Card link="/teacherList" title="All Teachers">
+      <p>Lorem ipsum dolor sit amet assumenda commodi quidem at tenetur ab nobis.</p>
+    </Card>
+
     {/* <Card title="Contact Us">
       <p>Feel free to reach out to us via email or phone.</p>
     </Card> */}

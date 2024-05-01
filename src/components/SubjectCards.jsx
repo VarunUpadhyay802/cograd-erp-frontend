@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
 
 const SubjectCards = ({ subjectsList }) => {
   return (
@@ -12,7 +12,7 @@ const SubjectCards = ({ subjectsList }) => {
             >
               {/* Check if className is an object and extract the className property */}
               <p className="text-gray-600 bg-orange-300 rounded-md text-center">
-                {subject.className.className || 'Unknown'}
+                {subject.className.className || "Unknown"}
               </p>
               <h5 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
                 {subject.subName.toUpperCase()}
@@ -21,7 +21,7 @@ const SubjectCards = ({ subjectsList }) => {
                 {subject.subCode.toUpperCase()}
               </h5>
               <p className="text-gray-700 dark:text-gray-400">
-                Teacher: {subject.teacher ? subject.teacher : 'Not Added'}
+                Teacher: {subject.teacher ? subject.teacher : "Not Added"}
               </p>
             </a>
           </div>
