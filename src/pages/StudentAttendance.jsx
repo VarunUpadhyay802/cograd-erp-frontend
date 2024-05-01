@@ -8,18 +8,15 @@ const StudentAttendance = () => {
     new Date().toISOString().slice(0, 10)
   );
 
-  // Fetch students on component mount
   const fetchStudents = async () => {
     try {
       const response = await axios.get(
         "http://localhost:4000/studentAttendance/studentsList",
         {
           withCredentials: true,
-          // You might need to provide the class teacher ID here, depending on your backend route
         }
       );
       setStudents(response.data.students);
-      console.log("student list fetched", response.data.students);
       setAttendanceStatus(Array(response.data.students.length).fill("a"));
     } catch (error) {
       console.error("Error fetching students:", error);
@@ -31,7 +28,6 @@ const StudentAttendance = () => {
   }, []);
 
   const handleStatusChange = (index, value) => {
-    // Update the attendance status for a specific student
     const updatedStatus = [...attendanceStatus];
     updatedStatus[index] = value;
     setAttendanceStatus(updatedStatus);
@@ -53,10 +49,6 @@ const StudentAttendance = () => {
           withCredentials: true,
         }
       );
-      if (response.status === 400) {
-        alert("Recorded already");
-      }
-      console.log("Student Attendances success:", response);
       alert("Attendance recorded successfully!");
     } catch (error) {
       console.error("Error recording attendance:", error);
@@ -64,45 +56,86 @@ const StudentAttendance = () => {
     }
   };
 
+  const capitalizeFirstLetter = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
   return (
-    <div className="max-w-md mx-auto">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <h2 className="text-xl font-semibold mb-4">Record Student Attendance</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="attendanceDate" className="block mb-1">
-            Attendance Date:
-          </label>
+
+      <form onSubmit={handleSubmit} className="w-full max-w-7xl">
+        <div className="flex flex-wrap justify-center gap-4">
+          {students.map((student, index) => (
+            <div
+              key={student._id}
+              className="gap-2 px-4 py-3 border border-gray-300 rounded-lg flex flex-col items-center justify-between bg-white"
+            >
+              <img
+                src="/student.png" // Placeholder for student image
+                alt="Student"
+                className="h-16 w-18 rounded-full bg-slate-200"
+              />
+              <p className="font-serif font-medium">
+                {capitalizeFirstLetter(student.name)}
+              </p>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  className={`w-8 h-8 rounded-full ${
+                    attendanceStatus[index] === "p"
+                      ? "bg-green-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                  onClick={() => handleStatusChange(index, "p")}
+                >
+                  P
+                </button>
+
+                <button
+                  type="button"
+                  className={`w-8 h-8 rounded-full ${
+                    attendanceStatus[index] === "a"
+                      ? "bg-red-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                  onClick={() => handleStatusChange(index, "a")}
+                >
+                  A
+                </button>
+
+                <button
+                  type="button"
+                  className={`w-8 h-8 rounded-full ${
+                    attendanceStatus[index] === "l"
+                      ? "bg-orange-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                  onClick={() => handleStatusChange(index, "l")}
+                >
+                  L
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-col xs:flex xs:flex-row gap-3 items-center justify-center mt-4">
           <input
             type="date"
             id="attendanceDate"
             value={currentDate}
             onChange={(e) => setCurrentDate(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
           />
+          <button
+            type="submit"
+            className="flex gap-2 bg-[#AEE6E6] text-white px-4 py-2 rounded hover:bg-[#41C9E2]"
+          >
+            <p className="text-black font-ProductTitle">Record Attendance</p>
+            <img src="/schedule.png" alt="Record" className="h-7 w-7" />
+          </button>
         </div>
-
-        {students.map((student, index) => (
-          <div key={student._id} className="mb-4">
-            <label className="block mb-1">
-              {student.name} - Attendance Status:
-            </label>
-            <select
-              value={attendanceStatus[index]}
-              onChange={(e) => handleStatusChange(index, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-            >
-              <option value="p">Present</option>
-              <option value="a">Absent</option>
-            </select>
-          </div>
-        ))}
-
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Record Attendance
-        </button>
       </form>
     </div>
   );
