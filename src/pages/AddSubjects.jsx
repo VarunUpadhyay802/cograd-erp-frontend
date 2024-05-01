@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import SubjectCards from "../components/SubjectCards"; // A component to display a list of subjects
-import ClassSelector from "../components/ClassSelector"; // A component to select a class
+import SubjectCards from "../components/SubjectCards";
+import ClassSelector from "../components/ClassSelector";
+import { Modal, Box } from "@mui/material";
 
 const AddSubjects = () => {
-  const [classID, setClassID] = useState(""); // Store the selected class ID
-  const [subjects, setSubjects] = useState([{ subName: "", subCode: "" }]); // For adding new subjects
-  const [subjectsList, setSubjectsList] = useState([]); // List of subjects for the selected class
+  const [classID, setClassID] = useState("");
+  const [subjects, setSubjects] = useState([{ subName: "", subCode: "" }]);
+  const [subjectsList, setSubjectsList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
   const handleSubjectChange = (index, field, value) => {
     const newSubjects = [...subjects];
     newSubjects[index][field] = value;
-    setSubjects(newSubjects); // Update subject information
+    setSubjects(newSubjects);
   };
 
   const addSubjectField = () => {
-    setSubjects([...subjects, { subName: "", subCode: "" }]); // Add another subject field
+    setSubjects([...subjects, { subName: "", subCode: "" }]);
   };
 
   const removeSubjectField = (index) => {
-    const newSubjects = subjects.filter((_, i) => i !== index); // Remove a subject field
-    setSubjects(newSubjects);
+    setSubjects(subjects.filter((_, i) => i !== index));
   };
 
   const fetchSubjects = async (classID) => {
@@ -29,13 +32,10 @@ const AddSubjects = () => {
     try {
       const response = await axios.get(
         `http://localhost:4000/subject/classSubjects/${classID}`,
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
-
       if (response.status === 200 && Array.isArray(response.data)) {
-        setSubjectsList(response.data); // Store subjects related to the selected class
+        setSubjectsList(response.data);
       } else {
         setSubjectsList([]);
       }
@@ -47,27 +47,22 @@ const AddSubjects = () => {
     }
   };
 
-  // Fetch subjects for the selected class ID
   useEffect(() => {
     if (classID) {
-      fetchSubjects(classID); // Fetch only when a class ID is set
+      fetchSubjects(classID);
     }
   }, [classID]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
 
     if (!classID) {
-      console.error("Class ID is required."); // Class ID must be selected
+      console.error("Class ID is required.");
       return;
     }
 
-    if (
-      subjects.some(
-        (subject) => !subject.subName.trim() || !subject.subCode.trim()
-      )
-    ) {
-      console.error("All subjects must have a name and code."); // Each subject must have a name and code
+    if (subjects.some((s) => !s.subName.trim() || !s.subCode.trim())) {
+      console.error("All subjects must have a name and code.");
       return;
     }
 
@@ -75,44 +70,78 @@ const AddSubjects = () => {
       const response = await axios.post(
         "http://localhost:4000/subject/add",
         {
-          className: classID, // Class to which the subjects are being added
+          className: classID,
           subjects,
         },
-        { withCredentials: true } // Include credentials in the request
+        { withCredentials: true }
       );
-
+      fetchSubjects(classID);
       console.log("Subjects added:", response.data);
 
-      // Reset the form after successful submission
       setClassID("");
       setSubjects([{ subName: "", subCode: "" }]);
     } catch (error) {
       console.error("Error adding subjects:", error);
     }
+
+    handleClose();
   };
 
   return (
     <>
-      <div className="flex flex-col gap-4   sm:flex sm:gap-5 lg:gap-3 sm:justify-end md:flex md:flex-row m-1 sm:m-4">
-      <div className="lg:w-1/2">
-          <h2 className="text-xl font-semibold mb-4">Add Subjects</h2>
-          <form onSubmit={handleSubmit}>
-            {" "}
-            {/* Handle the form submission */}
-            <div className="mb-4">
-              <label htmlFor="classID" className="block mb-1 mt-2 text-15 text-gray-500">
-                Select Class:
-              </label>
-              <ClassSelector setClassID={setClassID} />{" "}
-              {/* Update classID on class selection */}
-            </div>
-            {subjects.map((subject, index) => (
-              <div key={index} className="mb-4">
-                {" "}
-                {/* Subject input fields */}
-                <div className="flex gap-2">
+      <div className="flex flex-col gap-6 m-4 lg:flex lg:gap-8 lg:flex-row">
+        <div className="lg:w-1/2">
+          <button
+            onClick={handleOpen}
+            className="flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition duration-200"
+          >
+            <span className="font-semibold">Add Subjects</span>
+            <img src="/class.png" alt="Add" className="h-7 w-7" />
+          </button>
+        </div>
+
+        <Modal open={openModal} onClose={handleClose} className="">
+          <Box
+            sx={{
+              position: "absolute",
+              top: {
+                xs: "60%", // Shorter width on smaller screens
+                sm: "55%", // Wider width on medium screens
+                lg: "50%", // Wider width on larger screens
+              },
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: {
+                xs: 350, // Shorter width on smaller screens
+                sm: 400, // Wider width on medium screens
+                lg: 600, // Wider width on larger screens
+              },
+              padding: 4,
+              borderRadius: 4,
+              boxShadow: 24,
+              backgroundColor: "white",
+              
+              
+            }}
+          >
+            <h2 className="text-2xl font-bold text-gray-800">Add Subjects</h2>
+            <form onSubmit={handleSubmit} className="mt-4 space-y-4 ">
+              <div>
+                <label
+                  htmlFor="classID"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Select Class:
+                </label>
+                <ClassSelector setClassID={setClassID} />
+              </div>
+              {subjects.map((subject, index) => (
+                <div key={index} className="flex gap-4 items-center">
                   <div>
-                    <label htmlFor={`subName-${index}`} className="block mb-1 mt-2 text-15 text-gray-500">
+                    <label
+                      htmlFor={`subName-${index}`}
+                      className="block text-sm font-medium text-gray-600"
+                    >
                       Subject Name:
                     </label>
                     <input
@@ -123,11 +152,14 @@ const AddSubjects = () => {
                         handleSubjectChange(index, "subName", e.target.value)
                       }
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                     />
                   </div>
                   <div>
-                    <label htmlFor={`subCode-${index}`} className="block mb-1 mt-2 text-15 text-gray-500">
+                    <label
+                      htmlFor={`subCode-${index}`}
+                      className="block text-sm font-medium text-gray-600"
+                    >
                       Subject Code:
                     </label>
                     <input
@@ -138,44 +170,47 @@ const AddSubjects = () => {
                         handleSubjectChange(index, "subCode", e.target.value)
                       }
                       required
-                      className="w-full px-3 py-2 border border-gray-300 rounded"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                     />
                   </div>
                   {subjects.length > 1 && (
                     <button
                       type="button"
                       onClick={() => removeSubjectField(index)}
-                      className="bg-red-500 text-white px-4 py-2 rounded"
+                      className="bg-red-500 text-white h-7 w-12 rounded-lg mt-5 "
                     >
                       X
                     </button>
                   )}
                 </div>
-              </div>
-            ))}
+              ))}
+            <div className="flex flex-col gap-3 ">
             <button
-              type="button"
-              onClick={addSubjectField}
-              className="bg-green-500 text-white px-4 py-2 rounded"
-            >
-              Add Another Subject
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
+                type="button"
+                onClick={addSubjectField}
+                className="bg-green-500 text-white px-4 py-2 rounded-lg w-full"
+              >
+                Add Another Subject
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200 w-full"
+              >
+                Submit
+              </button>
+            </div>
+            </form>
+          </Box>
+        </Modal>
+
         <div className="lg:w-1/2">
           {!loading && subjectsList.length > 0 ? (
             <SubjectCards subjectsList={subjectsList} />
           ) : (
-            <p className="text-15 font-bold md:p-10">Please Add the Subjects </p>
+            <p className="text-lg text-gray-700 font-bold">Please add subjects.</p>
           )}
         </div>
-        </div>
+      </div>
     </>
   );
 };
