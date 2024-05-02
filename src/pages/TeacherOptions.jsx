@@ -7,7 +7,7 @@ const TeacherOptions = ({ cardData }) => {
   return (
     <div className="p-4 flex gap-3">
   
-    <Card link="/teacherAttendance" title="Teacher's Attendance">
+    <Card link="/teacherAttendance" title="Mark Teacher's Attendance">
       <p>Lorem ipsum dolor sit amet assumenda commodi quidem at tenetur ab nobis.</p>
     </Card>
     <Card link="/teacherRegistration" title="Registration">
@@ -15,6 +15,9 @@ const TeacherOptions = ({ cardData }) => {
     </Card>
 
     <Card link="/teacherList" title="All Teachers">
+      <p>Lorem ipsum dolor sit amet assumenda commodi quidem at tenetur ab nobis.</p>
+    </Card>
+    <Card link="/view/teacherAttendance" title="View Teacher's Attendance">
       <p>Lorem ipsum dolor sit amet assumenda commodi quidem at tenetur ab nobis.</p>
     </Card>
 

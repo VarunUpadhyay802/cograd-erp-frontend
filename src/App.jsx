@@ -15,10 +15,12 @@ import TeacherLogin from "./pages/TeacherLogin";
 import TeacherOptions from "./pages/TeacherOptions";
 import TeacherRegistration from "./pages/TeacherRegistration";
 import TeacherDashBoard from "./pages/TeacherDashBoard";
+import TeacherMark from "./pages/TeacherMark";
 
 import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
 import SubjectOptions from "./pages/SubjectOptions";
 import ClassTeacherDashBoard from "./pages/ClassTeacherDashBoard";
+import ViewTeacherAttendance from "./pages/ViewTeacherAttendance";
 
 import ClassTeacherLogin from "./pages/ClassTeacherLogin";
 
@@ -75,6 +77,14 @@ const router = createBrowserRouter([
         element: (
           <Protected>
             <TeacherOptions />
+          </Protected>
+        ),
+      },
+      {
+        path: "/view/teacherAttendance",
+        element: (
+          <Protected>
+            <ViewTeacherAttendance />
           </Protected>
         ),
       },
@@ -181,6 +191,10 @@ const router = createBrowserRouter([
     element: <TeacherDashBoard />,
   },
   {
+    path: "/teacher-mark-self",
+    element: <TeacherMark />,
+  },
+  {
     path: "/student-mark",
     element: <StudentAttendance />,
   },
@@ -197,7 +211,7 @@ const router = createBrowserRouter([
     path: "/classTeacherRegistration/:teacherId",
     element: <ClassTeacherRegistration />,
   },
-  
+
   {
     path: "/classTeacherDashBoard",
     element: <ClassTeacherDashBoard />,
