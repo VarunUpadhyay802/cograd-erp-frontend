@@ -89,8 +89,8 @@ const AddSubjects = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-6 m-4 lg:flex lg:gap-8 lg:flex-row">
-        <div className="lg:w-1/2">
+      <div className="flex flex-col gap-6 m-4 justify-center items-center">
+        <div className="">
           <button
             onClick={handleOpen}
             className="flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition duration-200"
@@ -201,7 +201,7 @@ const AddSubjects = () => {
           </Box>
         </Modal>
 
-        <div className="lg:w-1/2">
+        <div className="">
           {!loading && subjectsList.length > 0 ? (
             <SubjectCards subjectsList={subjectsList} />
           ) : (

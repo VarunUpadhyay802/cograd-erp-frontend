@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // <-- to redirect to another page
 
 const TeacherList = () => {
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // <-- navigation hook
 
   // Fetch the list of teachers when the component is mounted
   useEffect(() => {
@@ -30,6 +32,18 @@ const TeacherList = () => {
     fetchTeachers();
   }, []);
 
+  // Function to handle "Make Class Teacher" button click
+  const handleMakeClassTeacher = (teacherId) => {
+    const teacher = teachers.find((t) => t._id === teacherId);
+
+    if (teacher.isClassTeacher) { // check if teacher is already a class teacher
+      alert("This teacher is already a class teacher.");
+    } else {
+      // Redirect to the class teacher registration page with the teacher ID in params
+      navigate(`/classTeacherRegistration/${teacherId}`);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -54,6 +68,12 @@ const TeacherList = () => {
                 </li>
               ))}
             </ul>
+            <button
+              className="bg-blue-500 text-white px-3 py-2 mt-4 rounded"
+              onClick={() => handleMakeClassTeacher(teacher._id)} // handle button click
+            >
+              Make Class Teacher
+            </button>
           </div>
         ))}
       </div>

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import ClassSelector from "../components/ClassSelector";
 
 const ClassTeacherRegistration = () => {
   const { teacherId } = useParams(); // Extract the teacher ID from the URL parameters
@@ -14,7 +15,7 @@ const ClassTeacherRegistration = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/classTeacher/register",
+        "http://localhost:4000/teacherReg/classTeacherReg",
         {
           email,
           password,
@@ -25,7 +26,7 @@ const ClassTeacherRegistration = () => {
       );
 
       alert("Class Teacher registered successfully");
-      navigate("/"); // Redirect to a different page after successful registration
+      navigate("/"); // Redirect after successful registration
     } catch (error) {
       console.error("Error registering class teacher:", error);
       alert("Failed to register class teacher");
@@ -33,7 +34,6 @@ const ClassTeacherRegistration = () => {
   };
 
   return (
-   
     <div className="max-w-lg mx-auto">
       <h2 className="text-xl font-semibold mb-4">Register Class Teacher</h2>
       <form onSubmit={handleRegister}>
@@ -51,7 +51,7 @@ const ClassTeacherRegistration = () => {
           />
         </div>
 
-        <div className="mb-4">
+        <div class="mb-4">
           <label htmlFor="password" className="block mb-1">
             Password:
           </label>
@@ -65,23 +65,16 @@ const ClassTeacherRegistration = () => {
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="className" className="block mb-1">
-            Class Name:
+        <div>
+          <label htmlFor="classID" className="block text-sm font-medium text-gray-600">
+            Select Class:
           </label>
-          <input
-            type="text"
-            id="className"
-            value={className}
-            onChange={(e) => setClassName(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded"
-          />
+          <ClassSelector setClassID={setClassName} /> 
         </div>
 
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex-wrap"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
           Register Class Teacher
         </button>

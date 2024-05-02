@@ -34,6 +34,8 @@ import MainHomepage from "./pages/MainHomepage";
 import StudentAttendanceReport from "./pages/Students/SingleStudent/StudentAttendanceReport";
 import MarksSheetPage from "./pages/Students/SingleStudent/MarksSheetPage";
 import ComplainPage from "./pages/Students/SingleStudent/ComplainPage";
+// import TeacherMenuList from "./components/Teachers/TeacherMenuList";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -183,9 +185,19 @@ const router = createBrowserRouter([
     element: <StudentAttendance />,
   },
   {
+    path: "/student-mark",
+    element: <StudentAttendance />,
+  },
+  //teacher taking attendance of himself
+  {
+    path: "/teacher-mark",
+    element: <StudentAttendance />,
+  },
+  {
     path: "/classTeacherRegistration/:teacherId",
     element: <ClassTeacherRegistration />,
   },
+  
   {
     path: "/classTeacherDashBoard",
     element: <ClassTeacherDashBoard />,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import axios from "axios";
 import ClassSelector from "../components/ClassSelector"; // Import the ClassSelector component
 
@@ -81,6 +81,7 @@ const TeacherRegistration = () => {
       setName("");
       setEmail("");
       setPassword("");
+      className("");
       setTeachSubjects([{ subjectId: "", classId: "" }]);
       alert("Teacher registered successfully");
     } catch (error) {
