@@ -22,6 +22,8 @@ import SubjectOptions from "./pages/SubjectOptions";
 import ClassTeacherDashBoard from "./pages/ClassTeacherDashBoard";
 import ViewTeacherAttendance from "./pages/ViewTeacherAttendance";
 
+import TeacherIndividualAttendance from "./pages/TeacherIndividualAttendance";
+
 import ClassTeacherLogin from "./pages/ClassTeacherLogin";
 
 import StudentAttendance from "./pages/StudentAttendance";
@@ -105,10 +107,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/teacherAttendance",
+        path: "/teacher-all-Attendance",
         element: (
           <Protected>
             <TeacherAttendance />
+          </Protected>
+        ),
+      },
+      {
+        path: "/teacher-individual-attendance",
+        element: (
+          <Protected>
+            <TeacherIndividualAttendance />
           </Protected>
         ),
       },
