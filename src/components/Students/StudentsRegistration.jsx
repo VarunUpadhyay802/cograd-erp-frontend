@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import ClassSelector from "../ClassSelector";
 // import { Navigate } from "react-router-dom";
 // import "./student.css";
 
@@ -8,7 +9,7 @@ const StudentsRegistration = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [className, setClassName] = useState("");
+  const [classID, setClassID] = useState("");
   const [file, setFile] = useState(null);
 
   const [studentList, setStudentList] = useState([]);
@@ -36,7 +37,7 @@ const StudentsRegistration = () => {
 
       const response = await axios.post(
         "http://localhost:4000/student/register",
-        { name, email, password, className, file },
+        { name, email, password, className:classID, file },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -51,7 +52,7 @@ const StudentsRegistration = () => {
         setPassword("");
         setFile(null);
         setEmail("");
-        setClassName("");
+        setClassID("");
       }
     } catch (err) {
       console.log(err);
@@ -131,14 +132,7 @@ const StudentsRegistration = () => {
                   </div>
                   <div className="flex flex-col">
                     <label className="text-sm">Class</label>
-                    <input
-                      type="text"
-                      name="className"
-                      required
-                      onChange={(e) => setClassName(e.target.value)}
-                      value={className}
-                      className="border outline-none px-3 text-sm py-2 rounded-sm"
-                    />
+                    <ClassSelector setClassID = {setClassID} />
                   </div>
                   <div className="flex flex-col">
                     <label className="text-sm">Profile</label>

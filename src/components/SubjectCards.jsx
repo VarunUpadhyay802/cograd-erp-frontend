@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 const SubjectCards = ({ subjectsList }) => {
   return (
     <div className="flex flex-wrap justify-center gap-6 p-4">
@@ -10,9 +8,8 @@ const SubjectCards = ({ subjectsList }) => {
               href="#"
               className="block p-6 bg-white border border-gray-200 rounded-lg shadow-lg transition-transform transform hover:-translate-y-1 hover:shadow-xl hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
             >
-              {/* Check if className is an object and extract the className property */}
               <p className="text-gray-600 bg-orange-300 rounded-md text-center">
-                {subject.className.className || "Unknown"}
+                {subject.className?.className || "Unknown"}
               </p>
               <h5 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
                 {subject.subName.toUpperCase()}
@@ -21,7 +18,7 @@ const SubjectCards = ({ subjectsList }) => {
                 {subject.subCode.toUpperCase()}
               </h5>
               <p className="text-gray-700 dark:text-gray-400">
-                Teacher: {subject.teacher ? subject.teacher : "Not Added"}
+                Teacher: {subject.teacher?.name ?? "Not Added"}
               </p>
             </a>
           </div>
@@ -30,5 +27,3 @@ const SubjectCards = ({ subjectsList }) => {
     </div>
   );
 };
-
-export default SubjectCards;

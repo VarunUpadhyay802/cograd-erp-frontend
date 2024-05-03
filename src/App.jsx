@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-// import HomePage from "./HomePage";
+
 import SchoolLogin from "./pages/School/SchoolLogin";
 import SchoolExpenses from "./pages/School/SchoolExpenses";
 import SchoolStaff from "./pages/School/SchoolStaff";
@@ -29,6 +29,7 @@ import ClassTeacherLogin from "./pages/ClassTeacherLogin";
 import StudentAttendance from "./pages/StudentAttendance";
 import StudentRegistrationPage from "./pages/Students/StudentRegistrationPage";
 import StudentHomePage from "./pages/Students/StudentHomePage";
+import StudentHomePage2 from "./pages/Students/StudentHomePage2";
 import ViewSubjects from "./pages/ViewSubjects";
 import SchoolsRegister from "./pages/School/SchoolsRegister";
 import SchoolHomePage from "./pages/School/SchoolHomePage";
@@ -157,6 +158,10 @@ const router = createBrowserRouter([
       {
         path: "/students",
         element: <StudentHomePage />,
+      },
+      {
+        path: "/students-2",
+        element: <StudentHomePage2 />,
       },
       {
         path: "/studentAttendance",
