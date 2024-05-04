@@ -8,6 +8,7 @@ const StudentAttendance = () => {
     new Date().toISOString().slice(0, 10)
   );
 
+  // Fetch the list of students
   const fetchStudents = async () => {
     try {
       const response = await axios.get(
@@ -25,6 +26,27 @@ const StudentAttendance = () => {
 
   useEffect(() => {
     fetchStudents();
+  }, []);
+
+  // Fetch consecutive absences and handle notifications
+  const checkConsecutiveAbsences = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/studentAttendance/checkConsecutiveAbsences",
+        { withCredentials: true }
+      );
+
+      if (response.data?.message === "Consecutive absences checked.") {
+        console.log("Consecutive absence check complete");
+        // You can add a UI indication here, like a toast message or a pop-up
+      }
+    } catch (error) {
+      console.error("Error checking consecutive absences:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkConsecutiveAbsences(); // Check when the component mounts
   }, []);
 
   const handleStatusChange = (index, value) => {
@@ -49,6 +71,10 @@ const StudentAttendance = () => {
           withCredentials: true,
         }
       );
+
+      // After marking attendance, check for consecutive absences again
+      checkConsecutiveAbsences(); // Trigger the check on submit
+
       alert("Attendance recorded successfully!");
     } catch (error) {
       console.error("Error recording attendance:", error);
@@ -72,7 +98,7 @@ const StudentAttendance = () => {
               className="gap-2 px-4 py-3 border border-gray-300 rounded-lg flex flex-col items-center justify-between bg-white"
             >
               <img
-                src="/student.png" // Placeholder for student image
+                src="/student.png"
                 alt="Student"
                 className="h-16 w-18 rounded-full bg-slate-200"
               />
@@ -85,7 +111,7 @@ const StudentAttendance = () => {
                   className={`w-8 h-8 rounded-full ${
                     attendanceStatus[index] === "p"
                       ? "bg-green-500 text-white"
-                      : "bg-gray-200"
+                    : "bg-gray-200"
                   }`}
                   onClick={() => handleStatusChange(index, "p")}
                 >
@@ -97,7 +123,7 @@ const StudentAttendance = () => {
                   className={`w-8 h-8 rounded-full ${
                     attendanceStatus[index] === "a"
                       ? "bg-red-500 text-white"
-                      : "bg-gray-200"
+                    : "bg-gray-200"
                   }`}
                   onClick={() => handleStatusChange(index, "a")}
                 >
@@ -109,7 +135,7 @@ const StudentAttendance = () => {
                   className={`w-8 h-8 rounded-full ${
                     attendanceStatus[index] === "l"
                       ? "bg-orange-500 text-white"
-                      : "bg-gray-200"
+                    : "bg-gray-200"
                   }`}
                   onClick={() => handleStatusChange(index, "l")}
                 >
@@ -132,8 +158,7 @@ const StudentAttendance = () => {
             type="submit"
             className="flex gap-2 bg-[#AEE6E6] text-white px-4 py-2 rounded hover:bg-[#41C9E2]"
           >
-            <p className="text-black font-ProductTitle">Record Attendance</p>
-            <img src="/schedule.png" alt="Record" className="h-7 w-7" />
+            Record Attendance
           </button>
         </div>
       </form>

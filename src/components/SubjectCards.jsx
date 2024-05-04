@@ -27,3 +27,4 @@ const SubjectCards = ({ subjectsList }) => {
     </div>
   );
 };
+export default SubjectCards
