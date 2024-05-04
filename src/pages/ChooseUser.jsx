@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { Grid, Paper, Box, Container } from "@mui/material";
-import { AccountCircle, School, Group, SupervisorAccount, AdminPanelSettings } from "@mui/icons-material";
+import {
+  AccountCircle,
+  School,
+  Group,
+  SupervisorAccount,
+  AdminPanelSettings,
+} from "@mui/icons-material";
 import styled from "styled-components";
 
 const ChooseUser = () => {
@@ -10,6 +16,9 @@ const ChooseUser = () => {
     switch (user) {
       case "Principal":
         navigate("/schoolLogin"); // Example route for admin login
+        break;
+      case "Parent":
+        navigate("/parentLogin"); // Example route for admin login
         break;
       case "Student":
         navigate("/studentLogin"); // Example route for student login
@@ -33,7 +42,10 @@ const ChooseUser = () => {
       <Container>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12} sm={6} md={3}>
-            <StyledPaper onClick={() => navigateHandler("Principal")} elevation={3}>
+            <StyledPaper
+              onClick={() => navigateHandler("Principal")}
+              elevation={3}
+            >
               <Box mb={2}>
                 <AccountCircle fontSize="large" />
               </Box>
@@ -41,6 +53,19 @@ const ChooseUser = () => {
               Login as a Principal to access the dashboard to manage app data.
             </StyledPaper>
           </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <StyledPaper
+              onClick={() => navigateHandler("Parent")}
+              elevation={3}
+            >
+              <Box mb={2}>
+                <AccountCircle fontSize="large" />
+              </Box>
+              <StyledTypography>Parent</StyledTypography>
+              Login as a Parent to see Your student's progress
+            </StyledPaper>
+          </Grid>
+
           <Grid item xs={12} sm={6} md={3}>
             <StyledPaper
               onClick={() => navigateHandler("Student")}
@@ -62,7 +87,8 @@ const ChooseUser = () => {
                 <Group fontSize="large" />
               </Box>
               <StyledTypography>Teacher</StyledTypography>
-              Login as a Teacher to create courses, assignments, and track student progress.
+              Login as a Teacher to create courses, assignments, and track
+              student progress.
             </StyledPaper>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
@@ -74,7 +100,8 @@ const ChooseUser = () => {
                 <SupervisorAccount fontSize="large" />
               </Box>
               <StyledTypography>Class Teacher</StyledTypography>
-              Login as a Class Teacher to manage your class and student interactions.
+              Login as a Class Teacher to manage your class and student
+              interactions.
             </StyledPaper>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>

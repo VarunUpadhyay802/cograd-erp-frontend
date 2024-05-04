@@ -39,6 +39,8 @@ import MainHomepage from "./pages/MainHomepage";
 import StudentAttendanceReport from "./pages/Students/SingleStudent/StudentAttendanceReport";
 import MarksSheetPage from "./pages/Students/SingleStudent/MarksSheetPage";
 import ComplainPage from "./pages/Students/SingleStudent/ComplainPage";
+import ParentLogin from "./pages/Parent/ParentLogin";
+import ParentRegistration from "./pages/Parent/ParentRegistration";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
 
 const router = createBrowserRouter([
@@ -156,6 +158,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/parentRegistration",
+        element: (
+          <Protected>
+            <ParentRegistration />
+          </Protected>
+        ),
+      },
+      {
         path: "/students",
         element: <StudentHomePage />,
       },
@@ -188,6 +198,10 @@ const router = createBrowserRouter([
   {
     path: "/studentLogin",
     element: <StudentLogin />,
+  },
+  {
+    path: "/parentLogin",
+    element: <ParentLogin />,
   },
   {
     path: "/chooseUser",
@@ -231,6 +245,7 @@ const router = createBrowserRouter([
     path: "/classTeacherDashBoard",
     element: <ClassTeacherDashBoard />,
   },
+  
 ]);
 
 function App() {

@@ -23,6 +23,7 @@ const SchoolMenuList = ({ setMobileOpen }) => {
         "Classes",
         "Subjects",
         "Teachers",
+        "Parents",
         "Students",
         "Students-2",
         "Transactions",
@@ -47,10 +48,12 @@ const SchoolMenuList = ({ setMobileOpen }) => {
               : index === 3
               ? "/teacherChoose"
               : index === 4
-              ? "/students"
+              ? "/parentRegistration"
               : index === 5
-              ? "/students-2"
+              ? "/students"
               : index === 6
+              ? "/students-2"
+              : index === 7
               ? "/expenses"
               : "/staffs"
           } // Define the route to navigate to
