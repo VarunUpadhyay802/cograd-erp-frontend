@@ -4,6 +4,7 @@ import axios from "axios";
 const StudentAttendance = () => {
   const [students, setStudents] = useState([]);
   const [attendanceStatus, setAttendanceStatus] = useState([]);
+  const [consecutiveAbsentees, setConsecutiveAbsentees] = useState([]);
   const [currentDate, setCurrentDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
@@ -26,6 +27,7 @@ const StudentAttendance = () => {
 
   useEffect(() => {
     fetchStudents();
+    checkConsecutiveAbsences(); // Check when the component mounts
   }, []);
 
   // Fetch consecutive absences and handle notifications
@@ -36,18 +38,13 @@ const StudentAttendance = () => {
         { withCredentials: true }
       );
 
-      if (response.data?.message === "Consecutive absences checked.") {
-        console.log("Consecutive absence check complete");
-        // You can add a UI indication here, like a toast message or a pop-up
+      if (response.data.students && response.data.students.length > 0) {
+        setConsecutiveAbsentees(response.data.students); // Store the list of students with consecutive absences
       }
     } catch (error) {
       console.error("Error checking consecutive absences:", error);
     }
   };
-
-  useEffect(() => {
-    checkConsecutiveAbsences(); // Check when the component mounts
-  }, []);
 
   const handleStatusChange = (index, value) => {
     const updatedStatus = [...attendanceStatus];
@@ -64,7 +61,7 @@ const StudentAttendance = () => {
         date: currentDate,
       };
 
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:4000/studentAttendance/mark",
         attendanceData,
         {
@@ -89,6 +86,19 @@ const StudentAttendance = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h2 className="text-xl font-semibold mb-4">Record Student Attendance</h2>
+
+      {consecutiveAbsentees.length > 0 && (
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
+          <p className="font-semibold">Students with three consecutive absences:</p>
+          <ul>
+            {consecutiveAbsentees.map((student) => (
+              <li key={student.studentId}>
+                {student.studentName}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="w-full max-w-7xl">
         <div className="flex flex-wrap justify-center gap-4">
@@ -129,7 +139,6 @@ const StudentAttendance = () => {
                 >
                   A
                 </button>
-
                 <button
                   type="button"
                   className={`w-8 h-8 rounded-full ${
@@ -141,6 +150,9 @@ const StudentAttendance = () => {
                 >
                   L
                 </button>
+
+
+             
               </div>
             </div>
           ))}
