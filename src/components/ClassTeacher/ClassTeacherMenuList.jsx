@@ -1,35 +1,23 @@
-
 import {
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-  } from "@mui/material";
-  import React from "react";
-  import HomeIcon from "@mui/icons-material/Home";
-  import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
-  import AssignmentIcon from "@mui/icons-material/Assignment";
-  import EngineeringIcon from "@mui/icons-material/Engineering";
-  import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-  import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-  import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-  import { Link } from "react-router-dom";
-  
-  const ClassTeacherMenuList = ({ setMobileOpen }) => {
-    return (
-      <List>
-        {[
-          "Home",
-          "Classes",
-          "Subjects",
-          "Teachers",
-          "Parents",
-          "Students",
-          "Students-2",
-          "Transactions",
-          "Staffs",
-        ].map((text, index) => (
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import React from "react";
+import HomeIcon from "@mui/icons-material/Home";
+import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+import { Link } from "react-router-dom";
+
+const ClassTeacherMenuList = ({ setMobileOpen }) => {
+  return (
+    <List>
+      {["Home", "Classes", "Subjects", "Teachers", "Parents", "Students"].map(
+        (text, index) => (
           <ListItem
             key={text}
             disablePadding
@@ -38,31 +26,27 @@ import {
               "&:hover": { bgcolor: "#6F52ED" },
               transition: "all 0.3s ease-in-out",
             }}
-            component={Link} // Use Link component from react-router-dom
+            component={Link}
             to={
               index === 0
-                ? "/"
+                ? "/classTeacherDashBoard/classTeacherHomePage"
                 : index === 1
-                ? "/classes"
+                ? null
                 : index === 2
-                ? "/subjectsOption"
+                ? null
                 : index === 3
-                ? "/teacherChoose"
+                ? null
                 : index === 4
-                ? "/parentRegistration"
+                ? null
                 : index === 5
-                ? "/students"
-                : index === 6
-                ? "/students-2"
-                : index === 7
-                ? "/expenses"
-                : "/staffs"
-            } // Define the route to navigate to
+                ? "/classTeacherDashBoard/student-mark"
+                : null
+            } // Adjusted to reflect the new order and remove unnecessary routes
           >
             <ListItemButton
               sx={{
                 minHeight: 48,
-                justifyContent: open ? "initial" : "center",
+                justifyContent: "initial",
                 px: 2.5,
               }}
               onClick={() => setMobileOpen(false)}
@@ -78,10 +62,8 @@ import {
                   <PeopleAltIcon />
                 ) : index === 4 ? (
                   <PermContactCalendarIcon />
-                ) : index === 5 ? (
-                  <ReceiptLongIcon />
                 ) : (
-                  <EngineeringIcon />
+                  <ClassOutlinedIcon /> // Default icon for other routes
                 )}
               </ListItemIcon>
               <ListItemText
@@ -90,10 +72,10 @@ import {
               />
             </ListItemButton>
           </ListItem>
-        ))}
-      </List>
-    );
-  };
-  
-  export default ClassTeacherMenuList;
-  
+        )
+      )}
+    </List>
+  );
+};
+
+export default ClassTeacherMenuList;

@@ -36,8 +36,9 @@ import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { clearStudent } from "../utils/studentSlice";
-import SchoolMenuList from "../components/School/SchoolMenuList";
+// import ClassTeacherMenuList from "../components/School/ClassTeacherMenuList";
 import StudentMenuList from "../components/Students/SingleStudent/StudentMenuList";
+import ClassTeacherMenuList from "../components/ClassTeacher/ClassTeacherMenuList";
 
 const drawerWidth = 240;
 
@@ -210,9 +211,9 @@ export default function ClassTeacherDashBoard(props) {
           />
         </div>
       </Link>
-      {/* {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
+      {/* {role === "PRINCIPAL" && <ClassTeacherMenuList setMobileOpen={setMobileOpen} />}
       {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />} */}
-      <SchoolMenuList setMobileOpen={setMobileOpen} />
+      <ClassTeacherMenuList setMobileOpen={setMobileOpen} />
       <Divider />
       <List>
         {["Profile", "Logout"].map((text, index) => (
@@ -303,12 +304,12 @@ export default function ClassTeacherDashBoard(props) {
             </DrawerHeader>
             <Divider />
             {/* {role === "PRINCIPAL" && (
-              <SchoolMenuList setMobileOpen={setMobileOpen} />
+              <ClassTeacherMenuList setMobileOpen={setMobileOpen} />
             )}
             {role === "STUDENT" && (
               <StudentMenuList setMobileOpen={setMobileOpen} />
             )} */}
-            <SchoolMenuList setMobileOpen={setMobileOpen} />
+            <ClassTeacherMenuList setMobileOpen={setMobileOpen} />
             <Divider />
             <List>
               {["Profile", "Logout"].map((text, index) => (

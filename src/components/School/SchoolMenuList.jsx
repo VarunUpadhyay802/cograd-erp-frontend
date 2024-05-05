@@ -9,6 +9,8 @@ import React from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import { Link } from "react-router-dom";
@@ -21,9 +23,10 @@ const SchoolMenuList = ({ setMobileOpen }) => {
         "Classes",
         "Subjects",
         "Teachers",
-        "Parents",
         "Students",
-      
+        "Students-2",
+        "Transactions",
+        "Staffs",
       ].map((text, index) => (
         <ListItem
           key={text}
@@ -33,27 +36,29 @@ const SchoolMenuList = ({ setMobileOpen }) => {
             "&:hover": { bgcolor: "#6F52ED" },
             transition: "all 0.3s ease-in-out",
           }}
-          component={Link}
+          component={Link} // Use Link component from react-router-dom
           to={
             index === 0
-              ? "/classTeacherDashBoard/classTeacherHomePage"
+              ? "/"
               : index === 1
-              ? null
+              ? "/classes"
               : index === 2
-              ? null
+              ? "/subjectsOption"
               : index === 3
-              ? null
+              ? "/teacherChoose"
               : index === 4
-              ? null
+              ? "/students"
               : index === 5
-              ? "/classTeacherDashBoard/student-mark"
-              : null
-          } // Adjusted to reflect the new order and remove unnecessary routes
+              ? "/students-2"
+              : index === 6
+              ? "/expenses"
+              : "/staffs"
+          } // Define the route to navigate to
         >
           <ListItemButton
             sx={{
               minHeight: 48,
-              justifyContent: "initial",
+              justifyContent: open ? "initial" : "center",
               px: 2.5,
             }}
             onClick={() => setMobileOpen(false)}
@@ -69,8 +74,10 @@ const SchoolMenuList = ({ setMobileOpen }) => {
                 <PeopleAltIcon />
               ) : index === 4 ? (
                 <PermContactCalendarIcon />
+              ) : index === 5 ? (
+                <ReceiptLongIcon />
               ) : (
-                <ClassOutlinedIcon /> // Default icon for other routes
+                <EngineeringIcon />
               )}
             </ListItemIcon>
             <ListItemText

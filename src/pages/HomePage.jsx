@@ -18,26 +18,25 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
-import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import EngineeringIcon from "@mui/icons-material/Engineering";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import { Link, Outlet } from "react-router-dom";
+// import HomeIcon from "@mui/icons-material/Home";
+// import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
+// import AssignmentIcon from "@mui/icons-material/Assignment";
+// import EngineeringIcon from "@mui/icons-material/Engineering";
+// import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountMenu from "../components/AccountMenu";
 import useFetchUserFromJwt from "../utils/useFetchUserFromJwt";
-import { useDispatch } from "react-redux";
-import { clearUser } from "../utils/userSlice";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+// import { clearUser } from "../utils/userSlice";
+// import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PropTypes from "prop-types";
-import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
-import { clearStudent } from "../utils/studentSlice";
+// import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+// import Cookies from "js-cookie";
+// import { jwtDecode } from "jwt-decode";
+// import { clearStudent } from "../utils/studentSlice";
 import SchoolMenuList from "../components/School/SchoolMenuList";
-import StudentMenuList from "../components/Students/SingleStudent/StudentMenuList";
+// import StudentMenuList from "../components/Students/SingleStudent/StudentMenuList";
 
 const drawerWidth = 240;
 
@@ -130,11 +129,11 @@ export default function HomePage(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useFetchUserFromJwt();
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const token = Cookies.get("token");
   // const decodedToken = jwtDecode(token);
   // const role = decodedToken.role;
