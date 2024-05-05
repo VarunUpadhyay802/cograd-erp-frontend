@@ -27,7 +27,7 @@ const SchoolLogin = () => {
         console.log("Login successful");
         // Navigate to "/school" route if login was successful
         dispatch(setUser(response.data));
-        navigate("/");
+        navigate("/schoolDashBoard");
       } else {
         // Handle other response statuses if needed
         console.error("Error logging in:", response.data);
