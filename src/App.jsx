@@ -32,7 +32,7 @@ import StudentHomePage from "./pages/Students/StudentHomePage";
 import StudentHomePage2 from "./pages/Students/StudentHomePage2";
 import ViewSubjects from "./pages/ViewSubjects";
 import SchoolsRegister from "./pages/School/SchoolsRegister";
-import SchoolHomePage from "./pages/School/SchoolHomePage";
+// import SchoolHomePage from "./pages/School/SchoolHomePage";
 import StudentLogin from "./pages/Students/SingleStudent/StudentLogin";
 import MainHomepage from "./pages/MainHomepage";
 // import AttendanceReport from "./components/Students/SingleStudent/AttendanceReport";
@@ -41,6 +41,8 @@ import MarksSheetPage from "./pages/Students/SingleStudent/MarksSheetPage";
 import ComplainPage from "./pages/Students/SingleStudent/ComplainPage";
 import ParentLogin from "./pages/Parent/ParentLogin";
 import ParentRegistration from "./pages/Parent/ParentRegistration";
+import ParentDashBoard from "./pages/Parent/ParentDashBoard";
+import ClassTeacherHomePage from "./components/ClassTeacher/ClassTeacherHomePage";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
 
 const router = createBrowserRouter([
@@ -204,6 +206,10 @@ const router = createBrowserRouter([
     element: <ParentLogin />,
   },
   {
+    path: "/parentsDashBoard",
+    element: <ParentDashBoard />,
+  },
+  {
     path: "/chooseUser",
     element: <ChooseUser />,
   },
@@ -223,14 +229,11 @@ const router = createBrowserRouter([
     path: "/teacher-mark-self",
     element: <TeacherMark />,
   },
-  {
-    path: "/student-mark",
-    element: <StudentAttendance />,
-  },
-  {
-    path: "/student-mark",
-    element: <StudentAttendance />,
-  },
+  // {
+  //   path: "/student-mark",
+  //   element: <StudentAttendance />,
+  // },
+
   //teacher taking attendance of himself
   {
     path: "/teacher-mark",
@@ -244,15 +247,23 @@ const router = createBrowserRouter([
   {
     path: "/classTeacherDashBoard",
     element: <ClassTeacherDashBoard />,
+    children: [
+      {
+        path: "student-mark",
+        element: <StudentAttendance />,
+      },
+      {
+        path: "classTeacherHomePage",
+        element: <ClassTeacherHomePage />,
+      },
+    ],
   },
-  
 ]);
 
 function App() {
   return (
     <>
       <RouterProvider router={router} />
-   
     </>
   );
 }
