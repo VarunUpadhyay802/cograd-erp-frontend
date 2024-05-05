@@ -7,13 +7,13 @@ import SchoolStaff from "./pages/School/SchoolStaff";
 import SchoolAddClasses from "./pages/School/SchoolAddClasses";
 import AddSubjects from "./pages/AddSubjects";
 import HomePage from "./pages/HomePage";
-import TeacherAttendance from "./pages/TeacherAttendance";
+import TeacherAttendance from "./pages/Teacher/TeacherAttendance";
 import Protected from "./components/Protected";
 import ChooseUser from "./pages/ChooseUser";
-import TeacherLogin from "./pages/TeacherLogin";
-import TeacherOptions from "./pages/TeacherOptions";
-import TeacherRegistration from "./pages/TeacherRegistration";
-import TeacherDashBoard from "./pages/TeacherDashBoard";
+import TeacherLogin from "./pages/Teacher/TeacherLogin";
+import TeacherOptions from "./pages/Teacher/TeacherOptions";
+import TeacherRegistration from "./pages/Teacher/TeacherRegistration";
+import TeacherDashBoard from "./pages/Teacher/TeacherDashBoard";
 
 import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
 import SubjectOptions from "./pages/SubjectOptions";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { fetchTeachers } from "../utils/teacherSlice";
+import { fetchTeachers } from "../../utils/teacherSlice";
 
 const TeacherAttendance = () => {
   const dispatch = useDispatch();
@@ -27,10 +27,10 @@ const TeacherAttendance = () => {
     updatedStatus[index] = value;
     setAttendanceStatus(updatedStatus);
   };
-  const capitalizeFirstLetter = (str) => {
-    if (!str) return ""; // Return empty string if str is undefined or null
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase(); // Capitalize first letter and keep rest lowercase
-  };
+  // const capitalizeFirstLetter = (str) => {
+  //   if (!str) return ""; // Return empty string if str is undefined or null
+  //   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase(); // Capitalize first letter and keep rest lowercase
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,8 +78,8 @@ const TeacherAttendance = () => {
                   alt=""
                   className="h-16 w-18 rounded-full bg-slate-200"
                 />
-                <p className="font-serif font-medium">
-                  {capitalizeFirstLetter(teacher.name)}{" "}
+                <p className="font-serif font-medium capitalize">
+                  {teacher.name}
                   {/* Using the utility function */}
                 </p>
                 <div className="flex gap-3">

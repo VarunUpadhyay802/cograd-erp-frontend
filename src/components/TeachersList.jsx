@@ -7,7 +7,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom"; // For navigation
-import { motion } from 'framer-motion'; // For animations and transitions
+import { motion } from "framer-motion"; // For animations and transitions
 
 const TeachersList = ({ teacherList }) => {
   const navigate = useNavigate();
@@ -18,13 +18,12 @@ const TeachersList = ({ teacherList }) => {
 
   return (
     <>
-    
       {teacherList.map((teacher, index) => (
         <motion.div
           key={index}
           whileHover={{ scale: 1.03 }} // Scale up the card slightly on hover
           transition={{ type: "spring", stiffness: 200, damping: 10 }} // Spring-like transition
-        className="border border-gray-200 rounded-lg shadow p-4 sm:w-1/2 md:w-1/3 lg:w-1/4"
+          className="border border-gray-200 rounded-lg shadow p-4 sm:w-1/2 md:w-1/3 lg:w-1/4"
         >
           <Card className="bg-gray-200 rounded-md ">
             <CardBody>

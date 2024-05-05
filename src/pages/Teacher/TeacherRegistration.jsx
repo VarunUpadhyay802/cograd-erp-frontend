@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import TeachersList from "../components/TeachersList";
+import TeachersList from "../../components/TeachersList";
 import { Modal, Box } from "@mui/material";
 const TeacherRegistration = () => {
   const [name, setName] = useState("");
@@ -73,7 +73,7 @@ const TeacherRegistration = () => {
   };
 
   return (
-    <>
+    <div>
       <div className="flex flex-col gap-3 ">
         <div className="mx-auto sm:mx-0">
           <button
@@ -222,7 +222,7 @@ const TeacherRegistration = () => {
           <TeachersList teacherList={teachers} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
