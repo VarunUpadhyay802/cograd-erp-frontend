@@ -1,22 +1,56 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import TeachersList from "../../components/TeachersList";
-import { Modal, Box } from "@mui/material";
+import ClassSelector from "../../components/ClassSelector"; // Import the ClassSelector component
+
 const TeacherRegistration = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [teachers, setTeachers] = useState([]);
   const [password, setPassword] = useState("");
-  const [openModal, setOpenModal] = useState(false); // State to control modal visibility
-  const handleOpen = () => setOpenModal(true); // Open the modal
-  const handleClose = () => setOpenModal(false); // Close the modal
-
+  const [selectedClassID, setSelectedClassID] = useState("");
   const [teachSubjects, setTeachSubjects] = useState([
-    { subject: "", class: "" },
+    { subjectId: "", classId: "" },
   ]);
+  const [subjectsList, setSubjectsList] = useState([]);
+  const [classesList, setClassesList] = useState([]);
+
+  useEffect(() => {
+    fetchClasses(); // Fetch the classes at mount
+  }, []);
+
+  const fetchClasses = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/class/get", {
+        withCredentials: true,
+      });
+      setClassesList(response.data);
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
+
+  const fetchSubjectsByClass = async (classId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/subject/classSubjects/${classId}`,
+        { withCredentials: true }
+      );
+      setSubjectsList(response.data);
+    } catch (error) {
+      console.error("Error fetching subjects:", error);
+    }
+  };
+
+  const handleClassChange = (classId) => {
+    setSelectedClassID(classId);
+    fetchSubjectsByClass(classId); // Fetch the subjects related to the selected class
+    setTeachSubjects([{ subjectId: "", classId: classId }]); // Reset subjects with new class
+  };
 
   const addSubject = () => {
-    setTeachSubjects([...teachSubjects, { subject: "", class: "" }]);
+    setTeachSubjects([
+      ...teachSubjects,
+      { subjectId: "", classId: selectedClassID },
+    ]);
   };
 
   const removeSubject = (index) => {
@@ -25,28 +59,18 @@ const TeacherRegistration = () => {
     setTeachSubjects(updatedSubjects);
   };
 
-  const handleSubjectChange = (index, key, value) => {
+  const handleSubjectChange = (index, subjectId) => {
     const updatedSubjects = [...teachSubjects];
-    updatedSubjects[index][key] = value;
+    updatedSubjects[index].subjectId = subjectId;
     setTeachSubjects(updatedSubjects);
-  };
-  useEffect(() => {
-    fetchTeachers();
-  }, []);
-  const fetchTeachers = async () => {
-    try {
-      const response = await axios.get("http://localhost:4000/teacherReg/get", {
-        withCredentials: true,
-      });
-      setTeachers(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching teachers:", error);
-    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formattedTeachSubjects = teachSubjects.map((subjectObj) => ({
+      subject: subjectObj.subjectId,
+      class: subjectObj.classId,
+    }));
     try {
       const response = await axios.post(
         "http://localhost:4000/teacherReg/register",
@@ -54,17 +78,16 @@ const TeacherRegistration = () => {
           name,
           email,
           password,
-          teachSubjects,
+          teachSubjects: formattedTeachSubjects,
         },
         { withCredentials: true }
       );
-      setName(" ");
-      setEmail(" ");
-      fetchTeachers();
-      setTeachSubjects([{ subject: "", class: "" }]);
-      setPassword(" ");
-      handleClose();
-      console.log("Teacher registered:", response.data);
+
+      setName("");
+      setEmail("");
+      setPassword("");
+      className("");
+      setTeachSubjects([{ subjectId: "", classId: "" }]);
       alert("Teacher registered successfully");
     } catch (error) {
       console.error("Error registering teacher:", error);
@@ -73,155 +96,114 @@ const TeacherRegistration = () => {
   };
 
   return (
-    <div>
-      <div className="flex flex-col gap-3 ">
-        <div className="mx-auto sm:mx-0">
-          <button
-            onClick={handleOpen}
-            className="flex gap-2 bg-[#AEE6E6] text-white px-4 py-2 rounded hover:bg-[#41C9E2] max-w-72 ml-4"
-          >
-            <p className="text-black font-ProductTitle">
-              Teacher Registration Form
-            </p>
-            <img src="/staff.png" alt="" className="h-7 w-7" />
-          </button>
+    <div className="max-w-md mx-auto mt-6">
+      <h2 className="text-xl font-semibold mb-4">Register New Teacher</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label htmlFor="name" className="block mb-1">
+            Name:
+          </label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            autoComplete="current-username"
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          />
         </div>
-        <div>
-          <Modal open={openModal} onClose={handleClose}>
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 400,
-                backgroundColor: "white",
-                padding: 4,
-                borderRadius: 2,
-                boxShadow: 24,
-              }}
-            >
-              {" "}
-              <div className="max-w-md mx-auto">
-                <h2 className="text-xl font-semibold mb-4">
-                  Register New Teacher
-                </h2>
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-4">
-                    <label htmlFor="name" className="block mb-1">
-                      Name:
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="email" className="block mb-1">
-                      Email:
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="password" className="block mb-1">
-                      Password:
-                    </label>
-                    <input
-                      type="password"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    Teachable Subjects
-                  </h3>
-                  {teachSubjects.map((subject, index) => (
-                    <div key={index} className="mb-4 flex items-center">
-                      <div className="flex-1">
-                        <label
-                          htmlFor={`subject-${index}`}
-                          className="block mb-1"
-                        >
-                          Subject:
-                        </label>
-                        <input
-                          type="text"
-                          id={`subject-${index}`}
-                          value={subject.subject}
-                          onChange={(e) =>
-                            handleSubjectChange(
-                              index,
-                              "subject",
-                              e.target.value
-                            )
-                          }
-                          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                        />
-                      </div>
-                      <div className="flex-1 ml-4">
-                        <label
-                          htmlFor={`class-${index}`}
-                          className="block mb-1"
-                        >
-                          Class:
-                        </label>
-                        <input
-                          type="text"
-                          id={`class-${index}`}
-                          value={subject.class}
-                          onChange={(e) =>
-                            handleSubjectChange(index, "class", e.target.value)
-                          }
-                          className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                        />
-                      </div>
-                      {index > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => removeSubject(index)}
-                          className="ml-4 text-red-500"
-                        >
-                          Remove
-                        </button>
-                      )}
-                    </div>
-                  ))}
+
+        <div className="mb-4">
+          <label htmlFor="email" className="block mb-1">
+            Email:
+          </label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="current-username"
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="password" className="block mb-1">
+            Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="classSelector" className="block mb-1">
+            Select Class:
+          </label>
+          <ClassSelector setClassID={handleClassChange} />
+        </div>
+
+        {selectedClassID && (
+          <>
+            <h3 className="text-lg font-semibold mb-2">Teachable Subjects</h3>
+            {teachSubjects.map((teachSubject, index) => (
+              <div key={index} className="mb-4 flex items-center">
+                <div className="flex-1">
+                  <label htmlFor={`subject-${index}`} className="block mb-1">
+                    Subject:
+                  </label>
+                  <select
+                    id={`subject-${index}`}
+                    value={teachSubject.subjectId}
+                    onChange={(e) => handleSubjectChange(index, e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                  >
+                    <option value="">Select Subject</option>
+                    {subjectsList.map((subject) => (
+                      <option key={subject._id} value={subject._id}>
+                        {subject.subName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {index > 0 && (
                   <button
                     type="button"
-                    onClick={addSubject}
-                    className="text-blue-500 mb-4"
+                    onClick={() => removeSubject(index)}
+                    className="ml-4 text-red-500"
                   >
-                    Add Another Subject
+                    Remove
                   </button>
-                  <button
-                    type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
-                  >
-                    Register Teacher
-                  </button>
-                </form>
+                )}
               </div>
-            </Box>
-          </Modal>
-        </div>
-        <div className="  sm:flex sm:flex-row md:flex sm:flex-wrap   md:p-2 mx-auto ">
-          <TeachersList teacherList={teachers} />
-        </div>
-      </div>
+            ))}
+
+            <button
+              type="button"
+              onClick={addSubject}
+              className="text-blue-500 mb-4"
+            >
+              Add Another Subject
+            </button>
+          </>
+        )}
+
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
+        >
+          Register Teacher
+        </button>
+      </form>
     </div>
   );
 };

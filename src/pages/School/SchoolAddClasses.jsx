@@ -56,7 +56,7 @@ const SchoolAddClasses = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 items-center">
+     <div className="flex flex-col gap-4 items-center justify-center min-h-screen">
         <div>
           <button
             onClick={handleOpen}
@@ -109,7 +109,7 @@ const SchoolAddClasses = () => {
 
         <div>
           {!isLoading && classesList.length > 0 ? (
-            <div className="flex flex-col gap-3 sm:flex sm:flex-row sm:flex-wrap">
+            <div className="flex flex-col gap-3 sm:flex sm:flex-row sm:flex-wrap sm:justify-center ">
               <ClassCards classesList={classesList} />
             </div>
           ) : isLoading ? (

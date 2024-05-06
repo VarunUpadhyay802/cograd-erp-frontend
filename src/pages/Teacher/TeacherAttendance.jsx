@@ -74,7 +74,7 @@ const TeacherAttendance = () => {
                 className="gap-2 px-4 py-3 border border-gray-300 rounded-lg flex flex-col items-center justify-between bg-white"
               >
                 <img
-                  src="/public/teacher-2.png"
+                  src="/teacher-2.png"
                   alt=""
                   className="h-16 w-18 rounded-full bg-slate-200"
                 />

@@ -19,24 +19,24 @@ import ListItemText from "@mui/material/ListItemText";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
-import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import EngineeringIcon from "@mui/icons-material/Engineering";
-import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+// import HomeIcon from "@mui/icons-material/Home";
+// import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
+// import AssignmentIcon from "@mui/icons-material/Assignment";
+// import EngineeringIcon from "@mui/icons-material/Engineering";
+// import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountMenu from "../components/AccountMenu";
 import useFetchUserFromJwt from "../utils/useFetchUserFromJwt";
-import { useDispatch } from "react-redux";
 import { clearUser } from "../utils/userSlice";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+// import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PropTypes from "prop-types";
-import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+// import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { clearStudent } from "../utils/studentSlice";
 import SchoolMenuList from "../components/School/SchoolMenuList";
+import { useDispatch } from "react-redux";
 import StudentMenuList from "../components/Students/SingleStudent/StudentMenuList";
 
 const drawerWidth = 240;
@@ -135,63 +135,59 @@ export default function HomePage(props) {
   useFetchUserFromJwt();
 
   const dispatch = useDispatch();
-  // const token = Cookies.get("token");
-  // const decodedToken = jwtDecode(token);
-  // const role = decodedToken.role;
+  const token = Cookies.get("token");
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
 
-  // const handleLogout = async () => {
-  //   try {
-  //     if (role === "PRINCIPAL") {
-  //       const response = await fetch("http://localhost:4000/school/logout", {
-  //         method: "POST",
-  //         credentials: "include", // Include cookies in the request
-  //       });
+  const handleLogout = async () => {
+    try {
+      if (role === "PRINCIPAL") {
+        const response = await fetch("http://localhost:4000/school/logout", {
+          method: "POST",
+          credentials: "include", // Include cookies in the request
+        });
 
-  //       dispatch(clearUser());
-  //       const data = await response.json();
-  //       console.log("Logged out:", data.message);
+        dispatch(clearUser());
+        const data = await response.json();
+        console.log("Logged out:", data.message);
 
-  //       // Redirect to the login page after successful logout
-  //       navigate("/chooseUser");
-  //     } else if (role === "STUDENT") {
-  //       const response = await fetch("http://localhost:4000/student/logout", {
-  //         method: "POST",
-  //         credentials: "include", // Include cookies in the request
-  //       });
+        // Redirect to the login page after successful logout
+        navigate("/chooseUser");
+      } else if (role === "STUDENT") {
+        const response = await fetch("http://localhost:4000/student/logout", {
+          method: "POST",
+          credentials: "include", // Include cookies in the request
+        });
 
-  //       dispatch(clearStudent());
-  //       const data = await response.json();
-  //       console.log("Logged out:", data.message);
-  //       // Redirect to the login page after successful logout
-  //       navigate("/chooseUser");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error logging out:", error);
-  //   }
-  // };
-
-  // const handleDrawerTransitionEnd = () => {
-  //   setIsClosing(false);
-  // };
-
-  // const isLoggedIn = () => {
-  //   const token = Cookies.get("token"); // 'token' should match the name of the token set in the backend
-  //   console.log("schoolToken", token);
-  //   console.log(!!token);
-  //   return !!token;
-  // };
-  // React.useEffect(() => {
-  //   isLoggedIn();
-  // }, []);
-
-  const handleDrawerToggle = () => {
-    if (!isClosing) {
-      setMobileOpen(!mobileOpen);
+        dispatch(clearStudent());
+        const data = await response.json();
+        console.log("Logged out:", data.message);
+        // Redirect to the login page after successful logout
+        navigate("/chooseUser");
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
     }
   };
 
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
+  };
+
+  const isLoggedIn = () => {
+    const token = Cookies.get("token"); // 'token' should match the name of the token set in the backend
+    console.log("schoolToken", token);
+    console.log(!!token);
+    return !!token;
+  };
+  React.useEffect(() => {
+    isLoggedIn();
+  }, []);
+
+  const handleDrawerToggle = () => {
+    if (!isClosing) {
+      setMobileOpen(!mobileOpen);
+    }
   };
 
   const drawer = (
@@ -210,9 +206,8 @@ export default function HomePage(props) {
           />
         </div>
       </Link>
-      {/* {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
-      {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />} */}
-      <SchoolMenuList setMobileOpen={setMobileOpen} />
+      {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
+      {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />}
       <Divider />
       <List>
         {["Profile", "Logout"].map((text, index) => (
@@ -233,7 +228,7 @@ export default function HomePage(props) {
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
               }}
-              // onClick={index === 1 ? handleLogout : null} // Add onClick event handler
+              onClick={index === 1 ? handleLogout : null} // Add onClick event handler
             >
               <ListItemIcon sx={{ color: "white" }}>
                 {index === 0 ? <AccountCircleIcon /> : <LogoutIcon />}
@@ -302,13 +297,12 @@ export default function HomePage(props) {
               </IconButton>
             </DrawerHeader>
             <Divider />
-            {/* {role === "PRINCIPAL" && (
+            {role === "PRINCIPAL" && (
               <SchoolMenuList setMobileOpen={setMobileOpen} />
             )}
             {role === "STUDENT" && (
               <StudentMenuList setMobileOpen={setMobileOpen} />
-            )} */}
-            <SchoolMenuList setMobileOpen={setMobileOpen} />
+            )}
             <Divider />
             <List>
               {["Profile", "Logout"].map((text, index) => (
@@ -329,7 +323,7 @@ export default function HomePage(props) {
                       justifyContent: open ? "initial" : "center",
                       px: 2.5,
                     }}
-                    // onClick={index === 1 ? handleLogout : null} // Add onClick event handler
+                    onClick={index === 1 ? handleLogout : null} // Add onClick event handler
                   >
                     <ListItemIcon
                       sx={{

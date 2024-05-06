@@ -4,22 +4,21 @@ import axios from "axios";
 const StudentAttendance = () => {
   const [students, setStudents] = useState([]);
   const [attendanceStatus, setAttendanceStatus] = useState([]);
+  const [consecutiveAbsentees, setConsecutiveAbsentees] = useState([]);
   const [currentDate, setCurrentDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
 
-  // Fetch students on component mount
+  // Fetch the list of students
   const fetchStudents = async () => {
     try {
       const response = await axios.get(
         "http://localhost:4000/studentAttendance/studentsList",
         {
           withCredentials: true,
-          // You might need to provide the class teacher ID here, depending on your backend route
         }
       );
       setStudents(response.data.students);
-      console.log("student list fetched", response.data.students);
       setAttendanceStatus(Array(response.data.students.length).fill("a"));
     } catch (error) {
       console.error("Error fetching students:", error);
@@ -28,10 +27,26 @@ const StudentAttendance = () => {
 
   useEffect(() => {
     fetchStudents();
+    checkConsecutiveAbsences(); // Check when the component mounts
   }, []);
 
+  // Fetch consecutive absences and handle notifications
+  const checkConsecutiveAbsences = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/studentAttendance/checkConsecutiveAbsences",
+        { withCredentials: true }
+      );
+
+      if (response.data.students && response.data.students.length > 0) {
+        setConsecutiveAbsentees(response.data.students); // Store the list of students with consecutive absences
+      }
+    } catch (error) {
+      console.error("Error checking consecutive absences:", error);
+    }
+  };
+
   const handleStatusChange = (index, value) => {
-    // Update the attendance status for a specific student
     const updatedStatus = [...attendanceStatus];
     updatedStatus[index] = value;
     setAttendanceStatus(updatedStatus);
@@ -46,17 +61,17 @@ const StudentAttendance = () => {
         date: currentDate,
       };
 
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:4000/studentAttendance/mark",
         attendanceData,
         {
           withCredentials: true,
         }
       );
-      if (response.status === 400) {
-        alert("Recorded already");
-      }
-      console.log("Student Attendances success:", response);
+
+      // After marking attendance, check for consecutive absences again
+      checkConsecutiveAbsences(); // Trigger the check on submit
+
       alert("Attendance recorded successfully!");
     } catch (error) {
       console.error("Error recording attendance:", error);
@@ -64,45 +79,100 @@ const StudentAttendance = () => {
     }
   };
 
+  const capitalizeFirstLetter = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
   return (
-    <div className="max-w-md mx-auto">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <h2 className="text-xl font-semibold mb-4">Record Student Attendance</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="attendanceDate" className="block mb-1">
-            Attendance Date:
-          </label>
+
+      {consecutiveAbsentees.length > 0 && (
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
+          <p className="font-semibold">Students with three consecutive absences:</p>
+          <ul>
+            {consecutiveAbsentees.map((student) => (
+              <li key={student.studentId}>
+                {student.studentName}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="w-full max-w-7xl">
+        <div className="flex flex-wrap justify-center gap-4">
+          {students.map((student, index) => (
+            <div
+              key={student._id}
+              className="gap-2 px-4 py-3 border border-gray-300 rounded-lg flex flex-col items-center justify-between bg-white"
+            >
+              <img
+                src="/student.png"
+                alt="Student"
+                className="h-16 w-18 rounded-full bg-slate-200"
+              />
+              <p className="font-serif font-medium">
+                {capitalizeFirstLetter(student.name)}
+              </p>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  className={`w-8 h-8 rounded-full ${
+                    attendanceStatus[index] === "p"
+                      ? "bg-green-500 text-white"
+                    : "bg-gray-200"
+                  }`}
+                  onClick={() => handleStatusChange(index, "p")}
+                >
+                  P
+                </button>
+
+                <button
+                  type="button"
+                  className={`w-8 h-8 rounded-full ${
+                    attendanceStatus[index] === "a"
+                      ? "bg-red-500 text-white"
+                    : "bg-gray-200"
+                  }`}
+                  onClick={() => handleStatusChange(index, "a")}
+                >
+                  A
+                </button>
+                <button
+                  type="button"
+                  className={`w-8 h-8 rounded-full ${
+                    attendanceStatus[index] === "l"
+                      ? "bg-orange-500 text-white"
+                    : "bg-gray-200"
+                  }`}
+                  onClick={() => handleStatusChange(index, "l")}
+                >
+                  L
+                </button>
+
+
+             
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-col xs:flex xs:flex-row gap-3 items-center justify-center mt-4">
           <input
             type="date"
             id="attendanceDate"
             value={currentDate}
             onChange={(e) => setCurrentDate(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
           />
+          <button
+            type="submit"
+            className="flex gap-2 bg-[#AEE6E6] text-white px-4 py-2 rounded hover:bg-[#41C9E2]"
+          >
+            Record Attendance
+          </button>
         </div>
-
-        {students.map((student, index) => (
-          <div key={student._id} className="mb-4">
-            <label className="block mb-1">
-              {student.name} - Attendance Status:
-            </label>
-            <select
-              value={attendanceStatus[index]}
-              onChange={(e) => handleStatusChange(index, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-            >
-              <option value="p">Present</option>
-              <option value="a">Absent</option>
-            </select>
-          </div>
-        ))}
-
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Record Attendance
-        </button>
       </form>
     </div>
   );

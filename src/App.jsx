@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-// import HomePage from "./HomePage";
+
 import SchoolLogin from "./pages/School/SchoolLogin";
 import SchoolExpenses from "./pages/School/SchoolExpenses";
 import SchoolStaff from "./pages/School/SchoolStaff";
@@ -8,39 +8,59 @@ import SchoolAddClasses from "./pages/School/SchoolAddClasses";
 import AddSubjects from "./pages/AddSubjects";
 import HomePage from "./pages/HomePage";
 import TeacherAttendance from "./pages/Teacher/TeacherAttendance";
+import TeacherList from "./pages/TeacherList";
 import Protected from "./components/Protected";
 import ChooseUser from "./pages/ChooseUser";
 import TeacherLogin from "./pages/Teacher/TeacherLogin";
 import TeacherOptions from "./pages/Teacher/TeacherOptions";
 import TeacherRegistration from "./pages/Teacher/TeacherRegistration";
 import TeacherDashBoard from "./pages/Teacher/TeacherDashBoard";
+import TeacherMark from "./pages/TeacherMark";
 
 import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
 import SubjectOptions from "./pages/SubjectOptions";
 import ClassTeacherDashBoard from "./pages/ClassTeacherDashBoard";
+import ViewTeacherAttendance from "./pages/ViewTeacherAttendance";
+
+import TeacherIndividualAttendance from "./pages/TeacherIndividualAttendance";
 
 import ClassTeacherLogin from "./pages/ClassTeacherLogin";
 
 import StudentAttendance from "./pages/StudentAttendance";
 import StudentRegistrationPage from "./pages/Students/StudentRegistrationPage";
 import StudentHomePage from "./pages/Students/StudentHomePage";
+import StudentHomePage2 from "./pages/Students/StudentHomePage2";
 import ViewSubjects from "./pages/ViewSubjects";
 import SchoolsRegister from "./pages/School/SchoolsRegister";
-import SchoolHomePage from "./pages/School/SchoolHomePage";
+// import SchoolHomePage from "./pages/School/SchoolHomePage";
 import StudentLogin from "./pages/Students/SingleStudent/StudentLogin";
 import MainHomepage from "./pages/MainHomepage";
-import AttendanceReport from "./components/Students/SingleStudent/AttendanceReport";
+// import AttendanceReport from "./components/Students/SingleStudent/AttendanceReport";
 import StudentAttendanceReport from "./pages/Students/SingleStudent/StudentAttendanceReport";
 import MarksSheetPage from "./pages/Students/SingleStudent/MarksSheetPage";
 import ComplainPage from "./pages/Students/SingleStudent/ComplainPage";
+import ParentLogin from "./pages/Parent/ParentLogin";
+import ParentRegistration from "./pages/Parent/ParentRegistration";
+import ParentDashBoard from "./pages/Parent/ParentDashBoard";
+import ClassTeacherHomePage from "./components/ClassTeacher/ClassTeacherHomePage";
+// import TeacherMenuList from "./components/Teachers/TeacherMenuList";
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: (
+      <Protected>
+        <HomePage />
+      </Protected>
+    ),
     children: [
       {
         path: "/",
-        element: <MainHomepage />,
+        element: (
+          <Protected>
+            <MainHomepage />
+          </Protected>
+        ),
       },
       {
         path: "/expenses",
@@ -76,6 +96,22 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/view/teacherAttendance",
+        element: (
+          <Protected>
+            <ViewTeacherAttendance />
+          </Protected>
+        ),
+      },
+      {
+        path: "/teacherList",
+        element: (
+          <Protected>
+            <TeacherList />
+          </Protected>
+        ),
+      },
+      {
         path: "/teacherRegistration",
         element: (
           <Protected>
@@ -84,10 +120,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/teacherAttendance",
+        path: "/teacher-all-Attendance",
         element: (
           <Protected>
             <TeacherAttendance />
+          </Protected>
+        ),
+      },
+      {
+        path: "/teacher-individual-attendance",
+        element: (
+          <Protected>
+            <TeacherIndividualAttendance />
           </Protected>
         ),
       },
@@ -124,8 +168,20 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/parentRegistration",
+        element: (
+          <Protected>
+            <ParentRegistration />
+          </Protected>
+        ),
+      },
+      {
         path: "/students",
         element: <StudentHomePage />,
+      },
+      {
+        path: "/students-2",
+        element: <StudentHomePage2 />,
       },
       {
         path: "/studentAttendance",
@@ -154,6 +210,14 @@ const router = createBrowserRouter([
     element: <StudentLogin />,
   },
   {
+    path: "/parentLogin",
+    element: <ParentLogin />,
+  },
+  {
+    path: "/parentsDashBoard",
+    element: <ParentDashBoard />,
+  },
+  {
     path: "/chooseUser",
     element: <ChooseUser />,
   },
@@ -170,16 +234,37 @@ const router = createBrowserRouter([
     element: <TeacherDashBoard />,
   },
   {
-    path: "/student-mark",
+    path: "/teacher-mark-self",
+    element: <TeacherMark />,
+  },
+  // {
+  //   path: "/student-mark",
+  //   element: <StudentAttendance />,
+  // },
+
+  //teacher taking attendance of himself
+  {
+    path: "/teacher-mark",
     element: <StudentAttendance />,
   },
   {
     path: "/classTeacherRegistration/:teacherId",
     element: <ClassTeacherRegistration />,
   },
+
   {
     path: "/classTeacherDashBoard",
     element: <ClassTeacherDashBoard />,
+    children: [
+      {
+        path: "student-mark",
+        element: <StudentAttendance />,
+      },
+      {
+        path: "classTeacherHomePage",
+        element: <ClassTeacherHomePage />,
+      },
+    ],
   },
 ]);
 
