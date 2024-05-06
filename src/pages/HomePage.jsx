@@ -146,7 +146,7 @@ export default function HomePage(props) {
           method: "POST",
           credentials: "include", // Include cookies in the request
         });
-
+        alert("Logged out Successfully!")
         dispatch(clearUser());
         const data = await response.json();
         console.log("Logged out:", data.message);
@@ -161,6 +161,7 @@ export default function HomePage(props) {
 
         dispatch(clearStudent());
         const data = await response.json();
+        
         console.log("Logged out:", data.message);
         // Redirect to the login page after successful logout
         navigate("/chooseUser");
@@ -315,7 +316,7 @@ export default function HomePage(props) {
                     transition: "all 0.3s ease-in-out",
                   }}
                   component={Link}
-                  to={index === 0 ? "/profile" : ""}
+                  to={index === 0 ? "/profile" : "/logout"}
                 >
                   <ListItemButton
                     sx={{

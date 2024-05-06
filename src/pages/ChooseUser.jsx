@@ -41,7 +41,7 @@ const ChooseUser = () => {
     <StyledContainer>
       <Container>
         <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={14} sm={6} md={3}>
             <StyledPaper
               onClick={() => navigateHandler("Principal")}
               elevation={3}
@@ -50,10 +50,11 @@ const ChooseUser = () => {
                 <AccountCircle fontSize="large" />
               </Box>
               <StyledTypography>Principal</StyledTypography>
-              Login as a Principal to access the dashboard to manage app data.
+              Login as a Principal to access the dashboard to manage Teachers &
+              Student
             </StyledPaper>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={14} sm={6} md={3}>
             <StyledPaper
               onClick={() => navigateHandler("Parent")}
               elevation={3}
@@ -62,11 +63,12 @@ const ChooseUser = () => {
                 <AccountCircle fontSize="large" />
               </Box>
               <StyledTypography>Parent</StyledTypography>
-              Login as a Parent to see Your student's progress
+              Login as a Parent to see Your student's progress & communicate to
+              teacher
             </StyledPaper>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={14} sm={6} md={3}>
             <StyledPaper
               onClick={() => navigateHandler("Student")}
               elevation={3}
@@ -78,7 +80,7 @@ const ChooseUser = () => {
               Login as a Student to explore course materials and assignments.
             </StyledPaper>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={14} sm={6} md={3}>
             <StyledPaper
               onClick={() => navigateHandler("Teacher")}
               elevation={3}
@@ -91,7 +93,7 @@ const ChooseUser = () => {
               student progress.
             </StyledPaper>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={14} sm={6} md={3}>
             <StyledPaper
               onClick={() => navigateHandler("ClassTeacher")}
               elevation={3}
@@ -104,7 +106,7 @@ const ChooseUser = () => {
               interactions.
             </StyledPaper>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={14} sm={6} md={3}>
             <StyledPaper
               onClick={() => navigateHandler("SchoolAdmin")}
               elevation={3}
@@ -113,7 +115,7 @@ const ChooseUser = () => {
                 <AdminPanelSettings fontSize="large" />
               </Box>
               <StyledTypography>School Admin</StyledTypography>
-              Login as a School Admin to oversee school operations.
+              Login as a School Admin to oversee all the school operations.
             </StyledPaper>
           </Grid>
         </Grid>
@@ -125,8 +127,8 @@ const ChooseUser = () => {
 export default ChooseUser;
 
 const StyledContainer = styled.div`
-  background: linear-gradient(to bottom, #411d70, #19118b);
-  height: 100vh;
+  background: linear-gradient(to bottom, #5AB2FF, #19118b);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   padding: 2rem;
@@ -134,9 +136,10 @@ const StyledContainer = styled.div`
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
+  min-width: 100px;
   text-align: center;
-  background-color: #1f1f38;
-  color: rgba(255, 255, 255, 0.6);
+  background-color: #caf4ff;
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
 
   &:hover {
