@@ -66,12 +66,12 @@ const StudentsRegistration = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:4000/student/get/${schoolId}`,
+        "http://localhost:4000/student/get/list",
         {
           withCredentials: true,
         }
       );
-      setStudentList(response.data);
+      setStudentList(response.data.studentList);
       console.log(response.data);
     } catch (err) {
       console.log(err);
