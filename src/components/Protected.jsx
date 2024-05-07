@@ -1,27 +1,28 @@
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 function Protected({ children }) {
-  const isLoggedIn = () => {
-    const token = Cookies.get("token");
-    console.log(!!token);
-
-    return !!token;
+  const isAnyTokenValid = () => {
+    const schoolToken = Cookies.get("token"); // For principal
+    const studentToken = Cookies.get("studentToken"); // For student
+    const teacherToken = Cookies.get("teacherToken"); // For teacher
+    const classTeacherToken = Cookies.get("classTeacherToken"); // For class teacher
+   
+    // If any of these tokens are valid, return true
+    return !!(schoolToken || studentToken || teacherToken || classTeacherToken);
   };
 
   useEffect(() => {
-    isLoggedIn();
+    console.log("Is any token valid:", isAnyTokenValid());
   }, []);
 
-  if (!isLoggedIn()) {
-    return <Navigate to="/chooseUser" replace={true}></Navigate>;
+  // If no token is valid, navigate to "/chooseUser"
+  if (!isAnyTokenValid()) {
+    return <Navigate to="/chooseUser" replace={true} />;
   }
 
-  //   if (userRole && userRole !== "PRINCIPAL") {
-  //     return <Navigate to="/" replace={true}></Navigate>;
-  //   }
+  // Otherwise, return the protected content
   return children;
 }
 

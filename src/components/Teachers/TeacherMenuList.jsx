@@ -22,10 +22,10 @@ const TeacherMenuList = ({ setMobileOpen }) => {
         "Home",
         "Classes",
         "Subjects",
-        "Teachers",
+   
         "Students",
-        "Transactions",
-        "Staffs",
+   
+      
       ].map((text, index) => (
         <ListItem
           key={text}

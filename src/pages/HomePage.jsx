@@ -35,9 +35,12 @@ import PropTypes from "prop-types";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { clearStudent } from "../utils/studentSlice";
-import SchoolMenuList from "../components/School/SchoolMenuList";
 import { useDispatch } from "react-redux";
+import SchoolMenuList from "../components/School/SchoolMenuList";
 import StudentMenuList from "../components/Students/SingleStudent/StudentMenuList";
+import TeacherMenuList from "../components/Teachers/TeacherMenuList";
+import ClassTeacherMenuList from "../components/ClassTeacher/ClassTeacherMenuList"; // Add Class Teacher menu list
+import ParentMenuList from "../components/Parent/ParentMenuList"; // Add Parent menu list
 
 const drawerWidth = 240;
 
@@ -69,8 +72,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
 }));
 
 const AppBar1 = styled(MuiAppBar, {
@@ -122,50 +123,50 @@ export default function HomePage(props) {
     setOpen(false);
   };
 
-  const handleDrawerClose1 = () => {
-    setIsClosing(true);
-    setMobileOpen(false);
-  };
-
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
+
   const navigate = useNavigate();
-
   useFetchUserFromJwt();
-
   const dispatch = useDispatch();
-  const token = Cookies.get("token");
-  const decodedToken = jwtDecode(token);
-  const role = decodedToken.role;
+  const detectUserRole = () => {
+    const schoolToken = Cookies.get("token"); // for principals
+    const studentToken = Cookies.get("studentToken"); // for students
+    const teacherToken = Cookies.get("teacherToken"); // for teachers
+    const classTeacherToken = Cookies.get("classTeacherToken"); // for class teachers
+  
+    if (schoolToken) {
+      return { token: schoolToken, role: "PRINCIPAL" };
+    } else if (studentToken) {
+      return { token: studentToken, role: "STUDENT" };
+    } else if (teacherToken) {
+      return { token: teacherToken, role: "TEACHER" };
+    } else if (classTeacherToken) {
+      return { token: classTeacherToken, role: "CLASS-TEACHER" };
+    } else {
+      return null;
+    }
+  };
+  
+  const userToken = detectUserRole();
+  const token = userToken?.token;
+  const role = userToken?.role;
+  
 
   const handleLogout = async () => {
     try {
-      if (role === "PRINCIPAL") {
-        const response = await fetch("http://localhost:4000/school/logout", {
-          method: "POST",
-          credentials: "include", // Include cookies in the request
-        });
-        alert("Logged out Successfully!")
-        dispatch(clearUser());
-        const data = await response.json();
-        console.log("Logged out:", data.message);
+      const endpoint = role === "PRINCIPAL" ? "school" : role === "STUDENT" ? "student" : "teacher"; // Adjust for multiple roles
+      const response = await fetch(`http://localhost:4000/${endpoint}/logout`, {
+        method: "POST",
+        credentials: "include", // Include cookies in the request
+      });
 
-        // Redirect to the login page after successful logout
-        navigate("/chooseUser");
-      } else if (role === "STUDENT") {
-        const response = await fetch("http://localhost:4000/student/logout", {
-          method: "POST",
-          credentials: "include", // Include cookies in the request
-        });
+      dispatch(clearUser());
+      const data = await response.json();
+      console.log("Logged out:", data.message);
 
-        dispatch(clearStudent());
-        const data = await response.json();
-        
-        console.log("Logged out:", data.message);
-        // Redirect to the login page after successful logout
-        navigate("/chooseUser");
-      }
+      // Redirect to the login page after successful logout
+      navigate("/chooseUser");
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -181,7 +182,9 @@ export default function HomePage(props) {
     console.log(!!token);
     return !!token;
   };
+
   React.useEffect(() => {
+    console.log(role);
     isLoggedIn();
   }, []);
 
@@ -192,23 +195,17 @@ export default function HomePage(props) {
   };
 
   const drawer = (
-    <div className=" lg:hidden bg-[#343a40] h-full">
-      {/* <Toolbar /> */}
-      <Link
-        to={"/"}
-        className="cursor-pointer"
-        onClick={() => setMobileOpen(false)}
-      >
+    <div className="lg:hidden bg-[#343a40] h-full">
+      <Link to="/" className="cursor-pointer" onClick={() => setMobileOpen(false)}>
         <div className="w-full flex items-center justify-center">
-          <img
-            src="logo.png"
-            alt=""
-            className="h-12 w-12 py-2 px-2 bg-[#6F52ED] rounded-sm my-4"
-          />
+          <img src="logo.png" alt="Logo" className="h-12 w-12 py-2 px-2 bg-[#6F52ED] rounded-sm my-4" />
         </div>
       </Link>
       {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
       {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />}
+      {role === "TEACHER" && <TeacherMenuList setMobileOpen={setMobileOpen} />}
+      {role === "CLASS-TEACHER" && <ClassTeacherMenuList setMobileOpen={setMobileOpen} />}
+      {role === "PARENT" && <ParentMenuList setMobileOpen={setMobileOpen} />}
       <Divider />
       <List>
         {["Profile", "Logout"].map((text, index) => (
@@ -229,31 +226,27 @@ export default function HomePage(props) {
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
               }}
-              onClick={index === 1 ? handleLogout : null} // Add onClick event handler
+              onClick={index === 1 ? handleLogout : null}
             >
               <ListItemIcon sx={{ color: "white" }}>
                 {index === 0 ? <AccountCircleIcon /> : <LogoutIcon />}
               </ListItemIcon>
-              <ListItemText
-                primary={text}
-                sx={{ color: "white", fontSize: "0.5rem" }}
-              />
+              <ListItemText primary={text} sx={{ color: "white" }} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
     </div>
   );
+  
 
-  // Remove this const when copying and pasting into your project.
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <div className="flex flex-col w-full overflow-hidden appearance-none">
       <Box sx={{ display: "flex", width: "100%" }}>
         <CssBaseline />
-        <div className=" hidden lg:block">
+        <div className="hidden lg:block">
           <AppBar1 position="fixed" open={open} sx={{ background: "#343a40" }}>
             <Toolbar>
               <IconButton
@@ -269,18 +262,12 @@ export default function HomePage(props) {
                 <MenuIcon />
               </IconButton>
               <div className="flex justify-between items-center w-full">
-                <div className="text-12 xs:text-14 sm:text-lg">
-                  School Management System
-                </div>
+                <Typography variant="h6">School Management System</Typography>
                 <AccountMenu />
               </div>
             </Toolbar>
           </AppBar1>
-          <Drawer1
-            variant="permanent"
-            open={open}
-            sx={{ background: "#343a40" }}
-          >
+          <Drawer1 variant="permanent" open={open} sx={{ background: "#343a40" }}>
             <DrawerHeader>
               <div className="w-full flex items-center justify-center">
                 <img
@@ -290,20 +277,15 @@ export default function HomePage(props) {
                 />
               </div>
               <IconButton onClick={handleDrawerClose} sx={{ color: "white" }}>
-                {theme.direction === "rtl" ? (
-                  <ChevronRightIcon />
-                ) : (
-                  <ChevronLeftIcon />
-                )}
+                {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
               </IconButton>
             </DrawerHeader>
             <Divider />
-            {role === "PRINCIPAL" && (
-              <SchoolMenuList setMobileOpen={setMobileOpen} />
-            )}
-            {role === "STUDENT" && (
-              <StudentMenuList setMobileOpen={setMobileOpen} />
-            )}
+            {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
+            {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />}
+            {role === "TEACHER" && <TeacherMenuList setMobileOpen={setMobileOpen} />}
+            {role === "CLASS_TEACHER" && <ClassTeacherMenuList setMobileOpen={setMobileOpen} />}
+            {role === "PARENT" && <ParentMenuList setMobileOpen={setMobileOpen} />}
             <Divider />
             <List>
               {["Profile", "Logout"].map((text, index) => (
@@ -324,7 +306,7 @@ export default function HomePage(props) {
                       justifyContent: open ? "initial" : "center",
                       px: 2.5,
                     }}
-                    onClick={index === 1 ? handleLogout : null} // Add onClick event handler
+                    onClick={index === 1 ? handleLogout : null}
                   >
                     <ListItemIcon
                       sx={{
@@ -382,13 +364,12 @@ export default function HomePage(props) {
             }}
             aria-label="mailbox folders"
           >
-            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Drawer
               container={container}
               variant="temporary"
               open={mobileOpen}
               onTransitionEnd={handleDrawerTransitionEnd}
-              onClose={handleDrawerClose1}
+              onClose={handleDrawerClose}
               ModalProps={{
                 keepMounted: true, // Better open performance on mobile.
               }}
@@ -440,9 +421,5 @@ export default function HomePage(props) {
 }
 
 HomePage.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
   window: PropTypes.func,
 };

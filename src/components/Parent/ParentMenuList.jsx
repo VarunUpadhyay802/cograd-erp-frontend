@@ -13,10 +13,10 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import { Link } from "react-router-dom";
 
-const ClassTeacherMenuList = ({ setMobileOpen }) => {
+const ParentMenuList = ({ setMobileOpen }) => {
   return (
     <List>
-      {["Class-Teacher Home", "Classes", "Subjects", "Teachers", "Parents", "Students"].map(
+      {["Home", "Classes", "Subjects", "Teachers", "Parents", "Students"].map(
         (text, index) => (
           <ListItem
             key={text}
@@ -78,4 +78,4 @@ const ClassTeacherMenuList = ({ setMobileOpen }) => {
   );
 };
 
-export default ClassTeacherMenuList;
+export default ParentMenuList;
