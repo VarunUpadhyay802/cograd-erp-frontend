@@ -2,48 +2,33 @@ import { useEffect } from "react";
 import CountUp from "react-countup";
 import { useDispatch, useSelector } from "react-redux";
 import { setStudentData } from "../../utils/studentListSlice";
-import { setTeacherData } from "../../utils/teacherListSlice";
 import axios from "axios";
+import { fetchTeachers } from "../../utils/teacherSlice";
 
 const SchoolHomePage = () => {
- 
-  
   const totalIncome = 10000;
   const totalExpense = 4000;
+  const { totalStudents, studentList } = useSelector(
+    (state) => state.studentList
+  );
+
   const dispatch = useDispatch();
-  const { totalStudents, studentList } = useSelector((state) => state.studentList);
-  const { totalTeachers, teacherList } = useSelector((state) => state.teacherList);
+  const totalTeachers = useSelector((state) => state.teachers.teachers);
+  const loading = useSelector((state) => state.teachers.loading);
   const totalUsers = totalStudents;
-  const totalTeachersD = totalTeachers;
-  useEffect(()=>{
-    if (studentList.length === 0) {
-      axios.get("http://localhost:4000/student/get/list", {
-       withCredentials: true,
-     })
-       .then((response) => {
-         dispatch(setStudentData(response.data)); // set the data in Redux
-       })
-       .catch((error) => {
-         console.error('Error fetching student data:', error);
-       });
-   }
-  },[dispatch, studentList,])
+  const totalTeachersD = totalTeachers.length;
 
-  useEffect(()=>{
-    if (teacherList.length === 0) {
-      axios.get("http://localhost:4000/teacher/get/list", {
-       withCredentials: true,
-     })
-       .then((response) => {
-         dispatch(setTeacherData(response.data)); // set the data in Redux
-       })
-       .catch((error) => {
-         console.error('Error fetching student data:', error);
-       });
-   }
-  },[dispatch, teacherList,])
+  console.log(totalTeachers);
 
-   return (
+  useEffect(() => {
+    dispatch(fetchTeachers());
+  }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
     <>
       <div className="">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

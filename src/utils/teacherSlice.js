@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 // Define an async thunk to fetch teacher data from the API
 export const fetchTeachers = createAsyncThunk(
-  'teachers/fetchTeachers',
+  "teachers/fetchTeachers",
   async () => {
-    const response = await axios.get('http://localhost:4000/teacherReg/get', {
+    const response = await axios.get("http://localhost:4000/teacherReg/get", {
       withCredentials: true,
     });
     console.log("fetching teacher list ");
@@ -14,7 +14,7 @@ export const fetchTeachers = createAsyncThunk(
 );
 
 const teacherSlice = createSlice({
-  name: 'teachers',
+  name: "teachers",
   initialState: {
     teachers: [],
     loading: false,

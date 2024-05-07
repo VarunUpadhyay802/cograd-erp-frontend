@@ -1,10 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import userSlice from './userSlice';
-import teacherSlice from './teacherSlice';
-import classSlice from './classSlice';
-import studentListSlice from './studentListSlice'; 
-
-import teacherListSlice from './teacherListSlice'; 
+import { configureStore } from "@reduxjs/toolkit";
+import userSlice from "./userSlice";
+import teacherSlice from "./teacherSlice";
+import classSlice from "./classSlice";
+import studentListSlice from "./studentListSlice";
 
 // Configure the Redux store
 const store = configureStore({
@@ -13,7 +11,6 @@ const store = configureStore({
     teachers: teacherSlice,
     classes: classSlice,
     studentList: studentListSlice,
-    teacherList: teacherListSlice,
   },
 });
 
