@@ -72,6 +72,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
 }));
 
 const AppBar1 = styled(MuiAppBar, {
@@ -135,14 +137,12 @@ export default function HomePage(props) {
     const teacherToken = Cookies.get("teacherToken"); // for teachers
     const classTeacherToken = Cookies.get("classTeacherToken"); // for class teachers
     const parentToken = Cookies.get("parentToken"); // for class teachers
-  
-  
+
     if (schoolToken) {
       return { token: schoolToken, role: "PRINCIPAL" };
-    }else if(parentToken){
-      return { token: parentToken, role: "PARENT" }; 
-    }
-     else if (studentToken) {
+    } else if (parentToken) {
+      return { token: parentToken, role: "PARENT" };
+    } else if (studentToken) {
       return { token: studentToken, role: "STUDENT" };
     } else if (teacherToken) {
       return { token: teacherToken, role: "TEACHER" };
@@ -152,28 +152,50 @@ export default function HomePage(props) {
       return null;
     }
   };
-  
+
   const userToken = detectUserRole();
   const token = userToken?.token;
   const role = userToken?.role;
   
-
   const handleLogout = async () => {
     try {
-      const endpoint = role === "PRINCIPAL" ? "school" : role === "STUDENT" ? "student" : "teacher"; // Adjust for multiple roles
+      // Identify the correct endpoint based on the user role
+      const endpointMap = {
+        PRINCIPAL: "school",
+        STUDENT: "student",
+        TEACHER: "teacher",
+        // In JavaScript, hyphens are not allowed in variable names  so have to make it a string 
+       "CLASS-TEACHER": "classTeacher", // Endpoint for class teachers
+        PARENT: "parent",
+      };
+
+      const endpoint = endpointMap[role];
+
+      if (!endpoint) {
+        throw new Error("Invalid role"); // Handle unexpected roles
+      }
+
+      // Send a POST request to the appropriate logout endpoint
       const response = await fetch(`http://localhost:4000/${endpoint}/logout`, {
         method: "POST",
         credentials: "include", // Include cookies in the request
       });
 
-      dispatch(clearUser());
+      if (!response.ok) {
+        throw new Error("Failed to logout"); // Handle non-OK responses
+      }
+
+      // Clear user-specific data from Redux or other state management
+      dispatch(clearUser()); // Adjust this to clear the correct slice of state
+
       const data = await response.json();
       console.log("Logged out:", data.message);
 
-      // Redirect to the login page after successful logout
+      // Redirect to the login or choose user page after successful logout
       navigate("/chooseUser");
     } catch (error) {
       console.error("Error logging out:", error);
+      // Optionally, show an error message to the user
     }
   };
 
@@ -201,15 +223,25 @@ export default function HomePage(props) {
 
   const drawer = (
     <div className="lg:hidden bg-[#343a40] h-full">
-      <Link to="/" className="cursor-pointer" onClick={() => setMobileOpen(false)}>
+      <Link
+        to="/"
+        className="cursor-pointer"
+        onClick={() => setMobileOpen(false)}
+      >
         <div className="w-full flex items-center justify-center">
-          <img src="logo.png" alt="Logo" className="h-12 w-12 py-2 px-2 bg-[#6F52ED] rounded-sm my-4" />
+          <img
+            src="logo.png"
+            alt="Logo"
+            className="h-12 w-12 py-2 px-2 bg-[#6F52ED] rounded-sm my-4"
+          />
         </div>
       </Link>
       {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
       {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />}
       {role === "TEACHER" && <TeacherMenuList setMobileOpen={setMobileOpen} />}
-      {role === "CLASS-TEACHER" && <ClassTeacherMenuList setMobileOpen={setMobileOpen} />}
+      {role === "CLASS-TEACHER" && (
+        <ClassTeacherMenuList setMobileOpen={setMobileOpen} />
+      )}
       {role === "PARENT" && <ParentMenuList setMobileOpen={setMobileOpen} />}
       <Divider />
       <List>
@@ -243,9 +275,9 @@ export default function HomePage(props) {
       </List>
     </div>
   );
-  
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <div className="flex flex-col w-full overflow-hidden appearance-none">
@@ -272,7 +304,11 @@ export default function HomePage(props) {
               </div>
             </Toolbar>
           </AppBar1>
-          <Drawer1 variant="permanent" open={open} sx={{ background: "#343a40" }}>
+          <Drawer1
+            variant="permanent"
+            open={open}
+            sx={{ background: "#343a40" }}
+          >
             <DrawerHeader>
               <div className="w-full flex items-center justify-center">
                 <img
@@ -282,15 +318,29 @@ export default function HomePage(props) {
                 />
               </div>
               <IconButton onClick={handleDrawerClose} sx={{ color: "white" }}>
-                {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                {theme.direction === "rtl" ? (
+                  <ChevronRightIcon />
+                ) : (
+                  <ChevronLeftIcon />
+                )}
               </IconButton>
             </DrawerHeader>
             <Divider />
-            {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
-            {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />}
-            {role === "TEACHER" && <TeacherMenuList setMobileOpen={setMobileOpen} />}
-            {role === "CLASS-TEACHER" && <ClassTeacherMenuList setMobileOpen={setMobileOpen} />}
-            {role === "PARENT" && <ParentMenuList setMobileOpen={setMobileOpen} />}
+            {role === "PRINCIPAL" && (
+              <SchoolMenuList setMobileOpen={setMobileOpen} />
+            )}
+            {role === "STUDENT" && (
+              <StudentMenuList setMobileOpen={setMobileOpen} />
+            )}
+            {role === "TEACHER" && (
+              <TeacherMenuList setMobileOpen={setMobileOpen} />
+            )}
+            {role === "CLASS-TEACHER" && (
+              <ClassTeacherMenuList setMobileOpen={setMobileOpen} />
+            )}
+            {role === "PARENT" && (
+              <ParentMenuList setMobileOpen={setMobileOpen} />
+            )}
             <Divider />
             <List>
               {["Profile", "Logout"].map((text, index) => (
@@ -303,7 +353,7 @@ export default function HomePage(props) {
                     transition: "all 0.3s ease-in-out",
                   }}
                   component={Link}
-                  to={index === 0 ? "/profile" : "/logout"}
+                  to={index === 0 ? "/profile" : "/chooseUser"}
                 >
                   <ListItemButton
                     sx={{

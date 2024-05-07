@@ -14,12 +14,12 @@ import ChooseUser from "./pages/ChooseUser";
 import TeacherLogin from "./pages/Teacher/TeacherLogin";
 import TeacherOptions from "./pages/Teacher/TeacherOptions";
 import TeacherRegistration from "./pages/Teacher/TeacherRegistration";
-import TeacherDashBoard from "./pages/Teacher/TeacherDashBoard";
+
 import TeacherMark from "./pages/TeacherMark";
 
 import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
 import SubjectOptions from "./pages/SubjectOptions";
-import ClassTeacherDashBoard from "./pages/ClassTeacherDashBoard";
+
 import ViewTeacherAttendance from "./pages/ViewTeacherAttendance";
 
 import TeacherIndividualAttendance from "./pages/TeacherIndividualAttendance";
@@ -41,10 +41,11 @@ import MarksSheetPage from "./pages/Students/SingleStudent/MarksSheetPage";
 import ComplainPage from "./pages/Students/SingleStudent/ComplainPage";
 import ParentLogin from "./pages/Parent/ParentLogin";
 import ParentRegistration from "./pages/Parent/ParentRegistration";
-import ParentDashBoard from "./pages/Parent/ParentDashBoard";
 import ClassTeacherHomePage from "./components/ClassTeacher/ClassTeacherHomePage";
 import TeacherHomePage from "./pages/Teacher/TeacherHomePage";
 import ParentHomePage from "./pages/Parent/ParentHomePage";
+import TeacherAttendanceData from "./components/Teachers/TeacherAttendanceData";
+import TeacherOptionsIndividual from "./pages/Teacher/TeacherOptionsIndividual";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
 
 const router = createBrowserRouter([
@@ -209,9 +210,20 @@ const router = createBrowserRouter([
         path: "/teacherHomePage",
         element: <TeacherHomePage />,
       },
+      
+      {
+        path: "/teacher-attendance-option",
+        element: <TeacherOptionsIndividual />,
+      },
+      //teacher mark their own attendance
       {
         path: "/teacher-mark-self",
         element: <TeacherMark />,
+      },
+      
+      {
+        path: "/teacher-mark-see",
+        element: <TeacherAttendanceData />,
       },
       {
         path: "/parentHomePage",
@@ -236,10 +248,6 @@ const router = createBrowserRouter([
     element: <ParentLogin />,
   },
   {
-    path: "/parentsDashBoard",
-    element: <ParentDashBoard />,
-  },
-  {
     path: "/chooseUser",
     element: <ChooseUser />,
   },
@@ -252,17 +260,6 @@ const router = createBrowserRouter([
     element: <ClassTeacherLogin />,
   },
   {
-    path: "/teacher/dashboard",
-    element: <TeacherDashBoard />,
-  },
- 
-  // {
-  //   path: "/student-mark",
-  //   element: <StudentAttendance />,
-  // },
-
-  //teacher taking attendance of himself
-  {
     path: "/teacher-mark",
     element: <StudentAttendance />,
   },
@@ -271,20 +268,6 @@ const router = createBrowserRouter([
     element: <ClassTeacherRegistration />,
   },
 
-  {
-    path: "/classTeacherDashBoard",
-    element: <ClassTeacherDashBoard />,
-    children: [
-      {
-        path: "student-mark",
-        element: <StudentAttendance />,
-      },
-      {
-        path: "classTeacherHomePage",
-        element: <ClassTeacherHomePage />,
-      },
-    ],
-  },
 ]);
 
 function App() {

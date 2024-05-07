@@ -23,7 +23,6 @@ const TeacherMenuList = ({ setMobileOpen }) => {
         "Classes",
         "Subjects",
         "Attendance",
-   
       
       ].map((text, index) => (
         <ListItem
@@ -43,7 +42,7 @@ const TeacherMenuList = ({ setMobileOpen }) => {
               : index === 2
               ? null
               : index === 3
-               ? "/teacher-mark-self":null
+               ? "/teacher-attendance-option":null
           } // Define the route to navigate to
         >
           <ListItemButton

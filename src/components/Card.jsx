@@ -16,7 +16,7 @@ const Card = ({ link, title, subtext, image, children }) => {
               className="w-16 h-16 object-cover rounded-md mb-2 mx-auto" // Centered and consistent image size
             />
           )}
-          <h2 className="text-xl lg:text-2xl font-bold text-gray-900 text-center">{title}</h2>
+          <h2 className="text-xl xl:text-2xl font-bold text-gray-900 text-center">{title}</h2>
         </Link>
       ) : (
         <>
