@@ -1,35 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTeachers } from "../utils/teacherSlice";
 
 const TeacherList = () => {
-  const [teachers, setTeachers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const fetchTeachers = async () => {
-    try {
-      const response = await axios.get("http://localhost:4000/teacherReg/get", {
-        withCredentials: true,
-      });
-
-      if (response.status === 200 && Array.isArray(response.data)) {
-        setTeachers(response.data);
-      } else {
-        setError("Error fetching teachers.");
-      }
-    } catch (err) {
-      console.error("Error fetching teachers:", err);
-      setError("Failed to fetch teachers.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Get teachers and loading status from Redux state
+  const teachers = useSelector((state) => state.teachers.teachers);
+  const loading = useSelector((state) => state.teachers.loading);
 
   useEffect(() => {
-    fetchTeachers();
-  }, []);
+    // Fetch teachers when component mounts
+    dispatch(fetchTeachers());
+  }, [dispatch]);
 
   const checkIfClassTeacher = async (teacherId) => {
     try {
@@ -61,10 +47,6 @@ const TeacherList = () => {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
     <div className="container mx-auto mt-6">
       <h2 className="text-xl font-semibold mb-4">Teacher List</h2>
@@ -77,7 +59,7 @@ const TeacherList = () => {
             <ul>
               {teacher.teachSubjects.map((ts, index) => (
                 <li key={index}>
-                  Subject: {ts.subject?.subName || "Unknown"}, 
+                  Subject: {ts.subject?.subName || "Unknown"},
                   {/* Class: {ts.class?.className || "Unknown"} */}
                 </li>
               ))}
