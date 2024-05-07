@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 const ClassTeacherMenuList = ({ setMobileOpen }) => {
   return (
     <List>
-      {["Class-Teacher Home", "Classes", "Subjects", "Teachers", "Parents", "Students"].map(
+      {["Home", "Classes", "Subjects", "Teachers", "Parents", "Students"].map(
         (text, index) => (
           <ListItem
             key={text}
@@ -29,7 +29,7 @@ const ClassTeacherMenuList = ({ setMobileOpen }) => {
             component={Link}
             to={
               index === 0
-                ? "/classTeacherDashBoard/classTeacherHomePage"
+                ? "/classTeacherHomePage"
                 : index === 1
                 ? null
                 : index === 2
@@ -39,7 +39,7 @@ const ClassTeacherMenuList = ({ setMobileOpen }) => {
                 : index === 4
                 ? null
                 : index === 5
-                ? "/classTeacherDashBoard/student-mark"
+                ? "/student-mark"
                 : null
             } // Adjusted to reflect the new order and remove unnecessary routes
           >

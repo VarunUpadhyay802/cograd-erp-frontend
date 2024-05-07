@@ -8,9 +8,9 @@ function Protected({ children }) {
     const studentToken = Cookies.get("studentToken"); // For student
     const teacherToken = Cookies.get("teacherToken"); // For teacher
     const classTeacherToken = Cookies.get("classTeacherToken"); // For class teacher
-   
+    const ParentToken = Cookies.get("parentToken"); 
     // If any of these tokens are valid, return true
-    return !!(schoolToken || studentToken || teacherToken || classTeacherToken);
+    return !!(schoolToken || studentToken || teacherToken || classTeacherToken ||ParentToken);
   };
 
   useEffect(() => {

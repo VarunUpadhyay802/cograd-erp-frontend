@@ -134,10 +134,15 @@ export default function HomePage(props) {
     const studentToken = Cookies.get("studentToken"); // for students
     const teacherToken = Cookies.get("teacherToken"); // for teachers
     const classTeacherToken = Cookies.get("classTeacherToken"); // for class teachers
+    const parentToken = Cookies.get("parentToken"); // for class teachers
+  
   
     if (schoolToken) {
       return { token: schoolToken, role: "PRINCIPAL" };
-    } else if (studentToken) {
+    }else if(parentToken){
+      return { token: parentToken, role: "PARENT" }; 
+    }
+     else if (studentToken) {
       return { token: studentToken, role: "STUDENT" };
     } else if (teacherToken) {
       return { token: teacherToken, role: "TEACHER" };
@@ -284,7 +289,7 @@ export default function HomePage(props) {
             {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
             {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />}
             {role === "TEACHER" && <TeacherMenuList setMobileOpen={setMobileOpen} />}
-            {role === "CLASS_TEACHER" && <ClassTeacherMenuList setMobileOpen={setMobileOpen} />}
+            {role === "CLASS-TEACHER" && <ClassTeacherMenuList setMobileOpen={setMobileOpen} />}
             {role === "PARENT" && <ParentMenuList setMobileOpen={setMobileOpen} />}
             <Divider />
             <List>

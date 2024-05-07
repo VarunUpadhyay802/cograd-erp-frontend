@@ -18,7 +18,7 @@ const TeacherLogin = () => {
 
       if (response.status === 200) {
         console.log("Login successful:");
-        navigate("/"); // Redirect to teacher's dashboard
+        navigate("/teacherHomePage"); // Redirect to teacher's dashboard
       } else {
         console.error("Login failed:", response.data);
       }

@@ -1,6 +1,6 @@
 import CountUp from "react-countup";
 
-const ClassTeacherHomePage = () => {
+const ParentHomePage = () => {
   const totalUsers = 650;
   const totalTeachers = 30;
   const totalIncome = 10000;
@@ -13,7 +13,7 @@ const ClassTeacherHomePage = () => {
           <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
             <img src="/students.png" alt="" className="h-10 w-10" />
             <div className="mt-1 font-poppins font-semibold">
-              Total Students
+            Total fees 
             </div>
             <CountUp
               end={totalUsers}
@@ -24,21 +24,22 @@ const ClassTeacherHomePage = () => {
           <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
             <img src="/teacher.png" alt="" className="h-10 w-10" />
             <div className="mt-1 font-poppins font-semibold">
-              Total Subjects
+       .......
             </div>
-            <CountUp
-              end={totalTeachers}
-              duration={3}
-              className="text-2xl text-green-500"
-            />
+            <div
+            className="text-2xl text-green-500">
+                   .....
+            </div>
+           
+            
           </div>
           <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
             <img src="/teacher.png" alt="" className="h-10 w-10" />
             <div className="mt-1 font-poppins font-semibold">
-              Total Subjects
+             Name:
             </div>
             <div className="text-2xl text-green-500">
-             Class 11
+             .....
             </div>
           </div>
           {/* <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
@@ -81,4 +82,4 @@ const ClassTeacherHomePage = () => {
   );
 };
 
-export default ClassTeacherHomePage;
+export default ParentHomePage;

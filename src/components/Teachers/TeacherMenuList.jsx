@@ -22,8 +22,7 @@ const TeacherMenuList = ({ setMobileOpen }) => {
         "Home",
         "Classes",
         "Subjects",
-   
-        "Students",
+        "Attendance",
    
       
       ].map((text, index) => (
@@ -38,18 +37,13 @@ const TeacherMenuList = ({ setMobileOpen }) => {
           component={Link} // Use Link component from react-router-dom
           to={
             index === 0
-              ? "/"
+              ? "/teacherHomePage"
               : index === 1
-              ? "/classes"
+              ? null
               : index === 2
-              ? "/subjectsOption"
+              ? null
               : index === 3
-              ? "/teacherChoose"
-              : index === 4
-              ? "/students"
-              : index === 5
-              ? "/expenses"
-              : "/staffs"
+               ? "/teacher-mark-self":null
           } // Define the route to navigate to
         >
           <ListItemButton
