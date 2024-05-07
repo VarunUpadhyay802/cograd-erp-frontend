@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import CountUp from "react-countup";
 import { useDispatch, useSelector } from "react-redux";
 import { setStudentData } from "../../utils/studentListSlice";
-import { setTeacherData } from "../../utils/teacherListSlice";
 import axios from "axios";
 import { fetchTeachers } from "../../utils/teacherSlice";
 
