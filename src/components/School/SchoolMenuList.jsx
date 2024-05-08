@@ -13,8 +13,9 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+import PersonAddSharpIcon from '@mui/icons-material/PersonAddSharp';
 import { Link } from "react-router-dom";
-
+import EscalatorWarningSharpIcon from '@mui/icons-material/EscalatorWarningSharp';
 const SchoolMenuList = ({ setMobileOpen }) => {
   return (
     <List>
@@ -26,8 +27,7 @@ const SchoolMenuList = ({ setMobileOpen }) => {
         "Students",
         "Students-2",
         "Parents",
-        "Transactions",
-        "Staffs",
+        "Extra"
       ].map((text, index) => (
         <ListItem
           key={text}
@@ -54,8 +54,8 @@ const SchoolMenuList = ({ setMobileOpen }) => {
               : index === 6
               ? "/parentRegistration"
               : index === 7
-              ? "/expenses"
-              : "/staffs"
+              ? "/extra"
+              : null
           } // Define the route to navigate to
         >
           <ListItemButton
@@ -79,7 +79,13 @@ const SchoolMenuList = ({ setMobileOpen }) => {
                 <PermContactCalendarIcon />
               ) : index === 5 ? (
                 <ReceiptLongIcon />
-              ) : (
+              ) :index == 6?(
+                <EscalatorWarningSharpIcon />
+              ) 
+              : index ==7?(
+                <PersonAddSharpIcon />
+              )
+              :(
                 <EngineeringIcon />
               )}
             </ListItemIcon>

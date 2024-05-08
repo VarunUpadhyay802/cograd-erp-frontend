@@ -48,6 +48,8 @@ import TeacherAttendanceData from "./components/Teachers/TeacherAttendanceData";
 import TeacherOptionsIndividual from "./pages/Teacher/TeacherOptionsIndividual";
 import ParentProtected from "./components/Protected/ParentProtected";
 import ProtectedAll from "./components/Protected/ProtectedAll";
+import Extra from "./pages/Extra";
+import SchoolDriver from "./components/Driver/SchoolDriver";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
 
 const router = createBrowserRouter([
@@ -80,6 +82,14 @@ const router = createBrowserRouter([
         element: (
           <Protected>
             <SchoolStaff />
+          </Protected>
+        ),
+      },
+      {
+        path: "/driver",
+        element: (
+          <Protected>
+            <SchoolDriver />
           </Protected>
         ),
       },
@@ -177,6 +187,14 @@ const router = createBrowserRouter([
         element: (
           <Protected>
             <ParentRegistration />
+          </Protected>
+        ),
+      },
+      {
+        path: "/extra",
+        element: (
+          <Protected>
+            <Extra />
           </Protected>
         ),
       },
