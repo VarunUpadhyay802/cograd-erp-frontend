@@ -2,11 +2,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setParent } from "../../utils/parentAuthSlice";
 
 const ParentLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +21,9 @@ const ParentLogin = () => {
       );
 
       if (response.status === 200) {
-        console.log("Login successful:");
+        dispatch(setParent(response.data));
+        console.log("Login successful:", response.data);
+
         navigate("/parentHomePage"); // Redirect to teacher's dashboard
       } else {
         console.error("Login failed:", response.data);

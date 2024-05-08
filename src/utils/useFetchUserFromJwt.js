@@ -4,6 +4,8 @@ import { fetchUserStart, setUser } from "./userSlice";
 import { jwtDecode } from "jwt-decode";
 import { setStudent } from "./studentSlice";
 import Cookies from "js-cookie";
+import { setParent } from "./parentAuthSlice";
+
 const useFetchUserFromJwt = () => {
   const dispatch = useDispatch();
   const schoolToken = Cookies.get("token"); // for principals
@@ -17,6 +19,7 @@ const useFetchUserFromJwt = () => {
       // dispatch(fetchUserStart());
       const decodedToken = jwtDecode(schoolToken);
       console.log(decodedToken);
+
       dispatch(
         setUser({
           isAuthenticated: true,
@@ -27,17 +30,32 @@ const useFetchUserFromJwt = () => {
         })
       );
     } else if (studentToken) {
+      const decodedToken = jwtDecode(studentToken);
+      console.log(decodedToken);
+
       dispatch(
         setStudent({
           isAuthenticated: true,
-          studentId: decodedToken.id,
+          _id: decodedToken.id,
+          name: decodedToken.name,
+          role: decodedToken.role,
+          email: decodedToken.email,
+        })
+      );
+    } else if (parentToken) {
+      const decodedToken = jwtDecode(parentToken);
+      console.log(decodedToken);
+      dispatch(
+        setParent({
+          isAuthenticated: true,
+          parentId: decodedToken.id,
           name: decodedToken.name,
           role: decodedToken.role,
           email: decodedToken.email,
         })
       );
     }
-  }, [schoolToken, studentToken, dispatch]);
+  }, [schoolToken, parentToken, studentToken, dispatch]);
 };
 
 export default useFetchUserFromJwt;

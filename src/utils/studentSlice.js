@@ -4,7 +4,7 @@ const studentSlice = createSlice({
   name: "student",
   initialState: {
     isAuthenticated: false,
-    studentId: null,
+    _id: null,
     name: null,
     role: null,
     email: null,
@@ -14,7 +14,7 @@ const studentSlice = createSlice({
   reducers: {
     setStudent: (state, action) => {
       state.isAuthenticated = true;
-      state.studentId = action.payload._id;
+      state._id = action.payload._id;
       state.role = action.payload.role;
       state.name = action.payload.name;
       state.email = action.payload.email;
@@ -23,7 +23,7 @@ const studentSlice = createSlice({
     },
     clearStudent: (state) => {
       state.isAuthenticated = false;
-      state.studentId = null;
+      state._id = null;
       state.name = null;
       state.role = null;
       state.email = null;

@@ -17,6 +17,7 @@ const ParentRegistration = () => {
   const [classID, setClassID] = useState("");
   const [studentId, setStudentId] = useState("");
   const [studentName, setStudentName] = useState([]);
+  const [fees, setFees] = useState(0);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -35,21 +36,20 @@ const ParentRegistration = () => {
       return alert("Add Student");
     }
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("qualification", qualification);
-    formData.append("designation", designation);
-    formData.append("contact", contact);
-    formData.append("file", file);
-    formData.append("students", students);
-
     try {
       setLoading(true);
       const response = await axios.post(
         "http://localhost:4000/parent/register",
-        formData,
+        {
+          name,
+          email,
+          password,
+          qualification,
+          designation,
+          contact,
+          students,
+          file,
+        },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -77,19 +77,20 @@ const ParentRegistration = () => {
     }
   };
 
-  const handleStudentAdd = (studentId) => {
-    if (studentId) {
+  const handleStudentAdd = (studentId, fees) => {
+    if (studentId && fees > 0) {
       const [studId, studName] = studentId.split(":");
-      if (!students.includes(studId)) {
-        setStudents([...students, studId]);
+      if (!studentName.includes(studName)) {
+        setStudents([...students, { studentId: studId, fees: parseInt(fees) }]);
         setStudentName([...studentName, studName]);
         setClassID("");
         setStudentId("");
+        setFees(0);
       } else {
         console.log("Student already added");
       }
     } else {
-      alert("Student not selected");
+      alert("Fill the inputs correctly");
     }
   };
 
@@ -201,12 +202,20 @@ const ParentRegistration = () => {
                   classId={classID}
                   setStudentId={setStudentId}
                 />
-                <button
-                  onClick={() => handleStudentAdd(studentId)}
-                  className="py-2 px-7 hover:bg-blue-800 transition-all duration-300 ease-in-out bg-blue-600 rounded-md text-sm text-white"
+                <input
+                  type="number"
+                  name="fees"
+                  value={fees}
+                  onChange={(e) => setFees(e.target.value)}
+                  placeholder="Enter fees"
+                  className="border outline-none p-2 rounded-sm"
+                />
+                <div
+                  onClick={() => handleStudentAdd(studentId, fees)}
+                  className="py-2 px-7 hover:bg-blue-800 cursor-pointer transition-all duration-300 ease-in-out bg-blue-600 rounded-md text-sm text-white"
                 >
                   Add
-                </button>
+                </div>
               </div>
 
               <div className="flex items-center gap-4">

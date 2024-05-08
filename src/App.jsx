@@ -48,6 +48,9 @@ import TeacherAttendanceData from "./components/Teachers/TeacherAttendanceData";
 import TeacherOptionsIndividual from "./pages/Teacher/TeacherOptionsIndividual";
 import ParentProtected from "./components/Protected/ParentProtected";
 import ProtectedAll from "./components/Protected/ProtectedAll";
+import StudentProtected from "./components/Protected/StudentProtected";
+import ParentFeeStructure from "./pages/Parent/ParentFeeStructure";
+import ParentChildPage from "./pages/Parent/ParentChildPage";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
 
 const router = createBrowserRouter([
@@ -62,9 +65,9 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: (
-          <Protected>
+          <ProtectedAll>
             <MainHomepage />
-          </Protected>
+          </ProtectedAll>
         ),
       },
       {
@@ -182,7 +185,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/students",
-        element: <StudentHomePage />,
+        element: (
+          <StudentProtected>
+            <StudentHomePage />
+          </StudentProtected>
+        ),
       },
       {
         path: "/students-2",
@@ -232,6 +239,22 @@ const router = createBrowserRouter([
         element: (
           <ParentProtected>
             <ParentHomePage />
+          </ParentProtected>
+        ),
+      },
+      {
+        path: "/feeStructure",
+        element: (
+          <ParentProtected>
+            <ParentFeeStructure />
+          </ParentProtected>
+        ),
+      },
+      {
+        path: "/parentChild",
+        element: (
+          <ParentProtected>
+            <ParentChildPage />
           </ParentProtected>
         ),
       },
