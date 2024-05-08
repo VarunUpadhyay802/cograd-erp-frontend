@@ -266,10 +266,6 @@ const router = createBrowserRouter([
     element: <ClassTeacherLogin />,
   },
   {
-    path: "/teacher-mark",
-    element: <StudentAttendance />,
-  },
-  {
     path: "/classTeacherRegistration/:teacherId",
     element: <ClassTeacherRegistration />,
   },

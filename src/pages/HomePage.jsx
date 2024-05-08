@@ -127,7 +127,7 @@ export default function HomePage(props) {
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const [isClosing, setIsClosing] = React.useState(false);
   const navigate = useNavigate();
   useFetchUserFromJwt();
   const dispatch = useDispatch();
@@ -208,6 +208,7 @@ export default function HomePage(props) {
       setMobileOpen(!mobileOpen);
     }
   };
+
 
   const drawer = (
     <div className="lg:hidden bg-[#343a40] h-full">

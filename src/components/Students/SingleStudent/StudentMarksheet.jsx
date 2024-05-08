@@ -1,4 +1,3 @@
-import React from "react";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 
 const StudentMarksheet = () => {

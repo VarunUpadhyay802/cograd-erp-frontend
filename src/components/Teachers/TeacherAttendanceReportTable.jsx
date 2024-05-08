@@ -18,12 +18,13 @@ const TeacherAttendanceReportTable = () => {
         switch (params.value) {
           case "p":
             statusText = "Present";
+
             break;
           case "a":
             statusText = "Absent";
             break;
           case "l":
-            statusText = "Late";
+            statusText = "Leave";
             break;
           default:
             statusText = "Unknown";
@@ -35,7 +36,7 @@ const TeacherAttendanceReportTable = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
+      try { 
         const response = await axios.get(
           "http://localhost:4000/teacherAttendance/get",
           {
