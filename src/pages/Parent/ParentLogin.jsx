@@ -42,7 +42,7 @@ const ParentLogin = () => {
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                Email
+                  Email
                 </label>
                 <input
                   type="email"
@@ -70,7 +70,7 @@ const ParentLogin = () => {
                   className="bg-gray-300 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   required
                   value={password}
-                  autoComplete="current-password" 
+                  autoComplete="current-password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
@@ -103,15 +103,6 @@ const ParentLogin = () => {
               >
                 Sign in
               </button>
-              <p className="text-sm text-gray-500">
-                Don’t have an account yet?{" "}
-                <a
-                  href="#"
-                  className="font-medium text-primary-600 hover:underline"
-                >
-                  Sign up
-                </a>
-              </p>
             </form>
           </div>
         </div>

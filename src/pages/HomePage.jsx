@@ -156,7 +156,7 @@ export default function HomePage(props) {
   const userToken = detectUserRole();
   const token = userToken?.token;
   const role = userToken?.role;
-  
+
   const handleLogout = async () => {
     try {
       // Identify the correct endpoint based on the user role
@@ -164,8 +164,8 @@ export default function HomePage(props) {
         PRINCIPAL: "school",
         STUDENT: "student",
         TEACHER: "teacher",
-        // In JavaScript, hyphens are not allowed in variable names  so have to make it a string 
-       "CLASS-TEACHER": "classTeacher", // Endpoint for class teachers
+        // In JavaScript, hyphens are not allowed in variable names  so have to make it a string
+        "CLASS-TEACHER": "classTeacher", // Endpoint for class teachers
         PARENT: "parent",
       };
 
@@ -202,18 +202,6 @@ export default function HomePage(props) {
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
   };
-
-  const isLoggedIn = () => {
-    const token = Cookies.get("token"); // 'token' should match the name of the token set in the backend
-    console.log("schoolToken", token);
-    console.log(!!token);
-    return !!token;
-  };
-
-  React.useEffect(() => {
-    console.log(role);
-    isLoggedIn();
-  }, []);
 
   const handleDrawerToggle = () => {
     if (!isClosing) {

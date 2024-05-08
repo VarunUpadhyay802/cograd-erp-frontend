@@ -16,64 +16,48 @@ import { Link } from "react-router-dom";
 const ParentMenuList = ({ setMobileOpen }) => {
   return (
     <List>
-      {["Home", "Classes", "Subjects", "Teachers", "Parents", "Students"].map(
-        (text, index) => (
-          <ListItem
-            key={text}
-            disablePadding
+      {["Home", "Student", "Fee Structure"].map((text, index) => (
+        <ListItem
+          key={text}
+          disablePadding
+          sx={{
+            display: "block",
+            "&:hover": { bgcolor: "#6F52ED" },
+            transition: "all 0.3s ease-in-out",
+          }}
+          component={Link}
+          to={
+            index === 0
+              ? "/parentHomepage"
+              : index === 1
+              ? "/parentChild"
+              : "/feeStructure"
+          } // Adjusted to reflect the new order and remove unnecessary routes
+        >
+          <ListItemButton
             sx={{
-              display: "block",
-              "&:hover": { bgcolor: "#6F52ED" },
-              transition: "all 0.3s ease-in-out",
+              minHeight: 48,
+              justifyContent: "initial",
+              px: 2.5,
             }}
-            component={Link}
-            to={
-              index === 0
-                ? "/classTeacherDashBoard/classTeacherHomePage"
-                : index === 1
-                ? null
-                : index === 2
-                ? null
-                : index === 3
-                ? null
-                : index === 4
-                ? null
-                : index === 5
-                ? "/classTeacherDashBoard/student-mark"
-                : null
-            } // Adjusted to reflect the new order and remove unnecessary routes
+            onClick={() => setMobileOpen(false)}
           >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: "initial",
-                px: 2.5,
-              }}
-              onClick={() => setMobileOpen(false)}
-            >
-              <ListItemIcon sx={{ color: "white" }}>
-                {index === 0 ? (
-                  <HomeIcon />
-                ) : index === 1 ? (
-                  <ClassOutlinedIcon />
-                ) : index === 2 ? (
-                  <AssignmentIcon />
-                ) : index === 3 ? (
-                  <PeopleAltIcon />
-                ) : index === 4 ? (
-                  <PermContactCalendarIcon />
-                ) : (
-                  <ClassOutlinedIcon /> // Default icon for other routes
-                )}
-              </ListItemIcon>
-              <ListItemText
-                primary={text}
-                sx={{ color: "white", fontSize: "0.5rem" }}
-              />
-            </ListItemButton>
-          </ListItem>
-        )
-      )}
+            <ListItemIcon sx={{ color: "white" }}>
+              {index === 0 ? (
+                <HomeIcon />
+              ) : index === 1 ? (
+                <PeopleAltIcon />
+              ) : (
+                <ClassOutlinedIcon />
+              )}
+            </ListItemIcon>
+            <ListItemText
+              primary={text}
+              sx={{ color: "white", fontSize: "0.5rem" }}
+            />
+          </ListItemButton>
+        </ListItem>
+      ))}
     </List>
   );
 };

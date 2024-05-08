@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ClassSelector from "../../components/ClassSelector";
+import StudentSelector from "../../components/StudentSelector";
 
 const ParentRegistration = () => {
   const [name, setName] = useState("");
@@ -11,6 +13,10 @@ const ParentRegistration = () => {
   const [file, setFile] = useState(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [students, setStudents] = useState([]);
+  const [classID, setClassID] = useState("");
+  const [studentId, setStudentId] = useState("");
+  const [studentName, setStudentName] = useState([]);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -25,6 +31,10 @@ const ParentRegistration = () => {
       return;
     }
 
+    if (students.length === 0) {
+      return alert("Add Student");
+    }
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
@@ -33,6 +43,7 @@ const ParentRegistration = () => {
     formData.append("designation", designation);
     formData.append("contact", contact);
     formData.append("file", file);
+    formData.append("students", students);
 
     try {
       setLoading(true);
@@ -47,7 +58,7 @@ const ParentRegistration = () => {
         }
       );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         console.log(response.data);
         setName("");
         setEmail("");
@@ -56,12 +67,41 @@ const ParentRegistration = () => {
         setDesignation("");
         setContact("");
         setFile(null);
+        setStudents([]);
+        setStudentName([]);
       }
     } catch (err) {
       console.error("Error registering parent:", err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleStudentAdd = (studentId) => {
+    if (studentId) {
+      const [studId, studName] = studentId.split(":");
+      if (!students.includes(studId)) {
+        setStudents([...students, studId]);
+        setStudentName([...studentName, studName]);
+        setClassID("");
+        setStudentId("");
+      } else {
+        console.log("Student already added");
+      }
+    } else {
+      alert("Student not selected");
+    }
+  };
+
+  const handleRemove = (indexToRemove) => {
+    const updatedStudentName = studentName.filter(
+      (_, index) => index !== indexToRemove
+    );
+    const updatedStudents = students.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setStudentName(updatedStudentName);
+    setStudents(updatedStudents);
   };
 
   return (
@@ -148,6 +188,48 @@ const ParentRegistration = () => {
                   onChange={handleFileChange}
                   className="border outline-none p-2 rounded-sm"
                 />
+              </div>
+            </div>
+
+            <div className="my-6">
+              <div className="text-gray-600 font-bold text-xl mb-4">
+                Student Details
+              </div>
+              <div className="flex items-center gap-4 mb-6">
+                <ClassSelector setClassID={setClassID} />
+                <StudentSelector
+                  classId={classID}
+                  setStudentId={setStudentId}
+                />
+                <button
+                  onClick={() => handleStudentAdd(studentId)}
+                  className="py-2 px-7 hover:bg-blue-800 transition-all duration-300 ease-in-out bg-blue-600 rounded-md text-sm text-white"
+                >
+                  Add
+                </button>
+              </div>
+
+              <div className="flex items-center gap-4">
+                {studentName.length > 0 &&
+                  studentName.map((name, index) => (
+                    <div
+                      key={index}
+                      className="p-2 relative py-4 w-[8rem] shadow-md rounded-xl flex flex-col gap-2 bg-slate-400 items-center"
+                    >
+                      <div
+                        onClick={() => handleRemove(index)}
+                        className="absolute top-0 right-0 cursor-pointer px-2 py-1 text-white bg-red-600 text-xs rounded-full"
+                      >
+                        x
+                      </div>
+                      <img
+                        src="/graduated.png"
+                        alt=""
+                        className="h-10 w-10 rounded-full"
+                      />
+                      <div className="text-sm font-bold capitalize">{name}</div>
+                    </div>
+                  ))}
               </div>
             </div>
 

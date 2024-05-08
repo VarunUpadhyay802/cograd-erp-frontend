@@ -9,7 +9,7 @@ import AddSubjects from "./pages/AddSubjects";
 import HomePage from "./pages/HomePage";
 import TeacherAttendance from "./pages/Teacher/TeacherAttendance";
 import TeacherList from "./pages/TeacherList";
-import Protected from "./components/Protected";
+import Protected from "./components/Protected/Protected";
 import ChooseUser from "./pages/ChooseUser";
 import TeacherLogin from "./pages/Teacher/TeacherLogin";
 import TeacherOptions from "./pages/Teacher/TeacherOptions";
@@ -46,15 +46,17 @@ import TeacherHomePage from "./pages/Teacher/TeacherHomePage";
 import ParentHomePage from "./pages/Parent/ParentHomePage";
 import TeacherAttendanceData from "./components/Teachers/TeacherAttendanceData";
 import TeacherOptionsIndividual from "./pages/Teacher/TeacherOptionsIndividual";
+import ParentProtected from "./components/Protected/ParentProtected";
+import ProtectedAll from "./components/Protected/ProtectedAll";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Protected>
+      <ProtectedAll>
         <HomePage />
-      </Protected>
+      </ProtectedAll>
     ),
     children: [
       {
@@ -210,7 +212,7 @@ const router = createBrowserRouter([
         path: "/teacherHomePage",
         element: <TeacherHomePage />,
       },
-      
+
       {
         path: "/teacher-attendance-option",
         element: <TeacherOptionsIndividual />,
@@ -220,14 +222,18 @@ const router = createBrowserRouter([
         path: "/teacher-mark-self",
         element: <TeacherMark />,
       },
-      
+
       {
         path: "/teacher-mark-see",
         element: <TeacherAttendanceData />,
       },
       {
         path: "/parentHomePage",
-        element: <ParentHomePage />,
+        element: (
+          <ParentProtected>
+            <ParentHomePage />
+          </ParentProtected>
+        ),
       },
     ],
   },
@@ -267,7 +273,6 @@ const router = createBrowserRouter([
     path: "/classTeacherRegistration/:teacherId",
     element: <ClassTeacherRegistration />,
   },
-
 ]);
 
 function App() {
