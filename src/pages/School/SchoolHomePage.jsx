@@ -1,30 +1,30 @@
 import { useEffect } from "react";
 import CountUp from "react-countup";
 import { useDispatch, useSelector } from "react-redux";
-import { setStudentData } from "../../utils/studentListSlice";
-import axios from "axios";
+import { fetchSchoolStudentList } from "../../utils/studentListSlice";
 import { fetchTeachers } from "../../utils/teacherSlice";
 
 const SchoolHomePage = () => {
   const totalIncome = 10000;
   const totalExpense = 4000;
-  const { totalStudents, studentList } = useSelector(
-    (state) => state.studentList
-  );
 
   const dispatch = useDispatch();
+
+  const totalStudents = useSelector(
+    (state) => state.studentList.schoolStudentList
+  );
   const totalTeachers = useSelector((state) => state.teachers.teachers);
   const loading = useSelector((state) => state.teachers.loading);
-  const totalUsers = totalStudents;
+  const totalUsers = totalStudents.length;
   const totalTeachersD = totalTeachers.length;
-
-  console.log(totalTeachers);
+  const status = useSelector((state) => state.studentList.status);
 
   useEffect(() => {
     dispatch(fetchTeachers());
+    dispatch(fetchSchoolStudentList());
   }, [dispatch]);
 
-  if (loading) {
+  if (loading || status !== "idle") {
     return <div>Loading...</div>;
   }
 

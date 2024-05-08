@@ -1,33 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchClasses, resetClasses } from "../utils/classSlice";
 
 const ClassSelector = ({ setClassID }) => {
-  const [classesList, setClassesList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedClassID, setSelectedClassID] = useState('');
+  const [selectedClassID, setSelectedClassID] = useState("");
 
-  const fetchClasses = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get("http://localhost:4000/class/get", {
-        withCredentials: true,
-      });
-
-      if (response.status === 200 && Array.isArray(response.data)) {
-        setClassesList(response.data);
-      } else {
-        setClassesList([]);
-      }
-    } catch (error) {
-      console.error("Error fetching classes:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const classesList = useSelector((state) => state.classes.classesList);
+  const loading = useSelector((state) => state.classes.loading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchClasses();
-  }, []);
+    dispatch(fetchClasses());
+
+    return () => {
+      dispatch(resetClasses());
+    };
+  }, [dispatch, setClassID]);
 
   const handleClassChange = (e) => {
     const selectedID = e.target.value;
@@ -45,7 +33,9 @@ const ClassSelector = ({ setClassID }) => {
           onChange={handleClassChange}
           className="px-3 py-2 border border-gray-300 rounded"
         >
-          <option className='mb-1 mt-2 text-15 text-gray-500' value="">Select a class</option>
+          <option className="mb-1 mt-2 text-15 text-gray-500" value="">
+            Select a class
+          </option>
           {classesList.map((classItem) => (
             <option key={classItem._id} value={classItem._id}>
               {classItem.className}

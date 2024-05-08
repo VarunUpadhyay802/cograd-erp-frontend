@@ -1,20 +1,17 @@
 import CountUp from "react-countup";
 
 const ParentHomePage = () => {
-  const totalUsers = 650;
-  const totalTeachers = 30;
-  const totalIncome = 10000;
-  const totalExpense = 4000;
+  const totalUsers = 6500;
+  const paid = 3500;
+  const due = 3000;
 
   return (
     <>
       <div className="">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-14 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 ">
           <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
             <img src="/students.png" alt="" className="h-10 w-10" />
-            <div className="mt-1 font-poppins font-semibold">
-            Total fees 
-            </div>
+            <div className="mt-1 font-poppins font-semibold">Total fees</div>
             <CountUp
               end={totalUsers}
               duration={3}
@@ -23,24 +20,23 @@ const ParentHomePage = () => {
           </div>
           <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
             <img src="/teacher.png" alt="" className="h-10 w-10" />
-            <div className="mt-1 font-poppins font-semibold">
-       .......
-            </div>
-            <div
-            className="text-2xl text-green-500">
-                   .....
-            </div>
-           
-            
+            <div className="mt-1 font-poppins font-semibold">Fees Paid</div>
+            <CountUp
+              end={paid}
+              duration={3}
+              className="text-2xl text-green-500"
+            />
           </div>
           <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
             <img src="/teacher.png" alt="" className="h-10 w-10" />
             <div className="mt-1 font-poppins font-semibold">
-             Name:
+              Remaining Fees
             </div>
-            <div className="text-2xl text-green-500">
-             .....
-            </div>
+            <CountUp
+              end={due}
+              duration={3}
+              className="text-2xl text-green-500"
+            />{" "}
           </div>
           {/* <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
             <img src="/cost.png" alt="" className="h-10 w-10" />

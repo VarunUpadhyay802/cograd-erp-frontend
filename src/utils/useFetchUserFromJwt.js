@@ -1,42 +1,43 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useCookies } from "react-cookie";
 import { fetchUserStart, setUser } from "./userSlice";
 import { jwtDecode } from "jwt-decode";
 import { setStudent } from "./studentSlice";
+import Cookies from "js-cookie";
 const useFetchUserFromJwt = () => {
   const dispatch = useDispatch();
-  const [cookies] = useCookies(["token"]);
+  const schoolToken = Cookies.get("token"); // for principals
+  const studentToken = Cookies.get("studentToken"); // for students
+  const teacherToken = Cookies.get("teacherToken"); // for teachers
+  const classTeacherToken = Cookies.get("classTeacherToken"); // for class teachers
+  const parentToken = Cookies.get("parentToken"); // for class teachers
 
   useEffect(() => {
-    if (cookies.token) {
-      dispatch(fetchUserStart());
-      console.log(cookies.token);
-      const decodedToken = jwtDecode(cookies.token);
+    if (schoolToken) {
+      // dispatch(fetchUserStart());
+      const decodedToken = jwtDecode(schoolToken);
       console.log(decodedToken);
-      if (decodedToken.role === "PRINCIPAL") {
-        dispatch(
-          setUser({
-            isAuthenticated: true,
-            _id: decodedToken.id,
-            schoolName: decodedToken.schoolName,
-            role: decodedToken.role,
-            email: decodedToken.email,
-          })
-        );
-      } else if (decodedToken.role === "STUDENT") {
-        dispatch(
-          setStudent({
-            isAuthenticated: true,
-            studentId: decodedToken.id,
-            name: decodedToken.name,
-            role: decodedToken.role,
-            email: decodedToken.email,
-          })
-        );
-      }
+      dispatch(
+        setUser({
+          isAuthenticated: true,
+          _id: decodedToken.id,
+          schoolName: decodedToken.schoolName,
+          role: decodedToken.role,
+          email: decodedToken.email,
+        })
+      );
+    } else if (studentToken) {
+      dispatch(
+        setStudent({
+          isAuthenticated: true,
+          studentId: decodedToken.id,
+          name: decodedToken.name,
+          role: decodedToken.role,
+          email: decodedToken.email,
+        })
+      );
     }
-  }, [cookies.token, dispatch]);
+  }, [schoolToken, studentToken, dispatch]);
 };
 
 export default useFetchUserFromJwt;

@@ -11,12 +11,13 @@ const StudentsRegistration = () => {
   const [password, setPassword] = useState("");
   const [classID, setClassID] = useState("");
   const [file, setFile] = useState(null);
+  const [fatherEmail, setFatherEmail] = useState("");
+  const [fathersName, setFatherName] = useState("");
 
   const [studentList, setStudentList] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
-  const schoolId = useSelector((state) => state.user._id);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -37,7 +38,15 @@ const StudentsRegistration = () => {
 
       const response = await axios.post(
         "http://localhost:4000/student/register",
-        { name, email, password, className:classID, file },
+        {
+          name,
+          email,
+          password,
+          className: classID,
+          file,
+          fatherEmail,
+          fathersName,
+        },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -131,8 +140,30 @@ const StudentsRegistration = () => {
                     />
                   </div>
                   <div className="flex flex-col">
+                    <label className="text-sm">Father's Name</label>
+                    <input
+                      type="text"
+                      name="fathersName"
+                      onChange={(e) => setFatherName(e.target.value)}
+                      value={fathersName}
+                      required
+                      className="border outline-none px-3 text-sm py-2 rounded-sm"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className="text-sm">Father's Email</label>
+                    <input
+                      type="email"
+                      name="fatherEmail"
+                      onChange={(e) => setFatherEmail(e.target.value)}
+                      value={fatherEmail}
+                      required
+                      className="border outline-none px-3 text-sm py-2 rounded-sm"
+                    />
+                  </div>
+                  <div className="flex flex-col">
                     <label className="text-sm">Class</label>
-                    <ClassSelector setClassID = {setClassID} />
+                    <ClassSelector setClassID={setClassID} />
                   </div>
                   <div className="flex flex-col">
                     <label className="text-sm">Profile</label>
