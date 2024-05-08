@@ -7,7 +7,7 @@ const AttendanceReportTable = () => {
     {
       field: "status",
       headerName: "Status",
-      width: 500,
+      width: 150,
       renderCell: (params) => (
         <div>{params.value === "p" ? "Present" : "Absent"}</div>
       ),
