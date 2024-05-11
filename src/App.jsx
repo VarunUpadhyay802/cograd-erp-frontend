@@ -53,7 +53,11 @@ import ParentChildPage from "./pages/Parent/ParentChildPage";
 import StudentProtected from "./components/Protected/StudentProtected";
 import ParentFeeStructure from "./pages/Parent/ParentFeeStructure";
 import AdminLogin from "./pages/Admin/AdminLogin";
+import AdminProtected from "./components/Protected/AdminProtected";
+import AdminHomePage from "./pages/Admin/AdminHomePage";
+import SchoolRegistration from "./pages/School/SchoolRegistration";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
+
 
 const router = createBrowserRouter([
   {
@@ -72,6 +76,7 @@ const router = createBrowserRouter([
           </ProtectedAll>
         ),
       },
+   
       {
         path: "/expenses",
         element: (
@@ -253,12 +258,20 @@ const router = createBrowserRouter([
         element: <TeacherAttendanceData />,
       },
       {
+        path: "/admin",
+        element: (
+          <AdminProtected>
+            <AdminHomePage />
+          </AdminProtected>
+        ),
+      },
+      {
         path: "/parentHomePage",
         element: (
           <ParentProtected>
             <ParentHomePage />
           </ParentProtected>
-        ),
+        ), 
       },
       {
         path: "/feeStructure",
@@ -274,6 +287,14 @@ const router = createBrowserRouter([
           <ParentProtected>
             <ParentChildPage />
           </ParentProtected>
+        ),
+      },
+      {
+        path: "/schoolRegistration",
+        element: (
+          <AdminProtected>
+            <SchoolRegistration />
+          </AdminProtected>
         ),
       },
     ],

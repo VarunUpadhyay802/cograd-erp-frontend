@@ -3,19 +3,17 @@ import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-function ParentProtected({ children }) {
+function AdminProtected({ children }) {
   const isLoggedIn = () => {
-    const token = Cookies.get("parentToken");
-    
-    console.log(!!token);
+    const token = Cookies.get("adminToken");
     return !!token;
   };
 
   useEffect(() => {
     isLoggedIn();
+    console.log("Is Admin logged in:", isLoggedIn());
   }, []);
 
-  // If no token is valid, navigate to "/chooseUser"
   if (!isLoggedIn()) {
     return <Navigate to="/chooseUser" replace={true} />;
   }
@@ -24,4 +22,4 @@ function ParentProtected({ children }) {
   return children;
 }
 
-export default ParentProtected;
+export default AdminProtected;

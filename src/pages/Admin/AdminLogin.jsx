@@ -26,7 +26,7 @@ const AdminLogin = () => {
         console.log("Login successful");
 
         dispatch(setUser(response.data));
-        navigate("/");
+        navigate("/admin");
       } else {
         // Handle other response statuses if needed
         console.error("Error logging in:", response.data);

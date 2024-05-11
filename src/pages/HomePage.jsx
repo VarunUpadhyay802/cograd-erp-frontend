@@ -24,6 +24,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 // import AssignmentIcon from "@mui/icons-material/Assignment";
 // import EngineeringIcon from "@mui/icons-material/Engineering";
 // import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountMenu from "../components/AccountMenu";
@@ -41,6 +42,7 @@ import StudentMenuList from "../components/Students/SingleStudent/StudentMenuLis
 import TeacherMenuList from "../components/Teachers/TeacherMenuList";
 import ClassTeacherMenuList from "../components/ClassTeacher/ClassTeacherMenuList"; // Add Class Teacher menu list
 import ParentMenuList from "../components/Parent/ParentMenuList"; // Add Parent menu list
+import AdminMenuList from "../components/Admin/AdminMenuList";
 
 const drawerWidth = 240;
 
@@ -132,14 +134,17 @@ export default function HomePage(props) {
   useFetchUserFromJwt();
   const dispatch = useDispatch();
   const detectUserRole = () => {
+    const adminToken = Cookies.get("adminToken"); // for principals
     const schoolToken = Cookies.get("token"); // for principals
     const studentToken = Cookies.get("studentToken"); // for students
     const teacherToken = Cookies.get("teacherToken"); // for teachers
     const classTeacherToken = Cookies.get("classTeacherToken"); // for class teachers
-    const parentToken = Cookies.get("parentToken"); // for class teachers
+    const parentToken = Cookies.get("parentToken"); // for parent AdminHomePage
 
     if (schoolToken) {
       return { token: schoolToken, role: "PRINCIPAL" };
+    } else if (adminToken) {
+      return { token: adminToken, role: "ADMIN" };
     } else if (parentToken) {
       return { token: parentToken, role: "PARENT" };
     } else if (studentToken) {
@@ -161,6 +166,7 @@ export default function HomePage(props) {
     try {
       // Identify the correct endpoint based on the user role
       const endpointMap = {
+        ADMIN: "admin",
         PRINCIPAL: "school",
         STUDENT: "student",
         TEACHER: "teacher",
@@ -209,7 +215,6 @@ export default function HomePage(props) {
     }
   };
 
-
   const drawer = (
     <div className="lg:hidden bg-[#343a40] h-full">
       <Link
@@ -226,11 +231,10 @@ export default function HomePage(props) {
         </div>
       </Link>
       {role === "PRINCIPAL" && <SchoolMenuList setMobileOpen={setMobileOpen} />}
+      {role === "ADMIN" && <AdminMenuList setMobileOpen={setMobileOpen} />}
       {role === "STUDENT" && <StudentMenuList setMobileOpen={setMobileOpen} />}
       {role === "TEACHER" && <TeacherMenuList setMobileOpen={setMobileOpen} />}
-      {role === "CLASS-TEACHER" && (
-        <ClassTeacherMenuList setMobileOpen={setMobileOpen} />
-      )}
+      {role === "CLASS-TEACHER" && (<ClassTeacherMenuList setMobileOpen={setMobileOpen} />)}
       {role === "PARENT" && <ParentMenuList setMobileOpen={setMobileOpen} />}
       <Divider />
       <List>

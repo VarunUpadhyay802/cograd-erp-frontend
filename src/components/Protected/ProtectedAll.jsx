@@ -9,13 +9,15 @@ function ProtectedAll({ children }) {
     const teacherToken = Cookies.get("teacherToken"); // For teacher
     const classTeacherToken = Cookies.get("classTeacherToken"); // For class teacher
     const ParentToken = Cookies.get("parentToken");
+    const adminToken = Cookies.get("adminToken");
     // If any of these tokens are valid, return true
     return !!(
       schoolToken ||
       studentToken ||
       teacherToken ||
       classTeacherToken ||
-      ParentToken
+      ParentToken||
+      adminToken
     );
   };
 
