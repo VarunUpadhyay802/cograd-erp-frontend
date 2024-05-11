@@ -319,6 +319,9 @@ export default function HomePage(props) {
               </IconButton>
             </DrawerHeader>
             <Divider />
+            {role === "ADMIN" && (
+              <AdminMenuList setMobileOpen={setMobileOpen} />
+            )}
             {role === "PRINCIPAL" && (
               <SchoolMenuList setMobileOpen={setMobileOpen} />
             )}

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import Card from "../../components/Card";
 
 const SchoolRegistration = () => {
   const [schoolName, setSchoolName] = useState("");
@@ -100,16 +101,20 @@ const SchoolRegistration = () => {
         </form>
       </div>
 
-      <div className="mt-6 border p-4 rounded-sm shadow-md">
+      <div className="mt-6 border p-4 rounded-sm shadow-md ">
         <div className="text-2xl font-bold mb-4 text-gray-600">
           List of Registered Schools
         </div>
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <ul>
-            {schoolList.map((school) => (
-              <li key={school.id}>{school.schoolName}</li>
+          <ul className="flex justify-around">
+            {schoolList.map((school, index) => (
+              <Card
+                key={index}
+                title={school.schoolName}
+                subtext={school.email}
+              />
             ))}
           </ul>
         )}
