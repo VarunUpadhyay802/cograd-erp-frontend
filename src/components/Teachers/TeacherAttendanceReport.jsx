@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import { PieChart } from "@mui/x-charts";
 import axios from "axios";
 
 const TeacherAttendanceReport = ({ width, height }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-const month = 5;
+  const month = 5;
   useEffect(() => {
     const fetchAttendanceData = async () => {
       try {

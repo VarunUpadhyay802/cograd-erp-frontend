@@ -21,7 +21,6 @@ import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
 import SubjectOptions from "./pages/SubjectOptions";
 
 import ViewTeacherAttendance from "./pages/ViewTeacherAttendance";
-
 import TeacherIndividualAttendance from "./pages/TeacherIndividualAttendance";
 
 import ClassTeacherLogin from "./pages/ClassTeacherLogin";
@@ -48,6 +47,12 @@ import TeacherAttendanceData from "./components/Teachers/TeacherAttendanceData";
 import TeacherOptionsIndividual from "./pages/Teacher/TeacherOptionsIndividual";
 import ParentProtected from "./components/Protected/ParentProtected";
 import ProtectedAll from "./components/Protected/ProtectedAll";
+import SchoolDriver from "./components/Driver/SchoolDriver";
+import Extra from "./pages/Extra";
+import ParentChildPage from "./pages/Parent/ParentChildPage";
+import StudentProtected from "./components/Protected/StudentProtected";
+import ParentFeeStructure from "./pages/Parent/ParentFeeStructure";
+import AdminLogin from "./pages/Admin/AdminLogin";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
 
 const router = createBrowserRouter([
@@ -301,6 +306,11 @@ const router = createBrowserRouter([
     path: "/classTeacherLogin",
     element: <ClassTeacherLogin />,
   },
+  {
+    path: "/adminLogin",
+    element: <AdminLogin />,
+  },
+
   {
     path: "/classTeacherRegistration/:teacherId",
     element: <ClassTeacherRegistration />,

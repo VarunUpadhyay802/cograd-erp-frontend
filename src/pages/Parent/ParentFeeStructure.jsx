@@ -1,4 +1,3 @@
-import React from "react";
 import ParentFeeDetails from "../../components/Parent/ParentFeeDetails";
 
 const ParentFeeStructure = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 
@@ -36,7 +36,7 @@ const TeacherAttendanceReportTable = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try { 
+      try {
         const response = await axios.get(
           "http://localhost:4000/teacherAttendance/get",
           {

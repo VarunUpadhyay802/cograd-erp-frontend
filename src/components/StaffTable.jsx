@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { DataGrid } from "@mui/x-data-grid"; // DataGrid from MUI for table representation
 import Paper from "@mui/material/Paper"; // Paper for wrapping the grid

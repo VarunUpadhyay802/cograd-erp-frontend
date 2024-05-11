@@ -30,7 +30,7 @@ const ChooseUser = () => {
         navigate("/classTeacherLogin"); // Example route for class teacher login
         break;
       case "SchoolAdmin":
-        navigate("/schoolAdminLogin"); // Example route for school admin login
+        navigate("/adminLogin"); // Example route for school admin login
         break;
       default:
         console.error("Unknown user role");

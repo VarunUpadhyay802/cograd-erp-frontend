@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   List,
   ListItem,
@@ -5,7 +6,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import React from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import AssignmentIcon from "@mui/icons-material/Assignment";
@@ -13,9 +13,9 @@ import EngineeringIcon from "@mui/icons-material/Engineering";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-import PersonAddSharpIcon from '@mui/icons-material/PersonAddSharp';
+import PersonAddSharpIcon from "@mui/icons-material/PersonAddSharp";
 import { Link } from "react-router-dom";
-import EscalatorWarningSharpIcon from '@mui/icons-material/EscalatorWarningSharp';
+import EscalatorWarningSharpIcon from "@mui/icons-material/EscalatorWarningSharp";
 const SchoolMenuList = ({ setMobileOpen }) => {
   return (
     <List>
@@ -27,7 +27,7 @@ const SchoolMenuList = ({ setMobileOpen }) => {
         "Students",
         "Students-2",
         "Parents",
-        "Extra"
+        "Extra",
       ].map((text, index) => (
         <ListItem
           key={text}
@@ -79,13 +79,11 @@ const SchoolMenuList = ({ setMobileOpen }) => {
                 <PermContactCalendarIcon />
               ) : index === 5 ? (
                 <ReceiptLongIcon />
-              ) :index == 6?(
+              ) : index == 6 ? (
                 <EscalatorWarningSharpIcon />
-              ) 
-              : index ==7?(
+              ) : index == 7 ? (
                 <PersonAddSharpIcon />
-              )
-              :(
+              ) : (
                 <EngineeringIcon />
               )}
             </ListItemIcon>
