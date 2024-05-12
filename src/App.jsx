@@ -56,8 +56,10 @@ import AdminLogin from "./pages/Admin/AdminLogin";
 import AdminProtected from "./components/Protected/AdminProtected";
 import AdminHomePage from "./pages/Admin/AdminHomePage";
 import SchoolRegistration from "./pages/School/SchoolRegistration";
+import ClassTeacherProtected from "./components/Protected/ClassTeacherProtected";
+import ClassTeacherAttendanceOptions from "./pages/Class-Teacher/ClassTeacherAttendanceOptions";
+import StudentAttendanceByCT from "./components/ClassTeacher/StudentAttendanceByCT";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
-
 
 const router = createBrowserRouter([
   {
@@ -76,7 +78,7 @@ const router = createBrowserRouter([
           </ProtectedAll>
         ),
       },
-   
+
       {
         path: "/expenses",
         element: (
@@ -231,9 +233,30 @@ const router = createBrowserRouter([
         element: <ComplainPage />,
       },
       {
-        path: "/student-mark",
-        element: <StudentAttendance />,
+        path: "/classteacher-att",
+        element: (
+          <ClassTeacherProtected>
+            <ClassTeacherAttendanceOptions />,
+          </ClassTeacherProtected>
+        ),
       },
+      {
+        path: "/student-mark",
+        element: (
+          <ClassTeacherProtected>
+            <StudentAttendance />,
+          </ClassTeacherProtected>
+        ),
+      },
+      {
+        path: "/student-mark-see",
+        element: (
+          <ClassTeacherProtected>
+            <StudentAttendanceByCT />,
+          </ClassTeacherProtected>
+        ),
+      },
+
       {
         path: "/classTeacherHomePage",
         element: <ClassTeacherHomePage />,
@@ -271,7 +294,7 @@ const router = createBrowserRouter([
           <ParentProtected>
             <ParentHomePage />
           </ParentProtected>
-        ), 
+        ),
       },
       {
         path: "/feeStructure",

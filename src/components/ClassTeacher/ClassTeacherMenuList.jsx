@@ -39,7 +39,7 @@ const ClassTeacherMenuList = ({ setMobileOpen }) => {
                 : index === 4
                 ? null
                 : index === 5
-                ? "/student-mark"
+                ? "/classteacher-att"
                 : null
             } // Adjusted to reflect the new order and remove unnecessary routes
           >
