@@ -5,6 +5,7 @@ import classSlice from "./classSlice";
 import studentListSlice from "./studentListSlice";
 import parentSlice from "./parentSlice";
 import parentAuthSlice from "./parentAuthSlice";
+import schoolSlice from "./schoolSlice";
 
 // Configure the Redux store
 const store = configureStore({
@@ -15,6 +16,7 @@ const store = configureStore({
     studentList: studentListSlice,
     parents: parentSlice,
     parentAuth: parentAuthSlice,
+    schools: schoolSlice,
   },
 });
 

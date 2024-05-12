@@ -10,7 +10,7 @@ const AdminHomePage = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
           <img src="/books.png" alt="" className="h-10 w-10" />
-          <div className="mt-1 font-poppins font-semibold">Total Subjects</div>
+          <div className="mt-1 font-poppins font-semibold">Total Schools</div>
           <CountUp
             end={totalSubjects}
             duration={3}
@@ -20,13 +20,11 @@ const AdminHomePage = () => {
         <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
           <img src="/assignment.png" alt="" className="h-10 w-10" />
           <div className="mt-1 font-poppins font-semibold">
-            Total Assignments
+           ..............
           </div>
-          <CountUp
-            end={totalAssignments}
-            duration={3}
-            className="text-2xl text-green-500"
-          />
+          <div    className="text-2xl text-green-500">
+           ..............
+          </div>
         </div>
         {/* <AttendanceReport width={280} height={150} /> */}
       </div>

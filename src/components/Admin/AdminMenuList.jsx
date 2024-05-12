@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 const AdminMenuList = ({ setMobileOpen }) => {
   return (
     <List>
-      {["Home", "School Reg", "Fee Structure"].map((text, index) => (
+      {["Home", "School Reg", "Extra"].map((text, index) => (
         <ListItem
           key={text}
           disablePadding
@@ -31,7 +31,7 @@ const AdminMenuList = ({ setMobileOpen }) => {
               ? "/admin"
               : index === 1
               ? "/schoolRegistration"
-              : "/feeStructure"
+              : null
           } // Adjusted to reflect the new order and remove unnecessary routes
         >
           <ListItemButton

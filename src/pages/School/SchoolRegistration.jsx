@@ -1,29 +1,25 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSchools } from "../../utils/schoolSlice";
 import Card from "../../components/Card";
 
 const SchoolRegistration = () => {
   const [schoolName, setSchoolName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [schoolList, setSchoolList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  
+  const dispatch = useDispatch();
+  const schoolList = useSelector((state) => state.schools.schoolList);
+  const loading = useSelector((state) => state.schools.loading);
 
   useEffect(() => {
-    fetchSchools();
-  }, []);
-
-  const fetchSchools = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get("http://localhost:4000/school/list");
-      setSchoolList(response.data);
-    } catch (error) {
-      console.error("Error fetching schools:", error);
-    } finally {
-      setLoading(false);
+    // Check if schoolList is empty, if so, fetch the schools
+    if (schoolList.length === 0) {
+      dispatch(fetchSchools());
     }
-  };
+  }, [dispatch, schoolList]); // Dependency array includes schoolList
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +39,7 @@ const SchoolRegistration = () => {
         setSchoolName("");
         setEmail("");
         setPassword("");
-        fetchSchools();
+        dispatch(fetchSchools());
       }
     } catch (err) {
       console.log("Error registering school:", err);
@@ -108,7 +104,8 @@ const SchoolRegistration = () => {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <ul className="flex justify-around">
+          <ul className="flex  gap-2 flex-wrap justify-start">
+
             {schoolList.map((school, index) => (
               <Card
                 key={index}

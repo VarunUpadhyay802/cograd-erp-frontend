@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -62,6 +63,8 @@ const StudentsRegistration = () => {
         setFile(null);
         setEmail("");
         setClassID("");
+        setFatherEmail("")
+        setFatherName("")
       }
     } catch (err) {
       console.log(err);
@@ -191,7 +194,7 @@ const StudentsRegistration = () => {
             <div className="text-2xl font-bold mb-4 text-gray-600">
               Student Lists
             </div>
-            <div className="grid grid-cols-1 fs:grid-cols-2 md:grid-cols-3 gap-4 ">
+            {/* <div className="grid grid-cols-1 fs:grid-cols-2 md:grid-cols-3 gap-4 ">
               {studentList.length > 0 &&
                 studentList.map((data, index) => (
                   <div
@@ -214,7 +217,7 @@ const StudentsRegistration = () => {
                     <div></div>
                   </div>
                 ))}
-            </div>
+            </div> */}
           </div>
         </>
       )}
