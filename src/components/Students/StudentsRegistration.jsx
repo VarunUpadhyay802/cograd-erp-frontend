@@ -33,7 +33,10 @@ const StudentsRegistration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (!email.endsWith("@cograd.in")) {
+      alert("Email must end with @cograd.in");
+      return;
+    }
     try {
       setLoading(true);
 
@@ -127,6 +130,7 @@ const StudentsRegistration = () => {
                       name="email"
                       onChange={(e) => setEmail(e.target.value)}
                       value={email}
+                      placeholder="name@cograd.in"
                       required
                       className="border outline-none px-3 text-sm py-2 rounded-sm"
                     />

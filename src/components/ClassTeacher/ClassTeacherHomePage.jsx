@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import CountUp from "react-countup";
 
 const ClassTeacherHomePage = () => {
@@ -5,7 +7,25 @@ const ClassTeacherHomePage = () => {
   const totalTeachers = 30;
   const totalIncome = 10000;
   const totalExpense = 4000;
+   
+  const [classTeacherDetails, setClassTeacherDetails] = useState(null);
 
+  useEffect(() => {
+    // Fetch class teacher details
+    const fetchClassTeacherDetails = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/classTeacher/get" // Replace with your API endpoint
+         , { withCredentials: true }
+        );
+        setClassTeacherDetails(response.data);
+      } catch (error) {
+        console.error("Error fetching class teacher details:", error);
+      }
+    };
+
+    fetchClassTeacherDetails();
+  }, []);
   return (
     <>
       <div className="">
