@@ -130,10 +130,15 @@ const SchoolStaff = () => {
             </div>
           </Box>
         </Modal>
-
         <div className="flex flex-row gap-3 ">
-          <StaffTable staffMemberList={staffMemberList} />
-        </div>
+        {staffMemberList.length === 0 ? (
+            <p>Add staff members to see the details  </p>
+          ) : (
+         
+            <StaffTable staffMemberList={staffMemberList} />
+         
+          )}
+           </div>
       </div>
     </>
   );

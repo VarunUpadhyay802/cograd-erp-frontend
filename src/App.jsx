@@ -17,13 +17,13 @@ import TeacherRegistration from "./pages/Teacher/TeacherRegistration";
 
 import TeacherMark from "./pages/TeacherMark";
 
-import ClassTeacherRegistration from "./pages/ClassTeacherRegistration";
+
 import SubjectOptions from "./pages/SubjectOptions";
 
 import ViewTeacherAttendance from "./pages/ViewTeacherAttendance";
 import TeacherIndividualAttendance from "./pages/TeacherIndividualAttendance";
 
-import ClassTeacherLogin from "./pages/ClassTeacherLogin";
+import ClassTeacherLogin from "./pages/Class-Teacher/ClassTeacherLogin";
 
 import StudentAttendance from "./pages/StudentAttendance";
 import StudentRegistrationPage from "./pages/Students/StudentRegistrationPage";
@@ -59,6 +59,7 @@ import SchoolRegistration from "./pages/School/SchoolRegistration";
 import ClassTeacherProtected from "./components/Protected/ClassTeacherProtected";
 import ClassTeacherAttendanceOptions from "./pages/Class-Teacher/ClassTeacherAttendanceOptions";
 import StudentAttendanceByCT from "./components/ClassTeacher/StudentAttendanceByCT";
+import ClassTeacherRegistration from "./pages/Class-Teacher/ClassTeacherRegistration";
 // import TeacherMenuList from "./components/Teachers/TeacherMenuList";
 
 const router = createBrowserRouter([

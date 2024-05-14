@@ -7,18 +7,22 @@ const ClassTeacherHomePage = () => {
   const totalTeachers = 30;
   const totalIncome = 10000;
   const totalExpense = 4000;
-   
+
   const [classTeacherDetails, setClassTeacherDetails] = useState(null);
+  const [className, setClassName] = useState(null);
 
   useEffect(() => {
     // Fetch class teacher details
     const fetchClassTeacherDetails = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/classTeacher/get" // Replace with your API endpoint
+          "http://localhost:4000/classTeacher/get/details" // Replace with your API endpoint
          , { withCredentials: true }
         );
-        setClassTeacherDetails(response.data);
+        setClassTeacherDetails(response);
+        console.log(response)
+        // setClassName(response.data.details)
+        // console.log(className);
       } catch (error) {
         console.error("Error fetching class teacher details:", error);
       }
@@ -44,7 +48,7 @@ const ClassTeacherHomePage = () => {
           <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">
             <img src="/teacher.png" alt="" className="h-10 w-10" />
             <div className="mt-1 font-poppins font-semibold">
-              Total Subjects
+          
             </div>
             <CountUp
               end={totalTeachers}
@@ -58,7 +62,7 @@ const ClassTeacherHomePage = () => {
               Total Subjects
             </div>
             <div className="text-2xl text-green-500">
-             Class 11
+            {className}
             </div>
           </div>
           {/* <div className="border p-2 py-4 flex flex-col gap-2 items-center rounded-md shadow-sm bg-white">

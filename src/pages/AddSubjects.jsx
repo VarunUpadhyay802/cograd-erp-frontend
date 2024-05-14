@@ -55,17 +55,17 @@ const AddSubjects = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!classID) {
       console.error("Class ID is required.");
       return;
     }
-
+  
     if (subjects.some((s) => !s.subName.trim() || !s.subCode.trim())) {
       console.error("All subjects must have a name and code.");
       return;
     }
-
+  
     try {
       const response = await axios.post(
         "http://localhost:4000/subject/add",
@@ -75,17 +75,29 @@ const AddSubjects = () => {
         },
         { withCredentials: true }
       );
-      fetchSubjects(classID);
-      console.log("Subjects added:", response.data);
-
-      setClassID("");
-      setSubjects([{ subName: "", subCode: "" }]);
+  
+      if (response.status === 200) {
+        // Successful response
+        fetchSubjects(classID);
+        console.log("Subjects added:", response.data);
+        setClassID("");
+        setSubjects([{ subName: "", subCode: "" }]);
+      } else {
+        // Handle other status codes here
+        alert(response.data)
+        console.error("Error adding subjects:", response.data);
+      }
     } catch (error) {
-      console.error("Error adding subjects:", error);
+      // Handle network errors or other exceptions
+      alert(error.response.data.message)
+      console.error("Error adding subjects:", error.response.data.message);
+      // Display error message to the user
+      // You can use a toast notification library or set a state to display the error message in the UI
     }
-
+  
     handleClose();
   };
+  
 
   return (
     <>

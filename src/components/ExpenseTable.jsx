@@ -17,14 +17,16 @@ const ExpenseTable = ({ transactions }) => {
         </div>
       ),
     },
-    { field: "amount", headerName: "Amount", width: 150, type: "number" },
-    { field: "description", headerName: "Description", width: 200 },
-    { field: "receiptNumber", headerName: "Receipt Number", width: 150 },
     {
       field: "date",
       headerName: "Date",
       width: 150,
     },
+    { field: "description", headerName: "Description", width: 200 },
+    { field: "amount", headerName: "Amount", width: 150, type: "number" },
+ 
+    { field: "receiptNumber", headerName: "Receipt No.", width: 150 },
+   
   ];
 
   // Ensure the rows align with the data grid's structure

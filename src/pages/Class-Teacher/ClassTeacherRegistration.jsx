@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import ClassSelector from "../components/ClassSelector";
+import ClassSelector from "../../components/ClassSelector";
 
 const ClassTeacherRegistration = () => {
   const { teacherId } = useParams(); // Extract the teacher ID from the URL parameters
@@ -20,16 +20,20 @@ const ClassTeacherRegistration = () => {
           email,
           password,
           className,
-          teacherId, // Include the teacher ID from the URL parameter
+          teacherId,
         },
         { withCredentials: true }
       );
 
       alert("Class Teacher registered successfully");
-      navigate("/"); // Redirect after successful registration
+      navigate("/");
     } catch (error) {
       console.error("Error registering class teacher:", error);
-      alert("Failed to register class teacher");
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Failed to register class teacher");
+      }
     }
   };
 
@@ -66,10 +70,13 @@ const ClassTeacherRegistration = () => {
         </div>
 
         <div>
-          <label htmlFor="classID" className="block text-sm font-medium text-gray-600">
+          <label
+            htmlFor="classID"
+            className="block text-sm font-medium text-gray-600"
+          >
             Select Class:
           </label>
-          <ClassSelector setClassID={setClassName} /> 
+          <ClassSelector setClassID={setClassName} />
         </div>
 
         <button

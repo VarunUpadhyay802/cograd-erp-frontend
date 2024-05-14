@@ -86,7 +86,7 @@ const TeacherRegistration = () => {
       setName("");
       setEmail("");
       setPassword("");
-      className("");
+      
       setTeachSubjects([{ subjectId: "", classId: "" }]);
       alert("Teacher registered successfully");
     } catch (error) {

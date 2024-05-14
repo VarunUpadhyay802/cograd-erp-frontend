@@ -4,55 +4,50 @@ import { Modal, Box } from "@mui/material";
 import DriverTable from "./DriverTable";
 
 const SchoolDriver = () => {
-  const [driverName, setDriverName] = useState(""); // Driver's name
-  const [busNumber, setBusNumber] = useState(""); // Driver's bus number
-  const [pickUpPoints, setPickUpPoints] = useState([]); // Driver's pick-up points
-  const [contactNumber, setContactNumber] = useState(""); // Driver's contact number
-  const [driverList, setDriverList] = useState([]); // List of drivers
-  const [openModal, setOpenModal] = useState(false); // State to control modal visibility
-  
-  const handleOpen = () => setOpenModal(true); // Open the modal
-  const handleClose = () => setOpenModal(false); // Close the modal
+  const [driverName, setDriverName] = useState("");
+  const [busNumber, setBusNumber] = useState("");
+  const [pickUpPoints, setPickUpPoints] = useState([]);
+  const [contactNumber, setContactNumber] = useState("");
+  const [driverList, setDriverList] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
 
   const fetchDrivers = async () => {
     try {
       const response = await axios.get("http://localhost:4000/driver/get", {
         withCredentials: true,
       });
-      setDriverList(response.data); // Update driver list
-
-      console.log("Driver list:", response.data);
+      setDriverList(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchDrivers(); // Fetch drivers on component mount
+    fetchDrivers();
   }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-
+    e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:4000/driver/add",
         {
           name: driverName,
           busNumber,
-          pickUpPoints, // Pass an array of pick-up points
+          pickUpPoints,
           contactNumber,
         },
-        { withCredentials: true } // Include cookies for authentication
+        { withCredentials: true }
       );
-      console.log("Driver Added:", response.data);
-      // Reset the form
       setDriverName("");
       setBusNumber("");
       setPickUpPoints([]);
       setContactNumber("");
-      handleClose(); // Close the modal
-      fetchDrivers(); // Fetch drivers again to update the list
+      handleClose();
+      fetchDrivers();
     } catch (error) {
       console.error("Error adding driver:", error);
     }
@@ -86,7 +81,9 @@ const SchoolDriver = () => {
               <h2 className="text-xl font-semibold mb-4">Add Driver</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label htmlFor="driverName" className="block mb-1">Name</label>
+                  <label htmlFor="driverName" className="block mb-1">
+                    Name
+                  </label>
                   <input
                     type="text"
                     id="driverName"
@@ -97,7 +94,9 @@ const SchoolDriver = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="busNumber" className="block mb-1">Bus Number</label>
+                  <label htmlFor="busNumber" className="block mb-1">
+                    Bus Number
+                  </label>
                   <input
                     type="text"
                     id="busNumber"
@@ -108,19 +107,25 @@ const SchoolDriver = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="pickUpPoints" className="block mb-1">Pick-Up Points</label>
+                  <label htmlFor="pickUpPoints" className="block mb-1">
+                    Pick-Up Points
+                  </label>
                   <input
                     type="text"
                     id="pickUpPoints"
                     placeholder="Comma-separated points"
-                    value={pickUpPoints.join(", ")} // Display as a comma-separated string
-                    onChange={(e) => setPickUpPoints(e.target.value.split(","))} // Convert to array
+                    value={pickUpPoints.join(", ")}
+                    onChange={(e) =>
+                      setPickUpPoints(e.target.value.split(","))
+                    }
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                   />
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="contactNumber" className="block mb-1">Contact Number</label>
+                  <label htmlFor="contactNumber" className="block mb-1">
+                    Contact Number
+                  </label>
                   <input
                     type="text"
                     id="contactNumber"
@@ -142,7 +147,11 @@ const SchoolDriver = () => {
         </Modal>
 
         <div className="flex flex-row gap-3">
-          <DriverTable driverList={driverList} />
+          {driverList.length === 0 ? (
+            <p>No drivers available</p>
+          ) : (
+            <DriverTable driverList={driverList} />
+          )}
         </div>
       </div>
     </>

@@ -61,6 +61,7 @@ const StudentsRegistration = () => {
 
       if (response.status === 200) {
         console.log(response.data);
+        alert("Student Registration Successfull!!")
         setName("");
         setPassword("");
         setFile(null);
