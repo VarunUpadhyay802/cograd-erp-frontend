@@ -15,7 +15,7 @@ const SchoolLogin = () => {
     e.preventDefault(); // Prevent the default form submission behavior
     try {
       const response = await axios.post(
-        "http://localhost:4000/school/login",
+        "https://cograd-erp-backend.onrender.com/school/login",
         {
           email,
           password,
